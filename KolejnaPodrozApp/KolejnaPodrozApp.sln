@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodrozApp", "KolejnaPodrozApp.csproj", "{9ECDD5DD-8717-4494-902C-28A0C701692E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodrozApp", "KolejnaPodrozApp.csproj", "{9ECDD5DD-8717-4494-902C-28A0C701692E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodroz.Domain", "..\KolejnaPodroz.Domain\KolejnaPodroz.Domain.csproj", "{C2876CAC-AA04-4D8A-8AF5-DBF399B3A4AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodroz.Domain", "..\KolejnaPodroz.Domain\KolejnaPodroz.Domain.csproj", "{C2876CAC-AA04-4D8A-8AF5-DBF399B3A4AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodroz.Test", "..\KolejnaPodroz.Test\KolejnaPodroz.Test.csproj", "{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C2876CAC-AA04-4D8A-8AF5-DBF399B3A4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2876CAC-AA04-4D8A-8AF5-DBF399B3A4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2876CAC-AA04-4D8A-8AF5-DBF399B3A4AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
