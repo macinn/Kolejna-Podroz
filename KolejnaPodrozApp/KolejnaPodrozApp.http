@@ -1,0 +1,6 @@
+@KolejnaPodrozApp_HostAddress = http://localhost:5217
+
+GET {{KolejnaPodrozApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
