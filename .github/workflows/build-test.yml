@@ -3,11 +3,7 @@
 
 name: .NET
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push]
 
 jobs:
   build:
@@ -21,8 +17,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
+      working-directory: ./KolejnaPodrozApp
       run: dotnet restore
     - name: Build
+      working-directory: ./KolejnaPodrozApp
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ./KolejnaPodrozApp
       run: dotnet test --no-build --verbosity normal
