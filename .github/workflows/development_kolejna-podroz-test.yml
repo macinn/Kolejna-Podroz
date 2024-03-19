@@ -74,5 +74,5 @@ jobs:
         with:
           app-name: 'kolejna-podroz-test'
           slot-name: 'Production'
-          package: .
+          package: ./KolejnaPodrozApp
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9115870CE2F14087A2C6BAA9B203AE46 }}
