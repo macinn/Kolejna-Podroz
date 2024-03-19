@@ -27,7 +27,7 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish -c Release --property:PublishDir='/myapp' 
+          dotnet publish -c Release --property:PublishDir='../myapp' 
           
       # Deploy to Azure Web apps
       - name: 'Run Azure webapp deploy action using publish profile credentials'
@@ -35,5 +35,5 @@ jobs:
         with: 
           app-name: 'kolejna-podroz-test'
           slot-name: 'Production'
-          package: '/myapp'
+          package: '../myapp'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9115870CE2F14087A2C6BAA9B203AE46 }}
