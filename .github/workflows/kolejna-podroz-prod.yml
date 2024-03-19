@@ -25,7 +25,11 @@ jobs:
       - name: Build with dotnet
         working-directory: ${{vars.APP_PATH}}
         run: dotnet build --configuration Release
-
+        
+      - name: Test
+        working-directory: ${{vars.APP_PATH}}
+        run: dotnet test --no-build --verbosity normal
+        
       - name: dotnet publish
         working-directory: ${{vars.APP_PATH}}
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
