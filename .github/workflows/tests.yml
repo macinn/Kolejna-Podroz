@@ -1,13 +1,13 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: Run tests
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:    
+      - '!main'
+      - '!development'
 
 jobs:
   build:
@@ -21,8 +21,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
+      working-directory: ${{vars.APP_PATH}}
       run: dotnet restore
     - name: Build
+      working-directory: ${{vars.APP_PATH}}
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ${{vars.APP_PATH}}
       run: dotnet test --no-build --verbosity normal
