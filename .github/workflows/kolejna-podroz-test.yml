@@ -2,7 +2,7 @@ name: Build and deploy kolejna-podroz-test
 on:
   push:
     branches:
-    - yml-testing
+    - development
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: kolejna-podroz-test
