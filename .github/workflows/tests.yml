@@ -5,7 +5,8 @@ name: Run tests
 
 on:
   push:
-    branches:    
+    branches:
+      - '**'
       - '!main'
       - '!development'
 
