@@ -17,11 +17,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      working-directory: ./KolejnaPodrozApp
+      working-directory: ${{vars.APP_PATH}}
       run: dotnet restore
     - name: Build
-      working-directory: ./KolejnaPodrozApp
+      working-directory: ${{vars.APP_PATH}}
       run: dotnet build --no-restore
     - name: Test
-      working-directory: ./KolejnaPodrozApp
+      working-directory: ${{vars.APP_PATH}}
       run: dotnet test --no-build --verbosity normal
