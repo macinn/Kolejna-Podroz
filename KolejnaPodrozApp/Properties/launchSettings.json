@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "KolejnaPodrozApp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:57858;http://localhost:57859"
+    }
+  }
+}

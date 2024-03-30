@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodrozApp", "Kolejna
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodroz.Domain", "..\KolejnaPodroz.Domain\KolejnaPodroz.Domain.csproj", "{C2876CAC-AA04-4D8A-8AF5-DBF399B3A4AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodroz.Test", "..\KolejnaPodroz.Test\KolejnaPodroz.Test.csproj", "{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodroz.Test", "..\KolejnaPodroz.Test\KolejnaPodroz.Test.csproj", "{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodroz.DataAccess", "..\KolejnaPodroz.DataAccess\KolejnaPodroz.DataAccess.csproj", "{6D967D5D-E099-49AC-8DC6-DA961963C085}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D967D5D-E099-49AC-8DC6-DA961963C085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D967D5D-E099-49AC-8DC6-DA961963C085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D967D5D-E099-49AC-8DC6-DA961963C085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D967D5D-E099-49AC-8DC6-DA961963C085}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
