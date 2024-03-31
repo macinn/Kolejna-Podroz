@@ -1,9 +1,9 @@
 namespace KolejnaPodroz.Test
 {
-    public class UnitTest1
+    public class ConnectionControllerTest
     {
         [Fact]
-        public void Test1()
+        public void Get_ShouldReturnConnections()
         {
             Assert.Equal(1, 1);
         }
