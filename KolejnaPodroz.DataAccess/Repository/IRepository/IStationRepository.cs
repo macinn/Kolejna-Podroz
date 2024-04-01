@@ -9,6 +9,6 @@ namespace KolejnaPodroz.DataAccess.Repository.IRepository
 {
     public interface IStationRepository : IRepository<Station>
     {
-        void Update(Provider provider);
+        void Update(Station station);
     }
 }

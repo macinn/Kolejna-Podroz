@@ -16,9 +16,9 @@ namespace KolejnaPodroz.DataAccess.Repository
         {
             _db = dbContext;
         }
-        public void Update(Connection connection)
+        public void Update(Station station)
         {
-            _db.Connections.Update(connection);
+            _db.Stations.Update(station);
         }
     }
 }
