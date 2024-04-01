@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodroz.Test", "..\Ko
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodroz.DataAccess", "..\KolejnaPodroz.DataAccess\KolejnaPodroz.DataAccess.csproj", "{6D967D5D-E099-49AC-8DC6-DA961963C085}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "kolejnapodroz.react", "..\KolejnaPodroz.React\kolejnapodroz.react.esproj", "{52026572-1A98-4327-A8A8-93CFC97B6AD7}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "kolejnapodroz.react", "..\kolejnapodroz.react\kolejnapodroz.react.esproj", "{52026572-1A98-4327-A8A8-93CFC97B6AD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
