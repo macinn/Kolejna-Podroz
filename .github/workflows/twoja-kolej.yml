@@ -29,7 +29,7 @@ jobs:
       run: |
         npm install
         npm run build --output-path="../publish-webapp" --if-present
-        npm run test "../publish-webapp" --if-present
+        npm run test --if-present
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
