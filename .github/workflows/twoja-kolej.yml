@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: twoja-kolej
-  AZURE_WEBAPP_PACKAGE_PATH: ./publish-webapp
-  AZURE_NODE_PACKAGE_PATH: ./publish-node
+  AZURE_WEBAPP_PACKAGE_PATH: ./publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: ${{vars.APP_PATH}}
