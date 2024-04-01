@@ -1,4 +1,4 @@
-name: Build and deploy kolejna-podroz-test
+name: Build and deploy TEST
 on:
   push:
     branches:
@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+        cache-dependency-path: subdir/package-lock.json
     - name: npm install, build, and test
       working-directory: ${{ env.NODE_DIRECTORY }}
       run: |
