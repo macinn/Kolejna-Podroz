@@ -14,6 +14,7 @@ namespace KolejnaPodroz.DataAccess.Repository
         public IConnectionRepository Connection { get; private set; }
         public IProviderRepository Provider { get; private set; }
         public ITicketRepository Ticket { get; private set; }
+        public IStationRepository Station { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
