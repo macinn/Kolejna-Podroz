@@ -28,8 +28,8 @@ jobs:
       working-directory: ${{ env.NODE_DIRECTORY }}
       run: |
         npm install
-        npm run build --output-path=${{ env.AZURE_WEBAPP_PACKAGE_PATH }} --if-present
-        npm run test ${{ env.AZURE_WEBAPP_PACKAGE_PATH }} --if-present
+        npm run build --output-path="../publish-webapp" --if-present
+        npm run test "../publish-webapp" --if-present
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
