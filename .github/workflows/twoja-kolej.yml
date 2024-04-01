@@ -28,13 +28,13 @@ jobs:
       working-directory: ${{ env.NODE_DIRECTORY }}
       run: |
         npm install
-        npm run build --output-path="../publish-webapp" --if-present
+        npm run build --if-present
         npm run test --if-present
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
         name: node-app
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        path: ${{ env.NODE_DIRECTORY }}
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
