@@ -11,6 +11,7 @@ namespace KolejnaPodroz.DataAccess.Repository.IRepository
         IConnectionRepository Connection { get; }
         IProviderRepository Provider { get; }
         ITicketRepository Ticket { get; }
+        IStationRepository Station { get; }
         void Save();
     }
 }
