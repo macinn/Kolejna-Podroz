@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React  from 'react';
+import { useStore } from '../../stores/SearchFormStore';
 
-const SearchForm = ({ onSubmit }) => {
-    const [startStation, setStartStation] = useState('');
-    const [endStation, setEndStation] = useState('');
-    const [departureTime, setDepartureTime] = useState('');
+const SearchForm = () => {
+    const { startStation,  setStartStation,
+            endStation,    setEndStation,
+            departureTime, setDepartureTime,
+                           setConnections } = useStore();
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit({ startStation, endStation, departureTime });
+        // TODO moze to przeniesc gdzies
+        try {
+            const response = await fetch(`api/Connection?startStationId=${startStation}&endStationId=${endStation}&departureTime=${departureTime}`);
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setConnections(data);
+            // TODO navigate do strony ze znalezionymi ciopągami
+          } catch (error) {
+            
+          }
     };
 
     return (
