@@ -1,0 +1,23 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+.container {
+    background-image: url('../../media/trainBlur.jpg'); /* Ścieżka do Twojego obrazu */
+    background-size: cover; /* Obraz zostanie rozciągnięty, aby wypełnić całe tło */
+    background-position: center; /* Obraz będzie wyśrodkowany */
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    background-color: rgba(245, 193, 171, 0.4); /* Półprzezroczyste białe tło */
+    padding: 20px;
+    border-radius: 8px;
+}

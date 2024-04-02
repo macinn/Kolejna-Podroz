@@ -8,7 +8,7 @@ export const useStore = create((set) => ({
     endStation: "",
     setEndStation: (newValue) => set({ endStation: newValue }),
 
-    departureTime: "",
+    departureTime: null,
     setDepartureTime: (newValue) => set({ departureTime: newValue }),
 
     connections: "",
