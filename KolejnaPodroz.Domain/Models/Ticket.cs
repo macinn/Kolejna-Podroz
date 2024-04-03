@@ -10,6 +10,9 @@ namespace KolejnaPodroz.Domain.Models
     {
         public int Id { get; set; }
         public Connection Connection { get; set; }
+        public decimal Price { get; set; }
+        public int Wagon { get; set; }
+        public int Seat { get; set; }
         public DateTime ExpirationTime { get; set; }
         public User User { get; set; }
     }
