@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: node-app
-        path: ./kolejnapodroz.react/dist
+        path: './kolejnapodroz.react/dist'
   build-dotnet:
     runs-on: ubuntu-latest
     steps:
