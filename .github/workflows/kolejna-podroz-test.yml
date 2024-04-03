@@ -3,7 +3,7 @@ on:
   push:
     branches:
     - development
-    - marcin/io2-125-react-workflow
+    - marcin/IO2-125-react-workflow
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: kolejna-podroz-test
@@ -11,7 +11,7 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: ${{vars.APP_PATH}}
-  NODE_VERSION: '14.0'
+  NODE_VERSION: '14.x'
 jobs:
   build-npm:
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: node-app
-        path: ./dist
+        path: ./kolejnapodroz.react/dist
   build-dotnet:
     runs-on: ubuntu-latest
     steps:
