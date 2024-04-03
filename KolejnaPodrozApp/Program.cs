@@ -35,17 +35,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+app.UseStaticFiles();
+app.UseDefaultFiles();
+
 app.UseCors(PolicyName);
 app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kolejna Podroz API V1");
-    c.RoutePrefix = "";
-});
-//}
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

@@ -11,7 +11,7 @@ const ConnectionsList = () => {
     const navigate = useNavigate();
 
     return(
-        <p>Tu bedzie lista</p>
+        <p>{connections}</p>
     );
     
 };
