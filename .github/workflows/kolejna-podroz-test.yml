@@ -22,6 +22,7 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+        cache-dependency-path: kolejnapodroz.react/package-lock.json
     - name: npm install, build, and test
       working-directory: ./kolejnapodroz.react
       run: |
