@@ -27,8 +27,9 @@ jobs:
       working-directory: ./kolejnapodroz.react
       run: |
         npm install
-        npm run build --if-present
+        npm run build
         npm run test --if-present
+        ls
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
