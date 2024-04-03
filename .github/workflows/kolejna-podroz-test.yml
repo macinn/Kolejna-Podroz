@@ -30,6 +30,8 @@ jobs:
         npm run build
         npm run test --if-present
         ls
+    - name: ls
+      run: ls
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
