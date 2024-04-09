@@ -3,7 +3,6 @@ on:
   push:
     branches:
     - development
-    - marcin/IO2-125-react-workflow
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: kolejna-podroz-test
