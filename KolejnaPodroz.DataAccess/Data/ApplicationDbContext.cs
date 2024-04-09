@@ -19,5 +19,16 @@ namespace KolejnaPodroz.DataAccess.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Connection>()
+                .HasOne(i => i.From)
+                .WithMany()
+                .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<Connection>()
+                .HasOne(i => i.Destination)
+                .WithMany()
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        }
     }
 }

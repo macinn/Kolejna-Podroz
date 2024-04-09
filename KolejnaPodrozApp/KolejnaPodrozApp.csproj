@@ -23,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\KolejnaPodroz.DataAccess\KolejnaPodroz.DataAccess.csproj" />
     <ProjectReference Include="..\KolejnaPodroz.Domain\KolejnaPodroz.Domain.csproj" />
-    <ProjectReference Include="..\KolejnaPodroz.Test\KolejnaPodroz.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>
