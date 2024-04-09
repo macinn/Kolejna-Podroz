@@ -12,7 +12,6 @@ const ConnectionsList = () => {
 
     return(
         <p>Tu bedzie lista</p>
-        <p>{connections}</p>
     );
     
 };

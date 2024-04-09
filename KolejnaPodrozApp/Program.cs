@@ -35,8 +35,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseStaticFiles();
-app.UseDefaultFiles();
+app.UseFileServer();
 
 app.UseCors(PolicyName);
 app.UseSwagger();
