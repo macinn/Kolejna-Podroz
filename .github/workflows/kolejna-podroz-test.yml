@@ -29,9 +29,6 @@ jobs:
         npm install
         npm run build
         npm run test --if-present
-        ls
-    - name: ls
-      run: ls
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
@@ -62,7 +59,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-npm, build-dotnet]
     steps:
-    - run: echo Builds finished!
+    - name: Test if all jobs are finished
+      run: echo "All jobs are finished"
   deploy:
     runs-on: ubuntu-latest
     needs: build
