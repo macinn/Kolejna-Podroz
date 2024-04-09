@@ -208,13 +208,11 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     b.HasOne("KolejnaPodroz.Domain.Models.Station", "Destination")
                         .WithMany()
                         .HasForeignKey("DestinationId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("KolejnaPodroz.Domain.Models.Station", "From")
                         .WithMany()
                         .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("KolejnaPodroz.Domain.Models.Provider", "Provider")
