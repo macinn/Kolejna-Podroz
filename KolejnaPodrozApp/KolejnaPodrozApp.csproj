@@ -25,4 +25,7 @@
     <ProjectReference Include="..\KolejnaPodroz.Domain\KolejnaPodroz.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
 </Project>
