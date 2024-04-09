@@ -11,7 +11,7 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: ${{vars.APP_PATH}}
-  NODE_VERSION: '14.x'
+  NODE_VERSION: '20.x'
 jobs:
   build-npm:
     runs-on: ubuntu-latest
