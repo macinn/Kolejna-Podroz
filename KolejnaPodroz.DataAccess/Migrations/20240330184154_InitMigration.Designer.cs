@@ -4,6 +4,7 @@ using KolejnaPodroz.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KolejnaPodroz.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240330184154_InitMigration")]
+    partial class InitMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,20 +68,27 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DestinationId")
-                        .HasColumnType("int");
+                    b.Property<string>("Destination")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FromId")
-                        .HasColumnType("int");
+                    b.Property<string>("From")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Seat")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Wagon")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("DestinationId");
-
-                    b.HasIndex("FromId");
 
                     b.HasIndex("ProviderId");
 
@@ -121,35 +131,6 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     b.ToTable("Providers");
                 });
 
-            modelBuilder.Entity("KolejnaPodroz.Domain.Models.Station", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Stations");
-                });
-
             modelBuilder.Entity("KolejnaPodroz.Domain.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
@@ -164,16 +145,7 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     b.Property<DateTime>("ExpirationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Seat")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Wagon")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -205,27 +177,11 @@ namespace KolejnaPodroz.DataAccess.Migrations
 
             modelBuilder.Entity("KolejnaPodroz.Domain.Models.Connection", b =>
                 {
-                    b.HasOne("KolejnaPodroz.Domain.Models.Station", "Destination")
-                        .WithMany()
-                        .HasForeignKey("DestinationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("KolejnaPodroz.Domain.Models.Station", "From")
-                        .WithMany()
-                        .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KolejnaPodroz.Domain.Models.Provider", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Destination");
-
-                    b.Navigation("From");
 
                     b.Navigation("Provider");
                 });

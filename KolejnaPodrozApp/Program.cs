@@ -35,9 +35,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+app.UseStaticFiles();
+app.UseDefaultFiles();
+
 app.UseCors(PolicyName);
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -46,6 +46,7 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "";
 });
 //}
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
