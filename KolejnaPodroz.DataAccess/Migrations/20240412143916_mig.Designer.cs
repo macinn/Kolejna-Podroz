@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KolejnaPodroz.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240401194527_NewModel")]
-    partial class NewModel
+    [Migration("20240412143916_mig")]
+    partial class mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -211,13 +211,11 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     b.HasOne("KolejnaPodroz.Domain.Models.Station", "Destination")
                         .WithMany()
                         .HasForeignKey("DestinationId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("KolejnaPodroz.Domain.Models.Station", "From")
                         .WithMany()
                         .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("KolejnaPodroz.Domain.Models.Provider", "Provider")

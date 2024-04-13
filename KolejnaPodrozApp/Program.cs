@@ -3,6 +3,9 @@ using KolejnaPodroz.DataAccess.Repository.IRepository;
 using KolejnaPodroz.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Rewrite;
+using KolejnaPodroz.Domain.Services.StationService;
+using KolejnaPodroz.Domain.Services.ProviderService;
+using KolejnaPodroz.Domain.Services.ConnectionService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IStationService, StationService>();
+builder.Services.AddScoped<IConnectionService, ConnectionService>();
+builder.Services.AddScoped<IProviderService, ProviderService>();
 
 var PolicyName = "AllowAll";
 // Add services to the container.

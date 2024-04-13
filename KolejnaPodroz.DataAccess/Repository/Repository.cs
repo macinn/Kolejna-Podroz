@@ -39,7 +39,7 @@ namespace KolejnaPodroz.DataAccess.Repository
             return query.ToList();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
+        public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);

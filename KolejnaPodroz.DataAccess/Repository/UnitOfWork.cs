@@ -19,6 +19,11 @@ namespace KolejnaPodroz.DataAccess.Repository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+
+            Connection = new ConnectionRepository(_db);
+            Provider = new ProviderRepository(_db);
+            Ticket = new TicketRepository(_db);
+            Station = new StationRepository(_db);
         }
         public void Save()
         {
