@@ -1,5 +1,6 @@
 ﻿using KolejnaPodroz.DataAccess.Repository.IRepository;
 using KolejnaPodroz.Domain.Models;
+using KolejnaPodroz.Domain.Services.ConnectionService;
 using KolejnaPodrozApp.Models.Connection;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace KolejnaPodrozApp.Controllers
     public class ConnectionController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IConnectionService _connectionService;
 
-        public ConnectionController(IUnitOfWork unitOfWork)
+        public ConnectionController(IUnitOfWork unitOfWork, IConnectionService connectionService)
         {
             _unitOfWork = unitOfWork;
+            _connectionService = connectionService;
         }
 
         [HttpGet]
@@ -43,20 +46,37 @@ namespace KolejnaPodrozApp.Controllers
         {
             try
             {
-                Connection connection = new Connection();
-                connection.From = _unitOfWork.Station.Get(s => s.Id == request.StartStationId);
-                connection.Destination = _unitOfWork.Station.Get(s => s.Id == request.EndStationId);
-                connection.Provider = _unitOfWork.Provider.Get(p => p.Id == request.ProviderId);
-                connection.DepartureTime = request.DepartureTime;
-                connection.ArrivalTime = request.DepartureTime.AddMinutes(request.TravelTime);
+                var from = _unitOfWork.Station.Get(s => s.Id == request.StartStationId);
+                var destination = _unitOfWork.Station.Get(s => s.Id == request.EndStationId);
+                var provider = _unitOfWork.Provider.Get(p => p.Id == request.ProviderId);
+                var departureTime = request.DepartureTime;
+                var arrivalTime = request.DepartureTime.AddMinutes(request.TravelTime);
 
-                _unitOfWork.Connection.Add(connection);
+                Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider);
+
+                //_unitOfWork.Connection.Add(connection); -- Raczej nie dodajemy do bazy Connections od usera! 
                 return Ok(connection);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex);
             }
+        }
+
+        [HttpPost("AdminPost")]
+        public ActionResult AdminPostConnection(ConnectionPostRequest request)
+        {
+            var from = _unitOfWork.Station.Get(s => s.Id == request.StartStationId);
+            var destination = _unitOfWork.Station.Get(s => s.Id == request.EndStationId);
+            var provider = _unitOfWork.Provider.Get(p => p.Id == request.ProviderId);
+            var departureTime = request.DepartureTime;
+            var arrivalTime = request.DepartureTime.AddMinutes(request.TravelTime);
+
+            Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider);
+            // TODO: fluent validation
+
+            _unitOfWork.Connection.Add(connection);
+            return Ok(connection);
         }
     }
 }

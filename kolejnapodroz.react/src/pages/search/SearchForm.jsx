@@ -9,7 +9,8 @@ import './SearchForm.css';
 
 const SearchForm = () => {
     
-    const baseUrl = "https://kolejna-podroz-test.azurewebsites.net/";
+    //const baseUrl = "https://kolejna-podroz-test.azurewebsites.net/";
+    const baseUrl = "https://localhost:60016/";
     const navigate = useNavigate();
 
     const { startStation,  setStartStation,
@@ -29,7 +30,7 @@ const SearchForm = () => {
         // TODO moze to przeniesc gdzies
         console.log(`${departureTime.toISOString()}`);
         try {
-            const response = await fetch(`${baseUrl}api/Connection?startStationId=${startStation}&endStationId=${endStation}&departureTime=${departureTime.toISOString()}`, {
+            const response = await fetch(`${baseUrl}api/Connection`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

@@ -3,6 +3,9 @@ using KolejnaPodroz.DataAccess.Repository.IRepository;
 using KolejnaPodroz.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Rewrite;
+using KolejnaPodroz.Domain.Services.StationService;
+using KolejnaPodroz.Domain.Services.ProviderService;
+using KolejnaPodroz.Domain.Services.ConnectionService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,6 +23,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IStationService, StationService>();
+builder.Services.AddScoped<IConnectionService, ConnectionService>();
+builder.Services.AddScoped<IProviderService, ProviderService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
