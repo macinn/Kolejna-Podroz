@@ -49,70 +49,70 @@ const SearchForm = () => {
     return (
         <div className='container'>
 
-<Container className='form-container' maxWidth="sm">
-        <form onSubmit={handleSubmit} >
-            <Typography variant="h3" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold' }} gutterBottom>
-                Your journey starts here!
-            </Typography>
-            <Box
-                my={4}
-                display="block"
-                alignItems="center"
-                gap={4}
-                p={2}
-                
-                >
-                    <div style={{ marginTop: '16px' }}>
-                        <FormControl>
-                            <InputLabel id="start-select-label">Start station</InputLabel>
-                            <Select
-                                labelId="start-select-label"
-                                label="start-station"
-                                id="startStation"
-                                value={startStation}
-                                onChange={(e) => setStartStation(e.target.value)}
-                                sx={{ minWidth: '200px' }}
-                            >
-                                <MenuItem value="">None</MenuItem>
-                                {stations.map((station) => (
-                                <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>                 
-                    </div>
-                    <div style={{ marginTop: '16px' }}>
-                        <FormControl>
-                            <InputLabel id="end-select-label">End station</InputLabel>
-                            <Select
-                                labelId="end-select-label"
-                                label="end-station"
-                                id="endStation"
-                                value={endStation}
-                                onChange={(e) => setEndStation(e.target.value)}
-                                sx={{ minWidth: '200px' }}
-                            >
-                                <MenuItem value="">None</MenuItem>
-                                {stations.map((station) => (
-                                <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div style={{ marginTop: '16px' }}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker 
-                        label="Departure details"
-                        value={departureTime}           
-                        onChange={(newDate) => setDepartureTime(newDate)}
-                        renderInput={(params) => <TextField {...params} /> }/>
-                    </LocalizationProvider>
-                    
-                    </div>
-                <button type="submit" style={{ marginTop: '16px' }}>Search</button>
-            </Box>
-           
-        </form>
-        </Container>
+            <Container className='form-container' maxWidth="sm">
+                <form onSubmit={handleSubmit} >
+                    <Typography variant="h3" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold' }} gutterBottom>
+                        Your journey starts here!
+                    </Typography>
+                    <Box
+                        my={4}
+                        display="block"
+                        alignItems="center"
+                        gap={4}
+                        p={2}
+
+                    >
+                        <div style={{ marginTop: '16px' }}>
+                            <FormControl>
+                                <InputLabel id="start-select-label">Start station</InputLabel>
+                                <Select
+                                    labelId="start-select-label"
+                                    label="start-station"
+                                    id="startStation"
+                                    value={startStation}
+                                    onChange={(e) => setStartStation(e.target.value)}
+                                    sx={{ minWidth: '200px' }}
+                                >
+                                    <MenuItem value="">None</MenuItem>
+                                    {stations.map((station) => (
+                                        <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div style={{ marginTop: '16px' }}>
+                            <FormControl>
+                                <InputLabel id="end-select-label">End station</InputLabel>
+                                <Select
+                                    labelId="end-select-label"
+                                    label="end-station"
+                                    id="endStation"
+                                    value={endStation}
+                                    onChange={(e) => setEndStation(e.target.value)}
+                                    sx={{ minWidth: '200px' }}
+                                >
+                                    <MenuItem value="">None</MenuItem>
+                                    {stations.map((station) => (
+                                        <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div style={{ marginTop: '16px' }}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DateTimePicker
+                                    label="Departure details"
+                                    value={departureTime}
+                                    onChange={(newDate) => setDepartureTime(newDate)}
+                                    renderInput={(params) => <TextField {...params} />} />
+                            </LocalizationProvider>
+
+                        </div>
+                        <button type="submit" style={{ marginTop: '16px' }}>Search</button>
+                    </Box>
+
+                </form>
+            </Container>
         </div>
     );
 };

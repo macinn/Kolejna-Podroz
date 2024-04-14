@@ -3,6 +3,8 @@ using KolejnaPodroz.DataAccess.Repository.IRepository;
 using KolejnaPodroz.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://dev-smj8b7vj3kgqfm7t.us.auth0.com/";
+        options.Audience = "ORNb5eV7D2sZI9Laq6SXrMqYLJF3LgcP"; // Nazwa audytorium z Auth0
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            RoleClaimType = "role", // Klucz roli w tokenie
+        };
+    });
 
 var PolicyName = "AllowAll";
 // Add services to the container.
