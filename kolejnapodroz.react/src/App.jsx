@@ -1,36 +1,18 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import SearchForm from './pages/search/SearchForm'
-import ConnectionsList from "./pages/search/ConnectionsList";
+import { Layout }  from "./pages/layout/Layout"
+import { Route, Routes } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  const router = createBrowserRouter([
-        {
-          path: "/",
-          element: <SearchForm />,
-        },
-        {
-          path: "/connections",
-          element: <ConnectionsList />,
-        },
-        {
-          path: "*",
-          element: <SearchForm />,
-        },
-      
-
-  ]);
-
-  return (
-    <RouterProvider router={router} />
+    return (
+        <Layout>
+            <Routes>
+                {AppRoutes.map((route, index) => {
+                    const { element, ...rest } = route;
+                    return <Route key={index} {...rest} element={element} />;
+                })}
+            </Routes>
+        </Layout>
   );
 }
 

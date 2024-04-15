@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Rewrite;
 using KolejnaPodroz.Domain.Services.StationService;
 using KolejnaPodroz.Domain.Services.ProviderService;
 using KolejnaPodroz.Domain.Services.ConnectionService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,17 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IStationService, StationService>();
 builder.Services.AddScoped<IConnectionService, ConnectionService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://dev-smj8b7vj3kgqfm7t.us.auth0.com/";
+        options.Audience = "ORNb5eV7D2sZI9Laq6SXrMqYLJF3LgcP"; // Nazwa audytorium z Auth0
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            RoleClaimType = "role", // Klucz roli w tokenie
+        };
+    });
 
 var PolicyName = "AllowAll";
 // Add services to the container.

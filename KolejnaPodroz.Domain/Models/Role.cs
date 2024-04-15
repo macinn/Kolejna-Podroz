@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace KolejnaPodroz.Domain.Models
 {
-    public class User
+    public enum Role
     {
-        public int Id { get; set; }
-        public string Auth0Id { get; set; }
-        public AccountInfo AccountInfo { get; set; }
+        None,
+        User,
+        Admin
     }
 }
