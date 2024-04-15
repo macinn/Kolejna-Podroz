@@ -3,7 +3,7 @@ import NavMenu from './NavMenu';
 import { Box, styled } from '@mui/material';
 
 const StyledBox = styled(Box)({
-    position: 'fixed', // Ustawienie pozycji na fixed
+    position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
