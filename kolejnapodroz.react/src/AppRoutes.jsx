@@ -1,5 +1,6 @@
 import SearchForm from './pages/search/SearchForm'
 import ConnectionsList from "./pages/search/ConnectionsList";
+import AddForm from './pages/admin/AddForm';
 
 const AppRoutes = [
     {
@@ -9,6 +10,10 @@ const AppRoutes = [
     {
         path: "/connections",
         element: <ConnectionsList />,
+    },
+    {
+        path: "/add",
+        element: <AddForm />,
     },
     {
         path: "*",

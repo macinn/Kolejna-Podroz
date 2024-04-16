@@ -1,8 +1,12 @@
 import React from 'react';
+import { Container } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 function AddForm() {
-  return (
-    <p>Hello world!</p>
+    return (
+        <Grid container style={{ backgroundColor: 'blue', height: '*' }}>
+            <p>sadasd</p>
+        </Grid>
   );
 }
 

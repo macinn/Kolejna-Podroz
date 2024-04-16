@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import NavMenu from './NavMenu';
-import { Box, styled } from '@mui/material';
+import { Box, styled, Grid } from '@mui/material';
 
 const StyledBox = styled(Box)({
-    position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
@@ -14,9 +13,11 @@ export class Layout extends Component {
         return (
             <Box>
                 <NavMenu />
-                <StyledBox tag="main" >
-                    {this.props.children}
-                </StyledBox>
+                <Box tag="main" >
+                    <Grid container style={{ backgroundColor: 'blue', height: '*' }}>
+                        {this.props.children}
+                    </Grid>
+                </Box>
             </Box>
         );
     }

@@ -12,7 +12,6 @@ const StyledToolbar = styled(Toolbar)({
 
 const Filler = styled('div')({
     marginLeft: 'auto',
-    
 });
 
 
