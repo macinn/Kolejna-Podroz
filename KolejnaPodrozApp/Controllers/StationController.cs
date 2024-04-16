@@ -29,5 +29,19 @@ namespace KolejnaPodrozApp.Controllers
             _unitOfWork.Save();
             return Ok(station);
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Station>> Get()
+        {
+            var stations = _unitOfWork.Station.GetAll();
+
+            if (stations.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(stations);
+
+        }
     }
 }

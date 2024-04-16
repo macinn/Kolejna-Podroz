@@ -3,7 +3,8 @@ import NavMenu from './NavMenu';
 import { Box, styled, Grid } from '@mui/material';
 
 const StyledBox = styled(Box)({
-    top: 0,
+    position: 'fixed',
+    top: 60,
     left: 0,
     width: '100%',
     height: '100%',
@@ -13,11 +14,9 @@ export class Layout extends Component {
         return (
             <Box>
                 <NavMenu />
-                <Box tag="main" >
-                    <Grid container style={{ backgroundColor: 'blue', height: '*' }}>
-                        {this.props.children}
-                    </Grid>
-                </Box>
+                <StyledBox tag="main" >
+                    {this.props.children}
+                </StyledBox>
             </Box>
         );
     }

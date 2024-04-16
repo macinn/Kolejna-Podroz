@@ -8,6 +8,7 @@ const StyledToolbar = styled(Toolbar)({
     display: "flex",
     justifyContent: "flex-end",
     background: '#2F1B12',
+    height: 60
 });
 
 const Filler = styled('div')({
