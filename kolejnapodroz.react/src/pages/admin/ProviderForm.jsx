@@ -4,14 +4,15 @@ import { ThemeProvider } from '@mui/material/styles';
 import AdminTheme from './AdminTheme';
 import styled from '@mui/material/styles/styled';
 
+const baseUrl = "https://localhost:60016/";
 function ProviderForm() {
     const [providerData, setProviderData] = useState({
-        Name: '',
-        Description: '',
-        Website: '',
-        PhoneNumber: '',
-        City: '',
-        Address: '',
+        name: '',
+        description: '',
+        website: '',
+        phoneNumber: '',
+        city: '',
+        address: '',
     });
 
     const handleChange = (prop) => (event) => {
@@ -20,7 +21,15 @@ function ProviderForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // TODO: Add provider to database
+        console.log(providerData);
+        fetch(`${baseUrl}api/Provider`,
+            {
+                method: "POST",
+                body: JSON.stringify(providerData),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            });
     };
 
     return (
@@ -33,48 +42,48 @@ function ProviderForm() {
                         <TextField
                             label="Name"
                             fullWidth
-                            value={providerData.Name}
-                            onChange={handleChange('Name')}
+                                value={providerData.name}
+                                onChange={handleChange('name')}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             label="Description"
                             fullWidth
-                            value={providerData.Description}
-                            onChange={handleChange('Description')}
+                                value={providerData.description}
+                                onChange={handleChange('description')}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             label="Website"
                             fullWidth
-                            value={providerData.Website}
-                            onChange={handleChange('Website')}
+                                value={providerData.website}
+                            onChange={handleChange('website')}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             label="Phone Number"
                             fullWidth
-                            value={providerData.PhoneNumber}
-                            onChange={handleChange('PhoneNumber')}
+                            value={providerData.phoneNumber}
+                                onChange={handleChange('phoneNumber')}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             label="City"
                             fullWidth
-                            value={providerData.City}
-                            onChange={handleChange('City')}
+                                value={providerData.city}
+                                onChange={handleChange('city')}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             label="Address"
                             fullWidth
-                            value={providerData.Address}
-                            onChange={handleChange('Address')}
+                                value={providerData.address}
+                                onChange={handleChange('address')}
                         />
                     </Grid>
                 </Grid>

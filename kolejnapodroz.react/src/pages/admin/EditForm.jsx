@@ -90,7 +90,7 @@ function EditForm({ data, onSubmit }) {
 
     const getCurrentDateTimeString = () => {
         const currentDate = new Date();
-        return currentDate.toISOString().slice(0, 16);
+        return new Date().toJSON();
     };
 
   return (

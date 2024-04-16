@@ -6,7 +6,7 @@ function AddButton() {
     const navigate = useNavigate();
 
     return (
-        <Button variant="contained" onClick={() => { navigate("/add") }} sx={{ m : 1}}>
+        <Button variant="contained" onClick={() => { navigate("/add-connection") }} sx={{ m : 1}}>
             Add new connection
         </Button>
   );

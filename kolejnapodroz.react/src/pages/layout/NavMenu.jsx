@@ -4,6 +4,7 @@ import LogoutButton from '../login/LogoutButton';
 import AddButton from '../admin/AddButton';
 import ShowIfAdmin from '../../utils/ShowIfAdmin';
 import ProviderButton from '../admin/ProviderButton';
+import StationButton from '../admin/StationButton';
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -24,6 +25,7 @@ const NavMenu = () => {
                 <ShowIfAdmin>
                     <AddButton />
                     <ProviderButton />
+                    <StationButton />
                 </ShowIfAdmin>
                 <Filler/>
                 <LoginButton />
