@@ -9,12 +9,12 @@ namespace KolejnaPodrozApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProdiverController : ControllerBase
+    public class ProviderController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProviderService _providerService;
 
-        public ProdiverController(IUnitOfWork unitOfWork, IProviderService providerService)
+        public ProviderController(IUnitOfWork unitOfWork, IProviderService providerService)
         {
             _unitOfWork = unitOfWork;
             _providerService = providerService;
