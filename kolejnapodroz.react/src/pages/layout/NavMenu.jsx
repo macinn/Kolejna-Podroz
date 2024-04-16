@@ -2,6 +2,7 @@ import { AppBar, Toolbar, styled } from '@mui/material';
 import LoginButton from '../login/LoginButton';
 import LogoutButton from '../login/LogoutButton';
 import AddButton from '../admin/AddButton';
+import ShowIfAdmin from '../../utils/ShowIfAdmin';
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -19,7 +20,9 @@ const NavMenu = () => {
     return (
         <AppBar position="fixed">
             <StyledToolbar>
-                <AddButton />
+                <ShowIfAdmin>
+                    <AddButton />
+                </ShowIfAdmin>
                 <Filler/>
                 <LoginButton />
                 <LogoutButton />
