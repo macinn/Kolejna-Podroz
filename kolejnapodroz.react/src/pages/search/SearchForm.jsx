@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker, DatePicker } from '@mui/x-date-pickers';
+import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
 const SearchForm = () => {
@@ -18,12 +19,29 @@ const SearchForm = () => {
             departureTime, setDepartureTime,
                            setConnections } = useStore();
 
-    // TODO: Pobrac dane z serwera GET
-    const stations = [
-        { id: 1, name: 'Warszawa Zachodnia' },
-        { id: 2, name: 'Radom Główny' },
-        { id: 3, name: 'Kraków Główny' },
-      ];
+    const [stations, setStations] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+            const response = await fetch(`${baseUrl}api/station`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const jsonData = await response.json();
+            console.log(jsonData);
+            setStations(jsonData);
+    
+            } catch (error) {
+    
+            }
+        };
+    
+        fetchData();
+        }, []);
+        
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -75,7 +93,7 @@ const SearchForm = () => {
                                     sx={{ minWidth: '200px' }}
                                 >
                                     <MenuItem value="">None</MenuItem>
-                                    {stations.map((station) => (
+                                    {stations && stations.map((station) => (
                                         <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
                                     ))}
                                 </Select>
@@ -93,7 +111,7 @@ const SearchForm = () => {
                                     sx={{ minWidth: '200px' }}
                                 >
                                     <MenuItem value="">None</MenuItem>
-                                    {stations.map((station) => (
+                                    {stations && stations.map((station) => (
                                         <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
                                     ))}
                                 </Select>
