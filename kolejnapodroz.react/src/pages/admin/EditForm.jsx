@@ -60,7 +60,7 @@ function EditForm({ data, onSubmit }) {
     StartStationId: data != null ? data.StartStationId : 0,
     EndStationId: data != null ? data.EndStationId : 0,
     ProviderId: data != null ? data.ProviderId : 0,
-    DepartureTime: data != null ? data.DepartureTime : "0001-01-01T00:00:00",
+    DepartureTime: data != null ? data.DepartureTime : "01.01.2000 00:00:00",
     TravelTime: data != null ? data.TravelTime : 0,
   });
     //useEffect(() => {
@@ -152,7 +152,7 @@ function EditForm({ data, onSubmit }) {
                   label={"Travel Time"}
                   fullWidth
                   value={editedConnection.TravelTime}
-                  onChange={handleChange("TravelTime")}
+                  onChange={(e) => setEditedConnection({ ...editedConnection, ["TravelTime"]: parseInt(e.target.value) })}
                   type="number"
                   InputLabelProps={{
                     shrink: true,
@@ -168,7 +168,7 @@ function EditForm({ data, onSubmit }) {
                   fullWidth
                   label={"Provider Id"}
                   value={editedConnection.ProviderId}
-                  onChange={handleChange("ProviderId")}
+                  onChange={(e) => setEditedConnection({ ...editedConnection, ["ProviderId"]: parseInt(e.target.value) })}
                   type="number"
                   InputLabelProps={{
                     shrink: true,
