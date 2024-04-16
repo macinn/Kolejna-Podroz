@@ -74,7 +74,7 @@ namespace KolejnaPodrozApp.Controllers
         }
 
         [HttpPost("AdminPost")]
-        public ActionResult AdminPostConnection(ConnectionPostRequest request)
+        public ActionResult AdminPostConnection([FromBody]ConnectionPostRequest request)
         {
             var from = _unitOfWork.Station.Get(s => s.Id == request.StartStationId);
             var destination = _unitOfWork.Station.Get(s => s.Id == request.EndStationId);
