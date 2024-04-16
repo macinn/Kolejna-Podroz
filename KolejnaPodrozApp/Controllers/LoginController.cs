@@ -1,7 +1,5 @@
 ﻿using KolejnaPodroz.DataAccess.Repository.IRepository;
 using KolejnaPodroz.Domain.Models;
-using KolejnaPodroz.Domain.Services.ConnectionService;
-using KolejnaPodrozApp.Models.Connection;
 using KolejnaPodrozApp.Models.Login;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,12 +16,6 @@ namespace KolejnaPodrozApp.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Connection>> Get()
-        {
-            return Ok();
-        }
-
         [HttpPost]
         public IActionResult Post(UserInfo userInfo)
         {
@@ -34,6 +26,8 @@ namespace KolejnaPodrozApp.Controllers
 
                 _unitOfWork.User.Add(user);
                 _unitOfWork.Save();
+
+                return Ok("User added");
             }
             else
             {
@@ -42,8 +36,11 @@ namespace KolejnaPodrozApp.Controllers
                     existingUser.AccountInfo.Role = UserInfo.ConvertRole(userInfo.role);
                     _unitOfWork.User.Update(existingUser);
                     _unitOfWork.Save();
+
+                    return Ok("User updated");
                 }
             }
+
             return Ok();
         }
     }
