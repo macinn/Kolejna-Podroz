@@ -1,6 +1,7 @@
 import SearchForm from './pages/search/SearchForm'
 import ConnectionsList from "./pages/search/ConnectionsList";
 import AddForm from './pages/admin/AddForm';
+import ProviderForm from './pages/admin/ProviderForm';
 
 const AppRoutes = [
     {
@@ -14,6 +15,9 @@ const AppRoutes = [
     {
         path: "/add",
         element: <AddForm />,
+    },{
+        path: "/add-provider",
+        element: <ProviderForm />,
     },
     {
         path: "*",

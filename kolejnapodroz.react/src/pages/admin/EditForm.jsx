@@ -19,29 +19,7 @@ import { InputLabel } from "@mui/material";
 import { Typography } from "@mui/material";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-
-const MuiTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#90caf9",
-      secondary: {
-        main: "#f48fb1",
-      },
-      background: {
-        default: "#121212",
-        paper: "#1e1e1e",
-      },
-      text: {
-        primary: "#ffffff",
-        secondary: "#bdbdbd",
-      },
-    },
-    typography: {
-      fontFamily: "Roboto, Arial, sans-serif",
-    },
-  },
-});
+import AdminTheme from "./AdminTheme";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -116,7 +94,7 @@ function EditForm({ data, onSubmit }) {
     };
 
   return (
-    <ThemeProvider theme={MuiTheme}>
+      <ThemeProvider theme={AdminTheme}>
       <FormGrid>
         <Container>
           <Typography variant="h5">Edit Connection</Typography>
