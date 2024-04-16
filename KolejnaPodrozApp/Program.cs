@@ -8,6 +8,7 @@ using KolejnaPodroz.Domain.Services.ProviderService;
 using KolejnaPodroz.Domain.Services.ConnectionService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +18,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var mysqlbuilder = new MySqlConnectionStringBuilder
+{
+    Server = "kp-db.mysql.database.azure.com",
+    Database = "kp",
+    UserID = "kpadmin",
+    Password = "admin123!",
+    SslMode = MySqlSslMode.Required,
+};
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseMySQL(mysqlbuilder.ConnectionString);
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
