@@ -74,14 +74,28 @@ const exampleConnection = {
 
 
 function EditForm({ data, onSubmit }) {
+    const baseUrl = "https://localhost:60016/";
+    const [stations, setStations] = useState([]);
+
     const [editedConnection, setEditedConnection] = useState({
         "Id": data != null ? data.Id : 0,
-        "StartStationId": data != null ? data.StartStationId : 0,
-        "EndStationId": data != null ? data.EndStationId : 0,
+        "StartStationId": data != null ? data.StartStationId : '',
+        "EndStationId": data != null ? data.EndStationId : '',
         "ProviderId": data != null ? data.ProviderId : 0,
         "DepartureTime": data != null ? data.DepartureTime : "0001-01-01T00:00:00",
         "TravelTime": data != null ? data.TravelTime : 0
     });
+
+    useEffect(() => {
+        fetch(`${baseUrl}api/station`)
+            .then(response => response.json())
+            .then(data => {
+                setStations(data);
+                // console.log(stations);
+            })
+            .catch(error => {console.error('Error:', error);
+        });
+    }, []);
 
     const handleChange = (prop) => (event) => {
         setEditedConnection({ ...editedConnection, [prop]: event.target.value });
@@ -99,6 +113,21 @@ function EditForm({ data, onSubmit }) {
             spacing={3}
             theme={MuiTheme}
                 margin="auto">
+                <FormControl>
+                    <InputLabel id="start-select-label">Start station</InputLabel>
+                    <Select
+                        labelId="start-select-label"
+                        label="start-station"
+                        id="startStation"
+                        value={editedConnection.StartStationId}
+                        sx={{ minWidth: '200px' }}
+                    >
+                        <MenuItem value="">None</MenuItem>
+                        {stations && stations.map((station) => (
+                            <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             {/*    <FormControl>*/}
             {/*        <InputLabel id="start-select-label">Start station</InputLabel>*/}
             {/*        <Select*/}
