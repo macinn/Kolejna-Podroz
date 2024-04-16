@@ -1,14 +1,20 @@
-import React from 'react';
-import { Button } from '@mui/material'
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function AddButton() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    return (
-        <Button variant="contained" onClick={() => { navigate("/add-connection") }} sx={{ m : 1}}>
-            Add new connection
-        </Button>
+  return (
+    <Button
+      variant="contained"
+      onClick={() => {
+        navigate("/add-connection");
+      }}
+      sx={{ m: 1 }}
+    >
+      Add new connection
+    </Button>
   );
 }
 

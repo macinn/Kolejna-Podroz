@@ -63,10 +63,10 @@ function EditForm({ data, onSubmit }) {
     DepartureTime: data != null ? data.DepartureTime : "01.01.2000 00:00:00",
     TravelTime: data != null ? data.TravelTime : 0,
   });
-    //useEffect(() => {
-    //    if (user == null || user.role != "  Admin")
-    //        navigate("/");
-    //},[user]);
+  //useEffect(() => {
+  //    if (user == null || user.role != "  Admin")
+  //        navigate("/");
+  //},[user]);
   useEffect(() => {
     fetch(`${baseUrl}api/station`)
       .then((response) => response.json())
@@ -88,13 +88,13 @@ function EditForm({ data, onSubmit }) {
     onSubmit(editedConnection);
   };
 
-    const getCurrentDateTimeString = () => {
-        const currentDate = new Date();
-        return new Date().toJSON();
-    };
+  const getCurrentDateTimeString = () => {
+    const currentDate = new Date();
+    return new Date().toJSON();
+  };
 
   return (
-      <ThemeProvider theme={AdminTheme}>
+    <ThemeProvider theme={AdminTheme}>
       <FormGrid>
         <Container>
           <Typography variant="h5">Edit Connection</Typography>
@@ -152,7 +152,12 @@ function EditForm({ data, onSubmit }) {
                   label={"Travel Time"}
                   fullWidth
                   value={editedConnection.TravelTime}
-                  onChange={(e) => setEditedConnection({ ...editedConnection, ["TravelTime"]: parseInt(e.target.value) })}
+                  onChange={(e) =>
+                    setEditedConnection({
+                      ...editedConnection,
+                      ["TravelTime"]: parseInt(e.target.value),
+                    })
+                  }
                   type="number"
                   InputLabelProps={{
                     shrink: true,
@@ -168,7 +173,12 @@ function EditForm({ data, onSubmit }) {
                   fullWidth
                   label={"Provider Id"}
                   value={editedConnection.ProviderId}
-                  onChange={(e) => setEditedConnection({ ...editedConnection, ["ProviderId"]: parseInt(e.target.value) })}
+                  onChange={(e) =>
+                    setEditedConnection({
+                      ...editedConnection,
+                      ["ProviderId"]: parseInt(e.target.value),
+                    })
+                  }
                   type="number"
                   InputLabelProps={{
                     shrink: true,
