@@ -11,6 +11,7 @@
   <ItemGroup>
     <Folder Include="src\pages\login\" />
     <Folder Include="src\pages\layout\" />
+    <Folder Include="src\pages\admin\" />
     <Folder Include="src\pages\search\" />
   </ItemGroup>
   <ItemGroup>

@@ -43,7 +43,7 @@ const SearchForm = () => {
             setConnections(data);
             navigate("/connections");
           } catch (error) {
-            
+            console.log(error);
           }
     };
 
