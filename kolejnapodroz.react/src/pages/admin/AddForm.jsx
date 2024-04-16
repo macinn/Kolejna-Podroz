@@ -1,12 +1,13 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import EditForm from './EditForm';
 
 function AddForm() {
     return (
-        <Grid container style={{ backgroundColor: 'blue', height: '*' }}>
-            <p>sadasd</p>
-        </Grid>
+        <Container>
+            <EditForm />
+        </Container>
   );
 }
 
