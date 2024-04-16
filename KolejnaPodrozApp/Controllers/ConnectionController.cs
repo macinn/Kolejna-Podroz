@@ -3,6 +3,8 @@ using KolejnaPodroz.Domain.Models;
 using KolejnaPodroz.Domain.Services.ConnectionService;
 using KolejnaPodrozApp.Models.Connection;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Connection = KolejnaPodroz.Domain.Models.Connection;
 
 namespace KolejnaPodrozApp.Controllers
 {
@@ -20,7 +22,7 @@ namespace KolejnaPodrozApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Connection>> Get(ConnectionRequest request)
+        public ActionResult<IEnumerable<Connection>> Get([FromQuery] ConnectionRequest request)
         {
             try
             {
@@ -39,6 +41,14 @@ namespace KolejnaPodrozApp.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("AdminGet")]
+        public ActionResult AdminGetConnection()
+        {
+            var connections = _unitOfWork.Connection.GetAll();
+
+            return Ok(connections);
         }
 
         [HttpPost]
@@ -78,5 +88,7 @@ namespace KolejnaPodrozApp.Controllers
             _unitOfWork.Connection.Add(connection);
             return Ok(connection);
         }
+
+        
     }
 }

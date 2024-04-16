@@ -8,7 +8,7 @@ function ShowIfAdmin({ children }) {
     useEffect(() => { }, [isAuthenticated, user])
 
     return (
-        <ShowIf cond={isAuthenticated /*&& user.user.role[0] == 'admin'*/}>
+        <ShowIf cond={isAuthenticated && user.role == 'Admin'}>
             {children}
         </ShowIf>
     );
