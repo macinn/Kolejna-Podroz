@@ -6,7 +6,7 @@ function ProviderButton() {
     const navigate = useNavigate();
 
     return (
-        <Button variant="contained" onClick={() => { navigate("/add-provider") }} >
+        <Button variant="contained" onClick={() => { navigate("/add-provider") }} sx={{ m: 1 }}>
             Add new provider
         </Button>
     );
