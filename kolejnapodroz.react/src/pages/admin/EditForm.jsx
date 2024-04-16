@@ -63,10 +63,10 @@ function EditForm({ data, onSubmit }) {
     DepartureTime: data != null ? data.DepartureTime : "0001-01-01T00:00:00",
     TravelTime: data != null ? data.TravelTime : 0,
   });
-    useEffect(() => {
-        if (user == null || user.role != "  Admin")
-            navigate("/");
-    },[user]);
+    //useEffect(() => {
+    //    if (user == null || user.role != "  Admin")
+    //        navigate("/");
+    //},[user]);
   useEffect(() => {
     fetch(`${baseUrl}api/station`)
       .then((response) => response.json())
