@@ -2,8 +2,7 @@ import SearchForm from './pages/search/SearchForm'
 import ConnectionsList from "./pages/search/ConnectionsList";
 import ConfirmationPage from "./pages/confirmation/ConfirmationPage.jsx";
 import TicketsHistoryPage from "./pages/history/ticketsHistoryPage";
-import TripDetails from "./pages/Details/tripDetails.jsx";
-import TripDetailsPage from "./pages/Details/tripDetails.jsx";
+import TripDetailsPage from "./pages/details/tripDetails.jsx";
 
 const AppRoutes = [
     {
