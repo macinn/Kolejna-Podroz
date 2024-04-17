@@ -56,7 +56,6 @@ function EditForm({ data, onSubmit }) {
   const [stations, setStations] = useState([]);
 
   const [editedConnection, setEditedConnection] = useState({
-    Id: data != null ? data.Id : 0,
     StartStationId: data != null ? data.StartStationId : 0,
     EndStationId: data != null ? data.EndStationId : 0,
     ProviderId: data != null ? data.ProviderId : 0,
@@ -142,7 +141,7 @@ function EditForm({ data, onSubmit }) {
                   label="Departure Time"
                   type="datetime-local"
                   fullWidth
-                  value={getCurrentDateTimeString()}
+                  value={editedConnection.DepartureTime}
                   onChange={handleChange("DepartureTime")}
                   InputLabelProps={{ shrink: true }}
                 />
