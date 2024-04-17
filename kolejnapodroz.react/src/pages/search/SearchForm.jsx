@@ -45,24 +45,8 @@ const SearchForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO moze to przeniesc gdzies
         console.log(`${departureTime.toISOString()}`);
-        try {
-            const response = await fetch(`${baseUrl}api/Connection`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setConnections(data);
-            navigate("/connections");
-          } catch (error) {
-            
-          }
+        navigate("/connections");
     };
 
     return (
