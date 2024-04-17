@@ -93,6 +93,7 @@ namespace KolejnaPodrozApp.Controllers
             // TODO: fluent validation\
 
             _unitOfWork.Connection.Add(connection);
+            _unitOfWork.Save();
             return Ok(connection);
         }
 
