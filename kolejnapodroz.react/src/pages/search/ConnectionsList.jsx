@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useStore } from '../../stores/SearchFormStore';
 import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText } from '@mui/material';
+import { Button } from '@mui/material';
 
 const ConnectionsList = () => {
     const { startStation, setStartStation,
@@ -15,20 +16,7 @@ const ConnectionsList = () => {
     const baseUrl = "https://localhost:60016/";
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${baseUrl}api/connections?StartStationId=${startStation}&EndStationId=${endStation}&DepartureTime=${departureTime}`); // Wstaw odpowiedni endpoint
-                if (!response.ok) {
-                    
-                }
-                const data = await response.json();
-                setConnections(data); 
-            } catch (error) {
-                
-            }
-        };
-
-        fetchData(); 
+        console.log(connections)
     }, []); 
 
     const handleSelectConnection = (connection) => {
@@ -40,10 +28,16 @@ const ConnectionsList = () => {
         <div>
             <h2>Available connections</h2>
             <List>
-                {connections && connections.map((connection, index) => (
-                    <ListItem key={index}>
-                        <ListItemText primary={connection.name} />
-                        <Button variant="contained" onClick={() => handleSelectConnection(connection)}>Select</Button>
+                {connections && connections.map((train) => (
+                    <ListItem key={train.id}>
+                        <ListItemText
+                            primary={`From: ${train.from.name} - ${train.from.city}`}
+                            secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
+                        />
+                        <ListItemText
+                            primary={`To: ${train.destination.name} - ${train.destination.city}`}
+                            secondary={`Arrival Time: ${new Date(train.arrivalTime).toLocaleString()}`}
+                        />
                     </ListItem>
                 ))}
             </List>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavMenu from './NavMenu';
-import { Box, styled } from '@mui/material';
+import { Box, styled, Grid } from '@mui/material';
 
 const StyledBox = styled(Box)({
     position: 'fixed',

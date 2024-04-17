@@ -32,12 +32,10 @@ const SearchForm = () => {
             console.log(jsonData);
             setStations(jsonData);
     
-            } catch (error) {
-    
-            }
+            } catch (error) { /* empty */ }
         };
     
-        fetchData();
+        fetchData();    
         }, []);
         
 
@@ -45,8 +43,13 @@ const SearchForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(`${departureTime.toISOString()}`);
-        navigate("/connections");
+        // console.log(`${departureTime.toISOString()}`);
+        fetch(`${baseUrl}api/Connection?StartStationId=${startStation}&EndStationId=${endStation}&DepartureTime=${departureTime}`)
+            .then((response) => response.json())
+            .then((data) => {
+                        setConnections(data);
+            }).then(() => navigate("/connections"))
+            .catch((error) => console.error("Error:", error));
     };
 
     return (
@@ -103,11 +106,13 @@ const SearchForm = () => {
                         </div>
                         <div style={{ marginTop: '16px' }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DateTimePicker
-                                    label="Departure details"
+                                <TextField
+                                    label="Departure Time"
+                                    type="datetime-local"
                                     value={departureTime}
-                                    onChange={(newDate) => setDepartureTime(newDate)}
-                                    renderInput={(params) => <TextField {...params} />} />
+                                    onChange={(e) => setDepartureTime(e.target.value)}
+                                    InputLabelProps={{ shrink: true }}
+                                />
                             </LocalizationProvider>
 
                         </div>

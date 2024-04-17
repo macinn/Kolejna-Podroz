@@ -4,6 +4,6 @@
     {
         public int StartStationId;
         public int EndStationId;
-        public DateTime DepartureTime;
+        public string DepartureTime;
     }
 }
