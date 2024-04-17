@@ -15,10 +15,17 @@ namespace KolejnaPodroz.DataAccess.Repository
         public IProviderRepository Provider { get; private set; }
         public ITicketRepository Ticket { get; private set; }
         public IStationRepository Station { get; private set; }
+        public IUserRepository User { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+
+            Connection = new ConnectionRepository(_db);
+            Provider = new ProviderRepository(_db);
+            Ticket = new TicketRepository(_db);
+            Station = new StationRepository(_db);
+            User = new UserRepository(_db);
         }
         public void Save()
         {

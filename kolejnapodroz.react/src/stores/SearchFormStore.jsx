@@ -11,6 +11,10 @@ export const useStore = create((set) => ({
     departureTime: null,
     setDepartureTime: (newValue) => set({ departureTime: newValue }),
 
-    connections: "",
+    connections: null,
     setConnections: (newValue) => set({ connections: newValue }),
+
+    selectedConnection: null,
+    setSelectedConnection: (newValue) => set({ selectedConnection: newValue }),
+
 }));

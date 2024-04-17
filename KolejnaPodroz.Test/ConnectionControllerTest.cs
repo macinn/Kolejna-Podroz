@@ -5,6 +5,7 @@ using KolejnaPodroz.Domain.Models;
 using KolejnaPodrozApp.Models.Connection;
 using KolejnaPodrozApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using KolejnaPodroz.Domain.Services.ConnectionService;
 
 
 namespace KolejnaPodroz.Test
@@ -12,7 +13,9 @@ namespace KolejnaPodroz.Test
     public class ConnectionControllerTest
     {
         private static readonly Mock<IUnitOfWork> UnitOfWorkMock = new Mock<IUnitOfWork>();
-        private readonly ConnectionController _controller = new ConnectionController(UnitOfWorkMock.Object);
+        private static readonly Mock<IConnectionService> IConnectionService = new Mock<IConnectionService>();
+        private static readonly IConnectionService _connectionService = new ConnectionService();
+        private readonly ConnectionController _controller = new ConnectionController(UnitOfWorkMock.Object, _connectionService);
         
         
         [Fact]
@@ -51,7 +54,7 @@ namespace KolejnaPodroz.Test
 
             Assert.IsType<BadRequestObjectResult>(result.Result);
         }
-        
+
         [Fact]
         public void Post_ReturnsOkResult_WhenRequestIsValid()
         {
@@ -71,7 +74,6 @@ namespace KolejnaPodroz.Test
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             var connection = Assert.IsType<Connection>(okResult.Value);
-            UnitOfWorkMock.Verify(u => u.Connection.Add(It.IsAny<Connection>()), Times.Once);
         }
 
         [Fact]

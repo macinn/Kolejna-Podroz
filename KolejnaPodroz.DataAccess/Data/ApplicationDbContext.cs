@@ -15,6 +15,7 @@ namespace KolejnaPodroz.DataAccess.Data
         public DbSet<Provider> Providers { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Station> Stations { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }

@@ -9,6 +9,7 @@ namespace KolejnaPodroz.Domain.Models
     public class User
     {
         public int Id { get; set; }
+        public string Auth0Id { get; set; }
         public AccountInfo AccountInfo { get; set; }
     }
 }
