@@ -33,8 +33,7 @@ const ConnectionsList = () => {
 
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
-        // TODO
-        // navigate(/strona_ze_szczegolami);
+        navigate('/details');
     };
 
     return (
