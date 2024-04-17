@@ -1,8 +1,13 @@
 import SearchForm from './pages/search/SearchForm'
 import ConnectionsList from "./pages/search/ConnectionsList";
+import ConfirmationPage from "./pages/confirmation/ConfirmationPage.jsx";
+import TicketsHistoryPage from "./pages/history/ticketsHistoryPage";
+import TripDetailsPage from "./pages/details/tripDetails.jsx";
+
 import AddForm from './pages/admin/AddForm';
 import ProviderForm from './pages/admin/ProviderForm';
 import StationForm from './pages/admin/StationForm';
+
 
 const AppRoutes = [
     {
@@ -14,6 +19,19 @@ const AppRoutes = [
         element: <ConnectionsList />,
     },
     {
+
+        path: "/confirmation",
+        element: <ConfirmationPage />,
+    },
+    {
+        path: "/history",
+        element: <TicketsHistoryPage />,
+    },
+    {
+        path: "/details",
+        element: <TripDetailsPage />,
+    }
+    {
         path: "/add-connection",
         element: <AddForm />,
     },
@@ -24,6 +42,7 @@ const AppRoutes = [
     {
         path: "/add-station",
         element: <StationForm />,
+
     },
     {
         path: "*",
