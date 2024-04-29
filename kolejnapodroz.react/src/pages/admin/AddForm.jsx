@@ -3,9 +3,9 @@ import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import EditForm from "./EditForm";
 
-const baseUrl = "https://localhost:60016/";
+const baseUrl = import.meta.env.VITE_API_URL;
 function AddConnection(data) {
-  fetch(`${baseUrl}api/Connection/AdminPost`, {
+  fetch(`${baseUrl}/Connection/AdminPost`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

@@ -52,7 +52,7 @@ const exampleConnection = {
 function EditForm({ data, onSubmit }) {
   const { user } = useAuth0();
   const navigate = useNavigate();
-  const baseUrl = "https://localhost:60016/";
+  const baseUrl = import.meta.env.VITE_API_URL;
   const [stations, setStations] = useState([]);
 
   const [editedConnection, setEditedConnection] = useState({
@@ -67,7 +67,7 @@ function EditForm({ data, onSubmit }) {
   //        navigate("/");
   //},[user]);
   useEffect(() => {
-    fetch(`${baseUrl}api/station`)
+    fetch(`${baseUrl}/station`)
       .then((response) => response.json())
       .then((data) => {
         setStations(data);
