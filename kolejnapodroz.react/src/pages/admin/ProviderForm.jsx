@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import AdminTheme from "./AdminTheme";
 import styled from "@mui/material/styles/styled";
 
-const baseUrl = "https://localhost:60016/";
+const baseUrl = import.meta.env.VITE_API_URL;
 function ProviderForm() {
   const [providerData, setProviderData] = useState({
     name: "",
@@ -22,7 +22,7 @@ function ProviderForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(providerData);
-    fetch(`${baseUrl}api/Provider`, {
+    fetch(`${baseUrl}/Provider`, {
       method: "POST",
       body: JSON.stringify(providerData),
       headers: {

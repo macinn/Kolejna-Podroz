@@ -9,9 +9,9 @@ import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
 const SearchForm = () => {
-    
-    //const baseUrl = "https://kolejna-podroz-test.azurewebsites.net/";
-    const baseUrl = "https://localhost:60016/";
+    const baseUrl = import.meta.env.VITE_API_URL;
+  
+    console.log(import.meta.env.API_URL);
     const navigate = useNavigate();
 
     const { startStation,  setStartStation,
@@ -24,7 +24,7 @@ const SearchForm = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch(`${baseUrl}api/station`);
+            const response = await fetch(`${baseUrl}/station`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
