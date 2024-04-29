@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText } from '@mui/material';
 import { Button } from '@mui/material';
 
-
-
 const ConnectionsList = () => {
     const { startStation, setStartStation,
             endStation, setEndStation,

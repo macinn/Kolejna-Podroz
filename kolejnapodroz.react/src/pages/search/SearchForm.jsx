@@ -9,8 +9,8 @@ import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
 const SearchForm = () => {
-
     const baseUrl = import.meta.env.VITE_API_URL;
+  
     console.log(import.meta.env.API_URL);
     const navigate = useNavigate();
 
