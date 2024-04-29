@@ -3,7 +3,7 @@ import { TextField, Button, Grid, Typography, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import AdminTheme from "./AdminTheme";
 
-const baseUrl = "https://localhost:60016/";
+const baseUrl = import.meta.env.VITE_API_URL;
 function StationForm({ onSubmit }) {
   const [stationData, setStationData] = useState({
     name: "",
@@ -19,7 +19,7 @@ function StationForm({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(stationData);
-    fetch(`${baseUrl}api/Station`, {
+    fetch(`${baseUrl}/Station`, {
       method: "POST",
       body: JSON.stringify(stationData),
       headers: {

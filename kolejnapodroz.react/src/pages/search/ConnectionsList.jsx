@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText } from '@mui/material';
 import { Button } from '@mui/material';
 
+
+
 const ConnectionsList = () => {
     const { startStation, setStartStation,
             endStation, setEndStation,
@@ -12,8 +14,7 @@ const ConnectionsList = () => {
             selectedConnection, setSelectedConnection } = useStore();
     const navigate = useNavigate();
 
-    //const baseUrl = "https://kolejna-podroz-test.azurewebsites.net/";
-    const baseUrl = "https://localhost:60016/";
+    const baseUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         console.log(connections)
