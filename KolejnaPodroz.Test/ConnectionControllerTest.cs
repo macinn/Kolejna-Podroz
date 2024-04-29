@@ -21,11 +21,11 @@ namespace KolejnaPodroz.Test
         [Fact]
         public void Get_ReturnsOkResult_WhenConnectionsExist()
         {
-            var request = new ConnectionRequest { StartStationId = 1, EndStationId = 2, DepartureTime = DateTime.Now };
+            var request = new ConnectionRequest { StartStationId = 1, EndStationId = 2, DepartureTime = DateTime.Now.ToString() };
             var connections = new List<Connection> { new Connection(), new Connection() };
             UnitOfWorkMock.Setup(u => u.Connection.GetAll(It.IsAny<Expression<Func<Connection, bool>>>())).Returns(connections);
 
-            var result = _controller.Get(request);
+            var result = _controller.Get(request.StartStationId, request.EndStationId, request.DepartureTime);
 
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnConnections = Assert.IsType<List<Connection>>(okResult.Value);
@@ -35,11 +35,11 @@ namespace KolejnaPodroz.Test
         [Fact]
         public void Get_ReturnsNotFound_WhenConnectionsDoNotExist()
         {
-            var request = new ConnectionRequest { StartStationId = 1, EndStationId = 2, DepartureTime = DateTime.Now };
+            var request = new ConnectionRequest { StartStationId = 1, EndStationId = 2, DepartureTime = DateTime.Now.ToString() };
             var connections = new List<Connection>();
             UnitOfWorkMock.Setup(u => u.Connection.GetAll(It.IsAny<Expression<Func<Connection, bool>>>())).Returns(connections);
             
-            var result = _controller.Get(request);
+            var result = _controller.Get(request.StartStationId, request.EndStationId, request.DepartureTime);
 
             Assert.IsType<NotFoundResult>(result.Result);
         }
@@ -47,10 +47,10 @@ namespace KolejnaPodroz.Test
         [Fact]
         public void Get_ReturnsBadRequest_WhenExceptionIsThrown()
         {
-            var request = new ConnectionRequest { StartStationId = 1, EndStationId = 2, DepartureTime = DateTime.Now };
+            var request = new ConnectionRequest { StartStationId = 1, EndStationId = 2, DepartureTime = DateTime.Now.ToString() };
             UnitOfWorkMock.Setup(u => u.Connection.GetAll(It.IsAny<Expression<Func<Connection, bool>>>())).Throws(new Exception());
 
-            var result = _controller.Get(request);
+            var result = _controller.Get(request.StartStationId, request.EndStationId, request.DepartureTime);
 
             Assert.IsType<BadRequestObjectResult>(result.Result);
         }

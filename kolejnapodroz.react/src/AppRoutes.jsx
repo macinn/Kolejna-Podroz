@@ -30,7 +30,7 @@ const AppRoutes = [
     {
         path: "/details",
         element: <TripDetailsPage />,
-    }
+    },
     {
         path: "/add-connection",
         element: <AddForm />,

@@ -12,8 +12,7 @@ const ConnectionsList = () => {
             selectedConnection, setSelectedConnection } = useStore();
     const navigate = useNavigate();
 
-    //const baseUrl = "https://kolejna-podroz-test.azurewebsites.net/";
-    const baseUrl = "https://localhost:60016/";
+    const baseUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         console.log(connections)
