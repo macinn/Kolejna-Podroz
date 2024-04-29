@@ -44,7 +44,7 @@ const SearchForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(`${departureTime.toISOString()}`);
-        fetch(`${baseUrl}api/Connection?StartStationId=${startStation}&EndStationId=${endStation}&DepartureTime=${departureTime}`)
+        fetch(`${baseUrl}/Connection?StartStationId=${startStation}&EndStationId=${endStation}&DepartureTime=${departureTime}`)
             .then((response) => response.json())
             .then((data) => {
                         setConnections(data);
