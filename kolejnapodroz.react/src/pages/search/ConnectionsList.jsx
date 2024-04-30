@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText } from '@mui/material';
 import { Button } from '@mui/material';
 
+
 const ConnectionsList = () => {
     const { startStation, setStartStation,
             endStation, setEndStation,
@@ -17,7 +18,7 @@ const ConnectionsList = () => {
     useEffect(() => {
         if (selectedConnection) {
             console.log(selectedConnection);
-            navigate('/details');
+            navigate('/details', { state: selectedConnection });
         }
     }, [selectedConnection, navigate]);
 

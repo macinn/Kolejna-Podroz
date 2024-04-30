@@ -3,7 +3,8 @@ import {Box, Button, FormControlLabel, IconButton, MenuItem, Radio, Select, Typo
 import backgroundImage from '../../media/trainBlur.jpg';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
-import {useStore} from '../../stores/SearchFormStore';
+import { useStore } from '../../stores/SearchFormStore';
+
 const TripDetailsPage = () => {
     const navigate = useNavigate();
     const seating = ['Window', 'Aisle'];

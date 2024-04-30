@@ -61,11 +61,9 @@ function EditForm({ data, onSubmit }) {
     ProviderId: data != null ? data.ProviderId : 0,
     DepartureTime: data != null ? data.DepartureTime : "01.01.2000 00:00:00",
     TravelTime: data != null ? data.TravelTime : 0,
+    Points: data != null ? data.Points : 0,
+
   });
-  //useEffect(() => {
-  //    if (user == null || user.role != "  Admin")
-  //        navigate("/");
-  //},[user]);
   useEffect(() => {
     fetch(`${baseUrl}/station`)
       .then((response) => response.json())
@@ -85,11 +83,6 @@ function EditForm({ data, onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit(editedConnection);
-  };
-
-  const getCurrentDateTimeString = () => {
-    const currentDate = new Date();
-    return new Date().toJSON();
   };
 
   return (
@@ -167,7 +160,7 @@ function EditForm({ data, onSubmit }) {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label={"Provider Id"}
@@ -184,8 +177,29 @@ function EditForm({ data, onSubmit }) {
                   }}
                   inputProps={{
                     step: "1",
-                    min: "0",
+                    min: "1",
                   }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                    fullWidth
+                    label={"Points"}
+                    value={editedConnection.Points}
+                    onChange={(e) =>
+                        setEditedConnection({
+                            ...editedConnection,
+                            ["Points"]: parseInt(e.target.value),
+                        })
+                    }
+                    type="number"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    inputProps={{
+                        step: "1",
+                        min: "0",
+                    }}
                 />
               </Grid>
             </Grid>
