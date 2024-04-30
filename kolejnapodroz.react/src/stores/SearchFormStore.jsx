@@ -14,7 +14,7 @@ export const useStore = create((set) => ({
     connections: null,
     setConnections: (newValue) => set({ connections: newValue }),
 
-    selectedConnection: null,
+    selectedConnection: "",
     setSelectedConnection: (newValue) => set({ selectedConnection: newValue }),
 
 }));

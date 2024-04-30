@@ -58,45 +58,46 @@ const ConfirmationPage = () => {
                     From starting station 
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic' }}>
-                    ${selectedConnection.from.Name}
+                    {selectedConnection.from.Name}
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
                     To end station
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic'  }}>
-                    ${selectedConnection.destination.Name}
+                    {selectedConnection.destination.Name}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Time of departure:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    ${departure_hour}
+                    {departure_hour}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Time of arrival:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    ${arrival_hour}
+                    {arrival_hour}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Departure date:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    ${departure_date}
+                    {departure_date}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Provider:
                 </Typography>
-                <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    ${selectedConnection.provider.Name}
-                </Typography>
-            </Box>
-            
-            <Button variant="contained" 
+                {/*<Typography variant="body1" style={{ marginLeft: '20px' }}>*/}
+                {/*    ${selectedConnection.provider.Name}*/}
+                {/*</Typography>*/}
+                <Button variant="contained"
                     style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
                     onClick={() => navigate('/history')}>
-                View your tickets
-            </Button>
+                    View your tickets
+                </Button>
+            </Box>
+            
+
         </div>
     
     );

@@ -15,20 +15,24 @@ const ConnectionsList = () => {
     const baseUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
-        console.log(connections)
-    }, []); 
+        if (selectedConnection) {
+            console.log(selectedConnection);
+            navigate('/details');
+        }
+    }, [selectedConnection, navigate]);
 
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
-        navigate('/details');
+        console.log(selectedConnection);
+        //navigate('/details');
     };
 
     return (
         <div>
             <h2>Available connections</h2>
-            <List>
+            <List sx={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px' }}>
                 {connections && connections.map((train) => (
-                    <ListItem key={train.id}>
+                    <ListItem key={train.id} sx={{ border: '1px solid #eee', borderRadius: '5px', margin: '5px 0' }}>
                         <ListItemText
                             primary={`From: ${train.from.name} - ${train.from.city}`}
                             secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
@@ -37,6 +41,12 @@ const ConnectionsList = () => {
                             primary={`To: ${train.destination.name} - ${train.destination.city}`}
                             secondary={`Arrival Time: ${new Date(train.arrivalTime).toLocaleString()}`}
                         />
+                        <Button
+                            variant="contained"
+                            onClick={() => handleSelectConnection(train)}
+                        >
+                            Select
+                        </Button>
                     </ListItem>
                 ))}
             </List>
