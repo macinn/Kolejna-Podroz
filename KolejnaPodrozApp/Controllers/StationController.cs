@@ -1,5 +1,6 @@
 ﻿using KolejnaPodroz.DataAccess.Repository.IRepository;
 using KolejnaPodroz.Domain.Models;
+using KolejnaPodroz.Domain.Services.EmailService;
 using KolejnaPodroz.Domain.Services.ProviderService;
 using KolejnaPodroz.Domain.Services.StationService;
 using KolejnaPodrozApp.Models.Station;
@@ -13,11 +14,10 @@ namespace KolejnaPodrozApp.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStationService _stationService;
-
         public StationController(IUnitOfWork unitOfWork, IStationService stationService)
         {
             _unitOfWork = unitOfWork;
-            _stationService = stationService;
+            _stationService = stationService;   
         }
         
         [HttpPost]
