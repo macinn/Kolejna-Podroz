@@ -23,7 +23,6 @@ namespace KolejnaPodrozApp.Controllers
 
         [HttpGet]
         public ActionResult<IEnumerable<Connection>> Get([FromQuery] int StartStationId, [FromQuery] int EndStationId, [FromQuery] string DepartureTime)
-
         {
             try
             {

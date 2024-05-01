@@ -63,7 +63,7 @@ namespace KolejnaPodroz.Test
                 StartStationId = 1,
                 EndStationId = 2,
                 ProviderId = 3,
-                DepartureTime = DateTime.Now,
+                DepartureTime = DateTime.Now.ToString(),
                 TravelTime = 60
             };
 
@@ -84,7 +84,7 @@ namespace KolejnaPodroz.Test
                 StartStationId = 1,
                 EndStationId = 2,
                 ProviderId = 3,
-                DepartureTime = DateTime.Now,
+                DepartureTime = DateTime.Now.ToString(),
                 TravelTime = 60
             };
 

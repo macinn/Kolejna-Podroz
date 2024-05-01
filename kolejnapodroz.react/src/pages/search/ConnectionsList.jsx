@@ -3,7 +3,7 @@ import { useStore } from '../../stores/SearchFormStore';
 import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText } from '@mui/material';
 import { Button } from '@mui/material';
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ConnectionsList = () => {
     const { startStation, setStartStation,
@@ -12,13 +12,19 @@ const ConnectionsList = () => {
             connections, setConnections,
             selectedConnection, setSelectedConnection } = useStore();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth0();
 
     const baseUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         if (selectedConnection) {
             console.log(selectedConnection);
-            navigate('/details', { state: selectedConnection });
+            if (isAuthenticated) {
+                navigate('/details', { state: { selectedConnection: selectedConnection} });
+            }
+            else {
+                navigate('/login-page', { state: { selectedConnection: selectedConnection } });
+            }
         }
     }, [selectedConnection, navigate]);
 
