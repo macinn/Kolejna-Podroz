@@ -23,7 +23,6 @@ namespace KolejnaPodrozApp.Controllers
 
         [HttpGet]
         public ActionResult<IEnumerable<Connection>> Get([FromQuery] int StartStationId, [FromQuery] int EndStationId, [FromQuery] string DepartureTime)
-
         {
             try
             {
@@ -61,10 +60,10 @@ namespace KolejnaPodrozApp.Controllers
                 var from = _unitOfWork.Station.Get(s => s.Id == request.StartStationId);
                 var destination = _unitOfWork.Station.Get(s => s.Id == request.EndStationId);
                 var provider = _unitOfWork.Provider.Get(p => p.Id == request.ProviderId);
-                var departureTime = request.DepartureTime;
-                var arrivalTime = request.DepartureTime.AddMinutes(request.TravelTime);
+                DateTime departureTime = DateTime.Parse(request.DepartureTime);
+                var arrivalTime = departureTime.AddMinutes(request.TravelTime);
 
-                Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider);
+                Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider, request.Points);
 
                 //_unitOfWork.Connection.Add(connection); -- Raczej nie dodajemy do bazy Connections od usera! 
                 return Ok(connection);
@@ -76,27 +75,20 @@ namespace KolejnaPodrozApp.Controllers
         }
 
         [HttpPost("AdminPost")]
-        public ActionResult AdminPostConnection([FromBody]int Id,
-        int StartStationId,
-        int EndStationId,
-        int ProviderId,
-        string DepartureTime,
-        int TravelTime)
+        public ActionResult AdminPostConnection(ConnectionPostRequest request)
         {
-            var from = _unitOfWork.Station.Get(s => s.Id == StartStationId);
-            var destination = _unitOfWork.Station.Get(s => s.Id == EndStationId);
-            var provider = _unitOfWork.Provider.Get(p => p.Id == ProviderId);
-            DateTime departureTime = DateTime.Parse(DepartureTime);
-            var arrivalTime = departureTime.AddMinutes(TravelTime);
+            var from = _unitOfWork.Station.Get(s => s.Id == request.StartStationId);
+            var destination = _unitOfWork.Station.Get(s => s.Id == request.EndStationId);
+            var provider = _unitOfWork.Provider.Get(p => p.Id == request.ProviderId);
+            DateTime departureTime = DateTime.Parse(request.DepartureTime);
+            var arrivalTime = departureTime.AddMinutes(request.TravelTime);
 
-            Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider);
+            Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider, request.Points);
             // TODO: fluent validation\
 
             _unitOfWork.Connection.Add(connection);
             _unitOfWork.Save();
             return Ok(connection);
         }
-
-        
     }
 }

@@ -14,5 +14,6 @@ namespace KolejnaPodroz.Domain.Models
         public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
         public Provider Provider { get; set; }
+        public int Points { get; set; }
     }
 }

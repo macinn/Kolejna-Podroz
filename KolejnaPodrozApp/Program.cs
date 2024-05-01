@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using Microsoft.OpenApi.Models;
 using KolejnaPodroz.Domain.Services.EmailService;
+using KolejnaPodroz.Domain.Services.TicketService;
 
 var builder = WebApplication.CreateBuilder(args);
 

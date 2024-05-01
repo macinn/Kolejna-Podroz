@@ -28,7 +28,21 @@ function ProviderForm() {
       headers: {
         "Content-type": "application/json",
       },
-    });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Wyst¹pi³ problem podczas przetwarzania ¿¹dania.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Poprawnie dodano Provider:', data);
+            window.alert('Poprawnie dodano Provider');
+        })
+        .catch(error => {
+            console.error('Wyst¹pi³ b³¹d:', error);
+            window.alert('Wystapil blad podczas dodawania Provider');
+        });
   };
 
   return (
