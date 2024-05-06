@@ -31,7 +31,14 @@ function StationForm({ onSubmit }) {
   return (
     <ThemeProvider theme={AdminTheme}>
       <Container sx={{ mt: 4 }}>
-        <Typography variant="h5">Create Station</Typography>
+        <Typography variant="h5" sx={{
+            color: 'rgb(128, 61, 33)',
+            fontWeight: 'bold',
+            marginBottom: '25px',
+            marginTop: '110px',
+        }}>
+            Create Station
+        </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -72,6 +79,7 @@ function StationForm({ onSubmit }) {
             variant="contained"
             color="primary"
             sx={{ m: 2 }}
+            style={{ color: 'white', backgroundColor: 'rgb(128, 61, 33)', marginTop: '30px' }}
           >
             Create Station
           </Button>

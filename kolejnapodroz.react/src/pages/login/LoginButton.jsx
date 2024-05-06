@@ -25,7 +25,7 @@ const LoginButton = () => {
 
     return (
         !isAuthenticated && (
-            <Button variant="contained" onClick={() => loginWithPopup()} >
+            <Button variant="contained" onClick={() => loginWithPopup()} style={{backgroundColor: 'maroon'}}>
                 Log in
             </Button>
         )
