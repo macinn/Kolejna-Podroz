@@ -10,8 +10,6 @@ import './SearchForm.css';
 
 const SearchForm = () => {
     const baseUrl = import.meta.env.VITE_API_URL;
-  
-    console.log(import.meta.env.API_URL);
     const navigate = useNavigate();
 
     const { startStation,  setStartStation,
@@ -29,7 +27,6 @@ const SearchForm = () => {
                 throw new Error('Network response was not ok');
             }
             const jsonData = await response.json();
-            console.log(jsonData);
             setStations(jsonData);
     
             } catch (error) { /* empty */ }
@@ -37,19 +34,22 @@ const SearchForm = () => {
     
         fetchData();    
         }, []);
-        
-
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(`${departureTime.toISOString()}`);
         fetch(`${baseUrl}/Connection?StartStationId=${startStation}&EndStationId=${endStation}&DepartureTime=${departureTime}`)
-            .then((response) => response.json())
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('No connections fetched');
+                }
+            })
             .then((data) => {
-                        setConnections(data);
-            }).then(() => navigate("/connections"))
-            .catch((error) => console.error("Error:", error));
+                setConnections(data);
+                navigate("/connections");
+            })
+            .catch((error) => { alert("Sorry! No connections found!");});
     };
 
     return (
