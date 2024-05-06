@@ -5,7 +5,6 @@ import { List, ListItem, ListItemText } from '@mui/material';
 import { Button, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
-import { Button } from '@mui/material';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
