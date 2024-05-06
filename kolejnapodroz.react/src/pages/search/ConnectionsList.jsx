@@ -6,9 +6,9 @@ import { Button } from '@mui/material';
 import { useAuth0 } from "@auth0/auth0-react";
 
 const ConnectionsList = () => {
-    const { startStation, setStartStation,
-            endStation, setEndStation,
-            departureTime, setDepartureTime,
+    const { StartStationId, setStartStation,
+            EndStationId, setEndStation,
+            DepartureTime, setDepartureTime,
             connections, setConnections,
             selectedConnection, setSelectedConnection } = useStore();
     const navigate = useNavigate();
