@@ -12,9 +12,9 @@ const SearchForm = () => {
     const baseUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
 
-    const { startStation,  setStartStation,
-            endStation,    setEndStation,
-            departureTime, setDepartureTime,
+    const { StartStationId,  setStartStation,
+            EndStationId,    setEndStation,
+            DepartureTime, setDepartureTime,
                            setConnections } = useStore();
 
     const [stations, setStations] = useState(null);
@@ -37,7 +37,8 @@ const SearchForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch(`${baseUrl}/Connection?StartStationId=${startStation}&EndStationId=${endStation}&DepartureTime=${departureTime}`)
+        fetch(`${baseUrl}/Connection?new`
+            + URLSearchParams({ StartStationId, EndStationId, DepartureTime }).toString())
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -75,7 +76,7 @@ const SearchForm = () => {
                                     labelId="start-select-label"
                                     label="start-station"
                                     id="startStation"
-                                    value={startStation}
+                                    value={StartStationId}
                                     onChange={(e) => setStartStation(e.target.value)}
                                     sx={{ minWidth: '200px' }}
                                 >
@@ -93,7 +94,7 @@ const SearchForm = () => {
                                     labelId="end-select-label"
                                     label="end-station"
                                     id="endStation"
-                                    value={endStation}
+                                    value={EndStationId}
                                     onChange={(e) => setEndStation(e.target.value)}
                                     sx={{ minWidth: '200px' }}
                                 >
@@ -109,7 +110,7 @@ const SearchForm = () => {
                                 <TextField
                                     label="Departure Time"
                                     type="datetime-local"
-                                    value={departureTime}
+                                    value={DepartureTime}
                                     onChange={(e) => setDepartureTime(e.target.value)}
                                     InputLabelProps={{ shrink: true }}
                                 />
