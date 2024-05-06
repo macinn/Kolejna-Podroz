@@ -10,13 +10,11 @@ import './SearchForm.css';
 
 const SearchForm = () => {
     const baseUrl = import.meta.env.VITE_API_URL;
-  
-    console.log(import.meta.env.API_URL);
     const navigate = useNavigate();
 
-    const { startStation,  setStartStation,
-            endStation,    setEndStation,
-            departureTime, setDepartureTime,
+    const { StartStationId,  setStartStation,
+            EndStationId,    setEndStation,
+            DepartureTime, setDepartureTime,
                            setConnections } = useStore();
 
     const [stations, setStations] = useState(null);
@@ -29,7 +27,6 @@ const SearchForm = () => {
                 throw new Error('Network response was not ok');
             }
             const jsonData = await response.json();
-            console.log(jsonData);
             setStations(jsonData);
     
             } catch (error) { /* empty */ }
@@ -37,19 +34,23 @@ const SearchForm = () => {
     
         fetchData();    
         }, []);
-        
-
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(`${departureTime.toISOString()}`);
-        fetch(`${baseUrl}/Connection?StartStationId=${startStation}&EndStationId=${endStation}&DepartureTime=${departureTime}`)
-            .then((response) => response.json())
+        fetch(`${baseUrl}/Connection?new`
+            + URLSearchParams({ StartStationId, EndStationId, DepartureTime }).toString())
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('No connections fetched');
+                }
+            })
             .then((data) => {
-                        setConnections(data);
-            }).then(() => navigate("/connections"))
-            .catch((error) => console.error("Error:", error));
+                setConnections(data);
+                navigate("/connections");
+            })
+            .catch((error) => { alert("Sorry! No connections found!");});
     };
 
     return (
@@ -75,7 +76,7 @@ const SearchForm = () => {
                                     labelId="start-select-label"
                                     label="start-station"
                                     id="startStation"
-                                    value={startStation}
+                                    value={StartStationId}
                                     onChange={(e) => setStartStation(e.target.value)}
                                     sx={{ minWidth: '200px' }}
                                 >
@@ -93,7 +94,7 @@ const SearchForm = () => {
                                     labelId="end-select-label"
                                     label="end-station"
                                     id="endStation"
-                                    value={endStation}
+                                    value={EndStationId}
                                     onChange={(e) => setEndStation(e.target.value)}
                                     sx={{ minWidth: '200px' }}
                                 >
@@ -109,7 +110,7 @@ const SearchForm = () => {
                                 <TextField
                                     label="Departure Time"
                                     type="datetime-local"
-                                    value={departureTime}
+                                    value={DepartureTime}
                                     onChange={(e) => setDepartureTime(e.target.value)}
                                     InputLabelProps={{ shrink: true }}
                                 />

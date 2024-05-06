@@ -1,18 +1,61 @@
-import React from 'react';
+import React, { useState} from 'react';
 import {Box, Button, FormControlLabel, IconButton, MenuItem, Radio, Select, Typography} from "@mui/material";
 import backgroundImage from '../../media/trainBlur.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
-import {useStore} from '../../stores/SearchFormStore';
+import { useAuth0 } from "@auth0/auth0-react";
+
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const TripDetailsPage = () => {
+    const { user, isAuthenticated } = useAuth0();
     const navigate = useNavigate();
+    const location = useLocation()
+    const selectedConnection = location.state?.selectedConnection;
     const seating = ['Window', 'Aisle'];
-    const {selectedConnection} = useStore();
+    const [selectedSeating, setSelectedSeating] = useState('Window'); // Domyœlna wartoœæ 'Window'
     const departureTime = new Date(selectedConnection.departureTime);
     const departure_date = departureTime.toLocaleDateString();
     const departure_hour = departureTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const arrivalTime = new Date(selectedConnection.arrivalTime);
     const arrival_hour = arrivalTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const handleSeatingChange = (event) => {
+        setSelectedSeating(event.target.value);
+    };
+
+    const handleBack = () => {
+        setSelectedConnection(null);
+        navigate(-2);
+    };
+
+    const handleReservationButtonClick = () => {
+        // TODO: Wpisac tu prawdziwe dane
+        const userAuth0Id = isAuthenticated ? user.sub : "";
+        const data = { ConnectionId: selectedConnection.id, UserAuth0Id: userAuth0Id, Price: 10.00, Wagon: 0, Seat: 0 };
+        console.log(data);
+        fetch(`${baseUrl}/Ticket`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json",
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Wyst¹pi³ problem podczas przetwarzania ¿¹dania.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Poprawnie kupiono bilet', data);
+                navigate('/confirmation');
+            })
+            .catch(error => {
+                console.error('Wyst¹pi³ b³¹d:', error);
+                window.alert('Wystapil blad podczas kupowania biletu');
+            });
+    }
 
     return (
         <div style={{ display: 'flex',flexDirection: 'column' ,justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
@@ -34,7 +77,7 @@ const TripDetailsPage = () => {
                     Choose your trip details:
                 </Typography>
                 
-                <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)} style={{ position: 'absolute', top: '60px', left: '10px'}}>
+                <IconButton edge="start" aria-label="back" onClick={handleBack} style={{ position: 'absolute', top: '60px', left: '10px'}}>
                     <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }}  />
                 </IconButton>
             </Box>
@@ -64,38 +107,38 @@ const TripDetailsPage = () => {
                         From starting station
                     </Typography>
                     <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic' }}>
-                        ${selectedConnection.from.Name}
+                        {selectedConnection.from.name}
                     </Typography>
                     <Typography variant="body1" style={{ marginLeft: '20px' }}>
                         To end station
                     </Typography>
                     <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic'  }}>
-                        ${selectedConnection.destination.Name}
-                    </Typography>
-                    <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
-                        Time of departure:
-                    </Typography>
-                    <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        ${departure_hour}
-                    </Typography>
-                    <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
-                        Time of arrival:
-                    </Typography>
-                    <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        ${arrival_hour}
+                        {selectedConnection.destination.name}
                     </Typography>
                     <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                         Departure date:
                     </Typography>
                     <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        ${departure_date}
+                        {departure_date}
+                    </Typography>
+                    <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
+                        Time of departure:
+                    </Typography>
+                    <Typography variant="body1" style={{ marginLeft: '20px' }}>
+                        {departure_hour}
+                    </Typography>
+                    <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
+                        Time of arrival:
+                    </Typography>
+                    <Typography variant="body1" style={{ marginLeft: '20px' }}>
+                        {arrival_hour}
                     </Typography>
                     <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                         Provider:
                     </Typography>
-                    <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        ${selectedConnection.provider.Name}
-                    </Typography>
+                    {/*<Typography variant="body1" style={{ marginLeft: '20px' }}>*/}
+                    {/*    ${selectedConnection.provider.Name}*/}
+                    {/*</Typography>*/}
                 </Box>
 
                 <Box sx={{ width: '300px',  display: 'flex', flexDirection: 'column', marginLeft: '55px' }}>
@@ -103,10 +146,9 @@ const TripDetailsPage = () => {
                         Choose your seating preference:
                     </Typography>
                     <Select
-                        value={seating[0]}
-                        sx={{ color: 'white', marginBottom: '30px'}}
-                        onChange={() => {}}>
-                        
+                        value={selectedSeating}
+                        sx={{ color: 'white', marginBottom: '30px' }}
+                        onChange={handleSeatingChange}>
                         {seating.map((item, index) => (
                             <MenuItem key={index} value={item}>
                                 {item}
@@ -120,14 +162,18 @@ const TripDetailsPage = () => {
                         color={'white'}
                         marginTop={'30px'}
                     />
+                    <Button
+                        variant="contained"
+                        style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
+                        onClick={handleReservationButtonClick}
+                    >
+                        Make a reservation
+                    </Button>
                 </Box>
+
             </Box>
 
-            <Button variant="contained"
-                    style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
-                    onClick={() => navigate('/confirmation')}>
-                Make a reservation
-            </Button>
+
         </div>
 
     );

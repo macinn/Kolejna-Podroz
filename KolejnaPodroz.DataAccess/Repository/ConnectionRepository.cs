@@ -28,6 +28,7 @@ namespace KolejnaPodroz.DataAccess.Repository
             var query = _db.Set<Connection>()
                 .Include(i => i.From)
                 .Include(i => i.Destination)
+                .Include(i => i.Provider)
                 .Where(filter);
             return query.ToList();
         }

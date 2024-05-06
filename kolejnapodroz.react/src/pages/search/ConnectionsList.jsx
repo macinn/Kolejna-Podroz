@@ -5,25 +5,37 @@ import { List, ListItem, ListItemText } from '@mui/material';
 import { Button, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
+import { Button } from '@mui/material';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const ConnectionsList = () => {
-    const { startStation, setStartStation,
-            endStation, setEndStation,
-            departureTime, setDepartureTime,
+    const { StartStationId, setStartStation,
+            EndStationId, setEndStation,
+            DepartureTime, setDepartureTime,
             connections, setConnections,
             selectedConnection, setSelectedConnection } = useStore();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth0();
 
     const baseUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
-        console.log(connections)
-    }, []); 
+        if (selectedConnection) {
+            console.log(selectedConnection);
+            if (isAuthenticated) {
+                navigate('/details', { state: { selectedConnection: selectedConnection} });
+            }
+            else {
+                navigate('/login-page', { state: { selectedConnection: selectedConnection } });
+            }
+        }
+    }, [selectedConnection, navigate]);
 
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
-        navigate('/details');
+        console.log(selectedConnection);
+        //navigate('/details');
     };
 
     return (
@@ -41,18 +53,21 @@ const ConnectionsList = () => {
             </Typography>
             <List sx={{ display: 'flex', flexDirection: 'column' }}>
                 {connections && connections.map((train) => (
-                    <ListItem key={train.id} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <div style={{ border: '2px solid maroon', borderRadius: '10px', width: '60%', margin: '20px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                            <ListItemText
-                                sx={{ marginLeft: '100px' }}
-                                primary={`From: ${train.from.name} - ${train.from.city}`}
-                                secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
-                            />
-                            <ListItemText
-                                primary={`To: ${train.destination.name} - ${train.destination.city}`}
-                                secondary={`Arrival Time: ${new Date(train.arrivalTime).toLocaleString()}`}
-                            />
-                        </div>
+                    <ListItem key={train.id} sx={{ border: '1px solid #eee', borderRadius: '5px', margin: '5px 0' }}>
+                        <ListItemText
+                            primary={`From: ${train.from.name} - ${train.from.city}`}
+                            secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
+                        />
+                        <ListItemText
+                            primary={`To: ${train.destination.name} - ${train.destination.city}`}
+                            secondary={`Arrival Time: ${new Date(train.arrivalTime).toLocaleString()}`}
+                        />
+                        <Button
+                            variant="contained"
+                            onClick={() => handleSelectConnection(train)}
+                        >
+                            Select
+                        </Button>
                     </ListItem>
                 ))}
             </List>

@@ -2,19 +2,19 @@ import { create } from 'zustand';
 
 export const useStore = create((set) => ({
     
-    startStation: "",
-    setStartStation: (newValue) => set({ startStation: newValue }),
+    StartStationId: "",
+    setStartStation: (newValue) => set({ StartStationId: newValue }),
 
-    endStation: "",
-    setEndStation: (newValue) => set({ endStation: newValue }),
+    EndStationId: "",
+    setEndStation: (newValue) => set({ EndStationId: newValue }),
 
-    departureTime: null,
-    setDepartureTime: (newValue) => set({ departureTime: newValue }),
+    DepartureTime: "",
+    setDepartureTime: (newValue) => set({ DepartureTime: newValue }),
 
     connections: null,
     setConnections: (newValue) => set({ connections: newValue }),
 
-    selectedConnection: null,
+    selectedConnection: "",
     setSelectedConnection: (newValue) => set({ selectedConnection: newValue }),
 
 }));
