@@ -90,11 +90,11 @@ const ConfirmationPage = () => {
                 {/*<Typography variant="body1" style={{ marginLeft: '20px' }}>*/}
                 {/*    ${selectedConnection.provider.Name}*/}
                 {/*</Typography>*/}
-                <Button variant="contained"
+            <Button variant="contained" 
                     style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
                     onClick={() => navigate('/history')}>
-                    View your tickets
-                </Button>
+                View your tickets
+            </Button>
             </Box>
             
 
