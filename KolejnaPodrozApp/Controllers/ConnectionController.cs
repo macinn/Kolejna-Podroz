@@ -63,7 +63,7 @@ namespace KolejnaPodrozApp.Controllers
                 DateTime departureTime = DateTime.Parse(request.DepartureTime);
                 var arrivalTime = departureTime.AddMinutes(request.TravelTime);
 
-                Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider, request.Points);
+                Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider, request.Points, request.Price);
 
                 //_unitOfWork.Connection.Add(connection); -- Raczej nie dodajemy do bazy Connections od usera! 
                 return Ok(connection);
@@ -83,7 +83,7 @@ namespace KolejnaPodrozApp.Controllers
             DateTime departureTime = DateTime.Parse(request.DepartureTime);
             var arrivalTime = departureTime.AddMinutes(request.TravelTime);
 
-            Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider, request.Points);
+            Connection connection = _connectionService.CreateConnection(from, destination, departureTime, arrivalTime, provider, request.Points, request.Price);
             // TODO: fluent validation\
 
             _unitOfWork.Connection.Add(connection);

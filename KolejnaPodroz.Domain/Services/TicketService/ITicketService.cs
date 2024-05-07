@@ -9,6 +9,6 @@ namespace KolejnaPodroz.Domain.Services.TicketService
 {
     public interface ITicketService
     {
-        Ticket CreateTicket(Connection Connection, User user, decimal Price, int Wagon, int Seat);
+        Ticket CreateTicket(Connection Connection, User user, decimal Price, int Wagon, int Seat, TicketType ticketType);
     }
 }

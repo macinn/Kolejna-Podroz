@@ -19,9 +19,17 @@ const TripDetailsPage = () => {
     const departure_hour = departureTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const arrivalTime = new Date(selectedConnection.arrivalTime);
     const arrival_hour = arrivalTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const ticketTypes = ['Normal', 'Student', 'Senior'];
+  
+    const [selectedTicketType, setselectedTicketType] = useState('Normal'); 
+
 
     const handleSeatingChange = (event) => {
         setSelectedSeating(event.target.value);
+    };
+
+    const handleTicketTypeChange = (event) => {
+        setselectedTicketType(event.target.value);
     };
 
     const handleBack = () => {
@@ -32,7 +40,7 @@ const TripDetailsPage = () => {
     const handleReservationButtonClick = () => {
         // TODO: Wpisac tu prawdziwe dane
         const userAuth0Id = isAuthenticated ? user.sub : "";
-        const data = { ConnectionId: selectedConnection.id, UserAuth0Id: userAuth0Id, Price: 10.00, Wagon: 0, Seat: 0 };
+        const data = { ConnectionId: selectedConnection.id, UserAuth0Id: userAuth0Id, Price: 10.00, Wagon: 0, Seat: 0, TicketType: ticketTypes.findIndex(type => type === selectedTicketType) };
         console.log(data);
         fetch(`${baseUrl}/Ticket`, {
             method: "POST",
@@ -49,7 +57,7 @@ const TripDetailsPage = () => {
             })
             .then(data => {
                 console.log('Poprawnie kupiono bilet', data);
-                navigate('/confirmation');
+                navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id } });
             })
             .catch(error => {
                 console.error('Wyst¹pi³ b³¹d:', error);
@@ -136,9 +144,9 @@ const TripDetailsPage = () => {
                     <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                         Provider:
                     </Typography>
-                    {/*<Typography variant="body1" style={{ marginLeft: '20px' }}>*/}
-                    {/*    ${selectedConnection.provider.Name}*/}
-                    {/*</Typography>*/}
+                    <Typography variant="body1" style={{ marginLeft: '20px' }}>
+                        {selectedConnection.provider.name}
+                    </Typography>
                 </Box>
 
                 <Box sx={{ width: '300px',  display: 'flex', flexDirection: 'column', marginLeft: '55px' }}>
@@ -150,6 +158,21 @@ const TripDetailsPage = () => {
                         sx={{ color: 'white', marginBottom: '30px' }}
                         onChange={handleSeatingChange}>
                         {seating.map((item, index) => (
+                            <MenuItem key={index} value={item}>
+                                {item}
+                            </MenuItem>
+                        ))}
+                    </Select>
+
+                    <Typography variant="h6" sx={{ color: 'rgb(128, 61, 33)' }}>
+                        Ticket type:
+                    </Typography>
+
+                    <Select
+                        value={selectedTicketType}
+                        sx={{ color: 'white', marginBottom: '30px' }}
+                        onChange={handleTicketTypeChange}>
+                        {ticketTypes.map((item, index) => (
                             <MenuItem key={index} value={item}>
                                 {item}
                             </MenuItem>
@@ -167,7 +190,7 @@ const TripDetailsPage = () => {
                         style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
                         onClick={handleReservationButtonClick}
                     >
-                        Make a reservation
+                        Go to trip summary
                     </Button>
                 </Box>
 
