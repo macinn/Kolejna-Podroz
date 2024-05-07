@@ -26,6 +26,10 @@ const ConfirmationPage = () => {
                 backgroundSize: 'cover',
                 alignItems: 'center',
             }}>
+                <IconButton edge="start" aria-label="back" onClick={navigate("/")}
+                    style={{ position: 'absolute', top: '10px', left: '20px' }}>
+                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
+                </IconButton>
                 <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
@@ -52,28 +56,28 @@ const ConfirmationPage = () => {
                     Connection:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    From starting station 
+                    From
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic' }}>
-                    {selectedConnection.from.Name}
+                    {selectedConnection.from.name}
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    To end station
+                    To
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic'  }}>
-                    {selectedConnection.destination.Name}
+                    {selectedConnection.destination.name}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Time of departure:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    {departure_hour}
+                        {selectedConnection.departureTime}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Time of arrival:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    {arrival_hour}
+                        {selectedConnection.arrivalTime}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Departure date:

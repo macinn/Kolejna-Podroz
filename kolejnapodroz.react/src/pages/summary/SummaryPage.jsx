@@ -24,19 +24,13 @@ const SummaryPage = () => {
 
     console.log(ticketDetails);
 
-    useEffect(() => {
-        fetch(`${baseUrl}/Ticket/GetTicketPrice/${ticketDetails.ticketId}`)
-            .then(response => response.json())
-            .then(data => setTicketPrice(data))
-    }, []);
-
     const handleReservationButtonClick = () => {
         // TODO: Wpisac tu prawdziwe dane
 
         console.log(ticketDetails.ticketId);
 
         const userAuth0Id = isAuthenticated ? user.sub : "";
-        const data = { ConnectionId: selectedConnection.id, UserAuth0Id: userAuth0Id, Price: 10.00, Wagon: 0, Seat: 0, TicketType: ticketDetails.ticketTypeIndex };
+        const data = { ConnectionId: selectedConnection.id, UserAuth0Id: userAuth0Id, Price: selectedConnection.price, Wagon: 0, Seat: 0, TicketType: ticketDetails.ticketTypeIndex };
         console.log(data);
         fetch(`${baseUrl}/Ticket/AcceptTicket/${ticketDetails.ticketId}`, {
             method: "POST",
@@ -53,7 +47,7 @@ const SummaryPage = () => {
             })
             .then(data => {
                 console.log('Poprawnie kupiono bilet', data);
-                // navigate('/confirmation');
+                navigate('/confirmation');
             })
             .catch(error => {
                 console.error('Wyst¹pi³ b³¹d:', error);
@@ -75,7 +69,7 @@ const SummaryPage = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
             }}>
-                <IconButton edge="start" aria-label="back" onClick={navigate(-1)}
+                <IconButton edge="start" aria-label="back" onClick={navigate("/")}
                     style={{ position: 'absolute', top: '10px', left: '20px' }}>
                     <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
                 </IconButton>
@@ -148,7 +142,7 @@ const SummaryPage = () => {
                         Price:
                     </Typography>
                     <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        {ticketPrice}
+                        {selectedConnection.price}
                     </Typography>
                     <Button variant="contained"
                         style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
