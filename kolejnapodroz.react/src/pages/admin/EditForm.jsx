@@ -1,18 +1,12 @@
 import React from "react";
 import { Container } from "@mui/material";
 import { FormControl } from "@mui/base/FormControl";
-
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import { styled } from "@mui/system";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { Select, MenuItem } from "@mui/material";
 import { useEffect } from "react";
-import { FormHelperText } from "@mui/material";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { InputLabel } from "@mui/material";
@@ -28,30 +22,7 @@ const FormGrid = styled(Grid)(() => ({
   marginTop: "10%",
 }));
 
-const exampleConnection = {
-  id: 1,
-  from: {
-    id: 1,
-    name: "Warszawa Centralna",
-    description: "Fajna stacja",
-    code: "1",
-    city: "Warszawa",
-  },
-  destination: {
-    id: 2,
-    name: "Warszawa Zachodnia",
-    description: "Niez�a stacja",
-    code: "2",
-    city: "Warszawa",
-  },
-  departureTime: "2024-04-16T12:00:00",
-  arrivalTime: "2024-04-16T12:00:00",
-  provider: null,
-};
-
 function EditForm({ data, onSubmit }) {
-  const { user } = useAuth0();
-  const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
   const [stations, setStations] = useState([]);
 
@@ -62,8 +33,8 @@ function EditForm({ data, onSubmit }) {
     DepartureTime: data != null ? data.DepartureTime : "01.01.2000 00:00:00",
     TravelTime: data != null ? data.TravelTime : 0,
     Points: data != null ? data.Points : 0,
-
   });
+
   useEffect(() => {
     fetch(`${baseUrl}/station`)
       .then((response) => response.json())

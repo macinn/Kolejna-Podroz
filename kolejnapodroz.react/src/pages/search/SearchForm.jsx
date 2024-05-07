@@ -37,8 +37,8 @@ const SearchForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch(`${baseUrl}/Connection?new`
-            + URLSearchParams({ StartStationId, EndStationId, DepartureTime }).toString())
+        fetch(`${baseUrl}/Connection?`
+            + new URLSearchParams({ StartStationId, EndStationId, DepartureTime }).toString())
             .then(response => {
                 if (response.ok) {
                     return response.json();
