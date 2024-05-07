@@ -8,5 +8,6 @@
         public string DepartureTime { get; set; }
         public int TravelTime { get; set; }
         public int Points { get; set; }
+        public decimal Price { get; set; }
     }
 }

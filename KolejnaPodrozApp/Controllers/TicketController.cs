@@ -31,7 +31,7 @@ namespace KolejnaPodrozApp.Controllers
 
             Connection connection = _unitOfWork.Connection.GetAll(c => c.Id == request.ConnectionId).FirstOrDefault();
 
-            Ticket ticket = _ticketService.CreateTicket(connection, user, request.Price, request.Wagon, request.Seat);
+            Ticket ticket = _ticketService.CreateTicket(connection, user, request.Price, request.Wagon, request.Seat, request.TicketType);
 
             _unitOfWork.Ticket.Add(ticket);
 
@@ -45,5 +45,37 @@ namespace KolejnaPodrozApp.Controllers
 
             return Ok(ticket);
         }
+
+        [HttpPost("AcceptTicket/{ticketId}")]
+        public ActionResult<Ticket> AcceptTicket(int ticketId)
+        {
+            var ticket = _unitOfWork.Ticket.Get(t => t.Id == ticketId);
+
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+
+            ticket.TicketStatus = TicketStatus.ACCEPTED;
+            _unitOfWork.Save();
+
+            return Ok(ticket);
+
+        }
+
+        [HttpGet("GetTicketPrice/{ticketId}")]
+        public ActionResult<decimal> GetTicketPrice(int ticketId)
+        {
+            var ticket = _unitOfWork.Ticket.Get(t => t.Id == ticketId);
+
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ticket.Price);
+
+        }
+
     }
 }

@@ -9,7 +9,7 @@ namespace KolejnaPodroz.Domain.Services.ConnectionService
 {
     public class ConnectionService : IConnectionService
     {
-        public Connection CreateConnection(Station from, Station destination, DateTime departureTime, DateTime arrivalTime, Provider provider, int points)
+        public Connection CreateConnection(Station from, Station destination, DateTime departureTime, DateTime arrivalTime, Provider provider, int points, decimal price)
         {
             return new Connection
             {
@@ -18,7 +18,8 @@ namespace KolejnaPodroz.Domain.Services.ConnectionService
                 DepartureTime = departureTime,
                 ArrivalTime = arrivalTime,
                 Provider = provider,
-                Points = points
+                Points = points,
+                Price = price
             };
         }
     }
