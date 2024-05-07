@@ -13,7 +13,7 @@ const TripDetailsPage = () => {
     const location = useLocation()
     const selectedConnection = location.state?.selectedConnection;
     const seating = ['Window', 'Aisle'];
-    const [selectedSeating, setSelectedSeating] = useState('Window'); // Domyœlna wartoœæ 'Window'
+    const [selectedSeating, setSelectedSeating] = useState('Window'); // DomyÅ“lna wartoÅ“Ã¦ 'Window'
     const departureTime = new Date(selectedConnection.departureTime);
     const departure_date = departureTime.toLocaleDateString();
     const departure_hour = departureTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -33,8 +33,8 @@ const TripDetailsPage = () => {
     };
 
     const handleBack = () => {
-        setSelectedConnection(null);
-        navigate(-2);
+        //setSelectedConnection(null);
+        navigate(-1);
     };
 
     const handleReservationButtonClick = () => {
@@ -51,7 +51,7 @@ const TripDetailsPage = () => {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Wyst¹pi³ problem podczas przetwarzania ¿¹dania.');
+                    throw new Error('WystÂ¹piÂ³ problem podczas przetwarzania Â¿Â¹dania.');
                 }
                 return response.json();
             })
@@ -60,24 +60,24 @@ const TripDetailsPage = () => {
                 navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id } });
             })
             .catch(error => {
-                console.error('Wyst¹pi³ b³¹d:', error);
+                console.error('WystÂ¹piÂ³ bÂ³Â¹d:', error);
                 window.alert('Wystapil blad podczas kupowania biletu');
             });
     }
 
     return (
-        <div style={{ display: 'flex',flexDirection: 'column' ,justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 width: '100%',
-                height: '245px',
+                height: '145px',
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',}}>
                 
-                <Typography variant="h3" sx={{
+                <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
                     marginBottom: '50px',
@@ -93,8 +93,8 @@ const TripDetailsPage = () => {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: 'rgba(128, 61, 33, 0.5)',
-                color: 'white',
+                border: '2px solid maroon',
+                color: 'black',
                 p: 2,
                 textAlign: 'left',
                 borderRadius: '20px',
@@ -103,7 +103,7 @@ const TripDetailsPage = () => {
                 paddingRight: '20px',
                 paddingTop: '30px',
                 paddingBottom: '30px',
-                marginTop: '60px',
+                marginTop: '50px',
             }}>
                 <Box sx={{
                     display: 'flex',
@@ -155,7 +155,7 @@ const TripDetailsPage = () => {
                     </Typography>
                     <Select
                         value={selectedSeating}
-                        sx={{ color: 'white', marginBottom: '30px' }}
+                        sx={{ color: 'black', marginBottom: '30px' }}
                         onChange={handleSeatingChange}>
                         {seating.map((item, index) => (
                             <MenuItem key={index} value={item}>

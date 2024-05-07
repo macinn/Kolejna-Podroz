@@ -61,7 +61,12 @@ function EditForm({ data, onSubmit }) {
     <ThemeProvider theme={AdminTheme}>
       <FormGrid>
         <Container>
-          <Typography variant="h5">Edit Connection</Typography>
+            <Typography variant="h5" sx={{
+                color: 'rgb(128, 61, 33)',
+                      fontWeight: 'bold',
+                marginBottom: '25px',
+            }}>
+              Edit Connection</Typography>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -197,7 +202,7 @@ function EditForm({ data, onSubmit }) {
                           </Grid>
             </Grid>
             <Grid item xs={12} sx={{ m: 2 }}>
-              <Button type="submit" variant="contained" color="primary">
+              <Button type="submit" variant="contained" color="primary" style={{color: 'white', backgroundColor: 'rgb(128, 61, 33)', marginTop: '30px' }}>
                 Save
               </Button>
             </Grid>

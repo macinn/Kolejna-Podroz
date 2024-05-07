@@ -48,7 +48,14 @@ function ProviderForm() {
   return (
     <ThemeProvider theme={AdminTheme}>
       <Container sx={{ mt: 4 }}>
-        <Typography variant="h5">Create Provider</Typography>
+        <Typography variant="h5" sx={{
+            color: 'rgb(128, 61, 33)',
+            fontWeight: 'bold',
+            marginBottom: '25px',
+            marginTop: '110px',
+        }}>
+            Create Provider
+        </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -105,6 +112,7 @@ function ProviderForm() {
             variant="contained"
             color="primary"
             sx={{ m: 2 }}
+            style={{ color: 'white', backgroundColor: 'rgb(128, 61, 33)', marginTop: '30px' }}
           >
             Create Provider
           </Button>

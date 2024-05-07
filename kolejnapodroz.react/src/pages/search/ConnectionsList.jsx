@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { useStore } from '../../stores/SearchFormStore';
 import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText } from '@mui/material';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
+
 
 const ConnectionsList = () => {
     const { StartStationId, setStartStation,
@@ -36,11 +39,23 @@ const ConnectionsList = () => {
 
     return (
         <div>
-            <h2>Available connections</h2>
-            <List sx={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px' }}>
+            <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)} style={{ position: 'absolute', top: '60px', left: '10px' }}>
+                <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
+            </IconButton>
+            <Typography variant="h4" sx={{
+                color: 'rgb(128, 61, 33)',
+                fontWeight: 'bold',
+                marginBottom: '25px',
+                marginTop: '110px',
+            }}>
+                Available connections
+            </Typography>
+            <List sx={{ display: 'flex', flexDirection: 'column' }}>
                 {connections && connections.map((train) => (
-                    <ListItem key={train.id} sx={{ border: '1px solid #eee', borderRadius: '5px', margin: '5px 0' }}>
-                        <ListItemText
+                    <ListItem key={train.id} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ border: '2px solid maroon', borderRadius: '10px', width: '70%', margin: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <ListItemText
+                            sx={{ marginLeft: '70px' }} 
                             primary={`From: ${train.from.name} - ${train.from.city}`}
                             secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
                         />
@@ -51,12 +66,15 @@ const ConnectionsList = () => {
                         <Button
                             variant="contained"
                             onClick={() => handleSelectConnection(train)}
+                            sx={{backgroundColor: 'rgb(128, 61, 33)', marginRight: '70px' }}
                         >
                             Select
-                        </Button>
+                            </Button>
+                        </div>
                     </ListItem>
                 ))}
             </List>
+
         </div>
     );
 };
