@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,11 @@ import backgroundImage from '../../media/trainBlur.jpg';
 const TicketsHistoryPage = () => {
 
     const navigate = useNavigate();
+    const [connections, setConnection] = useState([]);
+
+    useEffect(() => {
+    }, []);
+
     const exampleConnections = [
         {
             id: 1,
