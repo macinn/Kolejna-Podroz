@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavMenu from './NavMenu';
-import { Box, styled, Grid } from '@mui/material';
+import { Box, styled } from '@mui/material';
 
 const StyledBox = styled(Box)({
     position: 'fixed',
@@ -9,6 +9,7 @@ const StyledBox = styled(Box)({
     width: '100%',
     height: '100%',
 });
+
 export class Layout extends Component {
     render() {
         return (
