@@ -25,8 +25,8 @@ const TripDetailsPage = () => {
     };
 
     const handleBack = () => {
-        setSelectedConnection(null);
-        navigate(-2);
+        //setSelectedConnection(null);
+        navigate(-1);
     };
 
     const handleReservationButtonClick = () => {
@@ -58,13 +58,13 @@ const TripDetailsPage = () => {
     }
 
     return (
-        <div style={{ display: 'flex',flexDirection: 'column' ,justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 width: '100%',
-                height: '245px',
+                height: '145px',
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',}}>
@@ -85,8 +85,8 @@ const TripDetailsPage = () => {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: 'rgba(128, 61, 33, 0.5)',
-                color: 'white',
+                backgroundColor: 'rgb(255, 206, 181, 0.8)',
+                color: 'black',
                 p: 2,
                 textAlign: 'left',
                 borderRadius: '20px',
@@ -95,7 +95,7 @@ const TripDetailsPage = () => {
                 paddingRight: '20px',
                 paddingTop: '30px',
                 paddingBottom: '30px',
-                marginTop: '60px',
+                marginTop: '50px',
             }}>
                 <Box sx={{
                     display: 'flex',
@@ -133,9 +133,9 @@ const TripDetailsPage = () => {
                     <Typography variant="body1" style={{ marginLeft: '20px' }}>
                         {arrival_hour}
                     </Typography>
-                    <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
-                        Provider:
-                    </Typography>
+                    {/*<Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>*/}
+                    {/*    Provider:*/}
+                    {/*</Typography>*/}
                     {/*<Typography variant="body1" style={{ marginLeft: '20px' }}>*/}
                     {/*    ${selectedConnection.provider.Name}*/}
                     {/*</Typography>*/}
@@ -147,7 +147,7 @@ const TripDetailsPage = () => {
                     </Typography>
                     <Select
                         value={selectedSeating}
-                        sx={{ color: 'white', marginBottom: '30px' }}
+                        sx={{ color: 'black', marginBottom: '30px' }}
                         onChange={handleSeatingChange}>
                         {seating.map((item, index) => (
                             <MenuItem key={index} value={item}>

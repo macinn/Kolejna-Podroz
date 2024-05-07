@@ -42,7 +42,7 @@ const ConnectionsList = () => {
             <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)} style={{ position: 'absolute', top: '60px', left: '10px' }}>
                 <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
             </IconButton>
-            <Typography variant="h5" sx={{
+            <Typography variant="h4" sx={{
                 color: 'rgb(128, 61, 33)',
                 fontWeight: 'bold',
                 marginBottom: '25px',
@@ -52,8 +52,10 @@ const ConnectionsList = () => {
             </Typography>
             <List sx={{ display: 'flex', flexDirection: 'column' }}>
                 {connections && connections.map((train) => (
-                    <ListItem key={train.id} sx={{ border: '1px solid #eee', borderRadius: '5px', margin: '5px 0' }}>
-                        <ListItemText
+                    <ListItem key={train.id} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ border: '2px solid maroon', borderRadius: '10px', width: '70%', margin: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <ListItemText
+                            sx={{ marginLeft: '70px' }} 
                             primary={`From: ${train.from.name} - ${train.from.city}`}
                             secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
                         />
@@ -64,9 +66,11 @@ const ConnectionsList = () => {
                         <Button
                             variant="contained"
                             onClick={() => handleSelectConnection(train)}
+                            sx={{backgroundColor: 'rgb(128, 61, 33)', marginRight: '70px' }}
                         >
                             Select
-                        </Button>
+                            </Button>
+                        </div>
                     </ListItem>
                 ))}
             </List>
