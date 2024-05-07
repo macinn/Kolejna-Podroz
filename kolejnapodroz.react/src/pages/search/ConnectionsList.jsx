@@ -34,7 +34,6 @@ const ConnectionsList = () => {
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
         console.log(selectedConnection);
-        //navigate('/details');
     };
 
     return (
