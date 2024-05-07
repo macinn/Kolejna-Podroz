@@ -33,6 +33,7 @@ function EditForm({ data, onSubmit }) {
     DepartureTime: data != null ? data.DepartureTime : "01.01.2000 00:00:00",
     TravelTime: data != null ? data.TravelTime : 0,
     Points: data != null ? data.Points : 0,
+    Price: data != null ? data.Price : 0,
   });
 
   useEffect(() => {
@@ -172,7 +173,28 @@ function EditForm({ data, onSubmit }) {
                         min: "0",
                     }}
                 />
-              </Grid>
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                              <TextField
+                                  fullWidth
+                                  label={"Price"}
+                                  value={editedConnection.Points}
+                                  onChange={(e) =>
+                                      setEditedConnection({
+                                          ...editedConnection,
+                                          ["Price"]: parseInt(e.target.value),
+                                      })
+                                  }
+                                  type="number"
+                                  InputLabelProps={{
+                                      shrink: true,
+                                  }}
+                                  inputProps={{
+                                      step: "1",
+                                      min: "0",
+                                  }}
+                              />
+                          </Grid>
             </Grid>
             <Grid item xs={12} sx={{ m: 2 }}>
               <Button type="submit" variant="contained" color="primary">

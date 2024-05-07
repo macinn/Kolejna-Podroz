@@ -7,7 +7,7 @@ import AddForm from './pages/admin/AddForm';
 import ProviderForm from './pages/admin/ProviderForm';
 import StationForm from './pages/admin/StationForm';
 import LoginPage from './pages/login/LoginPage'; 
-
+import SummaryPage from './pages/summary/SummaryPage';
 
 const AppRoutes = [
     {
@@ -19,9 +19,12 @@ const AppRoutes = [
         element: <ConnectionsList />,
     },
     {
-
         path: "/confirmation",
         element: <ConfirmationPage />,
+    },
+    {
+        path: "/summary",
+        element: <SummaryPage />,
     },
     {
         path: "/history",
