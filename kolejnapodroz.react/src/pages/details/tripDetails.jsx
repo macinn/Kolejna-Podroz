@@ -34,7 +34,7 @@ const TripDetailsPage = () => {
 
     const handleBack = () => {
         setSelectedConnection(null);
-        navigate(-2);
+        navigate("/");
     };
 
     const handleReservationButtonClick = () => {

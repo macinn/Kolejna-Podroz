@@ -75,6 +75,10 @@ const SummaryPage = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
             }}>
+                <IconButton edge="start" aria-label="back" onClick={navigate(-1)}
+                    style={{ position: 'absolute', top: '10px', left: '20px' }}>
+                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
+                </IconButton>
                 <Typography variant="h3" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
@@ -152,9 +156,6 @@ const SummaryPage = () => {
                         Make a reservation
                     </Button>
                 </Box>
-                <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)}>
-                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
-                </IconButton>
             </Box>
 
         </div>

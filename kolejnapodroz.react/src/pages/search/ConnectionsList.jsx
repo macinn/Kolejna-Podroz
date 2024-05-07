@@ -19,26 +19,32 @@ const ConnectionsList = () => {
 
     const baseUrl = import.meta.env.VITE_API_URL;
 
-    useEffect(() => {
-        if (selectedConnection) {
-            console.log(selectedConnection);
-            if (isAuthenticated) {
-                navigate('/details', { state: { selectedConnection: selectedConnection} });
-            }
-            else {
-                navigate('/login-page', { state: { selectedConnection: selectedConnection } });
-            }
-        }
-    }, [selectedConnection, navigate]);
+    //useEffect(() => {
+    //    setSelectedConnection(null);
+    //}, []);
+
+    //useEffect(() => {
+    //    if (selectedConnection) {
+    //        console.log(selectedConnection);
+    //        if (isAuthenticated) {
+    //            navigate('/details', { state: { selectedConnection: selectedConnection} });
+    //        }
+    //        else {
+    //            navigate('/login-page', { state: { selectedConnection: selectedConnection } });
+    //        }
+    //    }
+    //}, [selectedConnection]);
 
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
         console.log(selectedConnection);
+        navigate('/details');
     };
 
     return (
         <div>
-            <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)} style={{ position: 'absolute', top: '60px', left: '10px' }}>
+            <IconButton edge="start" aria-label="back" onClick={navigate("/")}
+                style={{ position: 'absolute', top: '10px', left: '20px' }}>
                 <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
             </IconButton>
             <Typography variant="h4" sx={{
