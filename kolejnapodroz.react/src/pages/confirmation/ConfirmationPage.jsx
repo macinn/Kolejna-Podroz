@@ -18,12 +18,13 @@ const ConfirmationPage = () => {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'flex-end',
+                justifyContent: 'center',
                 width: '100%',
-                height: '145px',
+                height: '100%',
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
+                alignItems: 'center',
             }}>
                 <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
@@ -32,7 +33,6 @@ const ConfirmationPage = () => {
                 }} gutterBottom>
                     Your reservation has been confirmed!
                 </Typography>
-            </Box>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -93,7 +93,7 @@ const ConfirmationPage = () => {
                 View your tickets
             </Button>
             </Box>
-            
+            </Box>
 
         </div>
     
