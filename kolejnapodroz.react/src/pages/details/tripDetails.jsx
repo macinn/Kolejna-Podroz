@@ -69,7 +69,7 @@ const TripDetailsPage = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',}}>
                 
-                <Typography variant="h3" sx={{
+                <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
                     marginBottom: '50px',
@@ -85,7 +85,7 @@ const TripDetailsPage = () => {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: 'rgb(255, 206, 181, 0.8)',
+                border: '2px solid maroon',
                 color: 'black',
                 p: 2,
                 textAlign: 'left',

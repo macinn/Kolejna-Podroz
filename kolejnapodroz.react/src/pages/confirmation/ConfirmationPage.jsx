@@ -14,33 +14,30 @@ const ConfirmationPage = () => {
     const arrival_hour = arrivalTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     return (
-        <div style={{ display: 'flex',flexDirection: 'column' ,justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 width: '100%',
-                height: '245px',
+                height: '145px',
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
             }}>
-                <Typography variant="h3" sx={{
+                <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
                     marginBottom: '50px',
                 }} gutterBottom>
                     Your reservation has been confirmed!
                 </Typography>
-                <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)} style={{ position: 'absolute', top: '60px', left: '10px'}}>
-                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }}  />
-                </IconButton>
             </Box>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: 'rgba(128, 61, 33, 0.5)',
-                color: 'white',
+                border: '2px solid maroon',
+                color: 'black',
                 p: 2,
                 textAlign: 'left',
                 borderRadius: '20px',
@@ -49,7 +46,7 @@ const ConfirmationPage = () => {
                 paddingRight: '20px',
                 paddingTop: '20px',
                 paddingBottom: '20px',
-                marginTop: '60px',
+                marginTop: '50px',
             }}>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Connection:
@@ -84,9 +81,9 @@ const ConfirmationPage = () => {
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
                     {departure_date}
                 </Typography>
-                <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
-                    Provider:
-                </Typography>
+                {/*<Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>*/}
+                {/*    Provider:*/}
+                {/*</Typography>*/}
                 {/*<Typography variant="body1" style={{ marginLeft: '20px' }}>*/}
                 {/*    ${selectedConnection.provider.Name}*/}
                 {/*</Typography>*/}
