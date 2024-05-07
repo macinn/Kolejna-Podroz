@@ -53,7 +53,7 @@ const SummaryPage = () => {
             })
             .then(data => {
                 console.log('Poprawnie kupiono bilet', data);
-                navigate('/confirmation');
+                // navigate('/confirmation');
             })
             .catch(error => {
                 console.error('Wyst¹pi³ b³¹d:', error);

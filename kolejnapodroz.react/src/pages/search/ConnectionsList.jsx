@@ -43,6 +43,18 @@ const ConnectionsList = () => {
 
     return (
         <div>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundPosition: `center`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+            }}>
             <IconButton edge="start" aria-label="back" onClick={navigate("/")}
                 style={{ position: 'absolute', top: '10px', left: '20px' }}>
                 <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
@@ -79,7 +91,7 @@ const ConnectionsList = () => {
                     </ListItem>
                 ))}
             </List>
-
+            </Box>
         </div>
     );
 };
