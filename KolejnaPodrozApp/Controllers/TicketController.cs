@@ -1,5 +1,6 @@
 ﻿using KolejnaPodroz.DataAccess.Repository.IRepository;
 using KolejnaPodroz.Domain.Models;
+using KolejnaPodroz.Domain.Services.EmailService;
 using KolejnaPodroz.Domain.Services.TicketService;
 using KolejnaPodrozApp.Models.Login;
 using KolejnaPodrozApp.Models.Ticket;
@@ -13,11 +14,13 @@ namespace KolejnaPodrozApp.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITicketService _ticketService;
+        private readonly IEmailService _emailService;
 
-        public TicketController(IUnitOfWork unitOfWork, ITicketService ticketService)
+        public TicketController(IUnitOfWork unitOfWork, ITicketService ticketService, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _ticketService = ticketService;
+            _emailService = emailService;
         }
 
         [HttpPost]
@@ -57,6 +60,9 @@ namespace KolejnaPodrozApp.Controllers
             }
 
             ticket.TicketStatus = TicketStatus.ACCEPTED;
+
+            _emailService.SendEmail("Ticket", "lukas0495@gmail.com", "luki", "ticket").Wait();
+
             _unitOfWork.Save();
 
             return Ok(ticket);
