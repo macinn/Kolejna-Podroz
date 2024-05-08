@@ -28,13 +28,34 @@ function ProviderForm() {
       headers: {
         "Content-type": "application/json",
       },
-    });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Wyst¹pi³ problem podczas przetwarzania ¿¹dania.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Poprawnie dodano Provider:', data);
+            window.alert('Poprawnie dodano Provider');
+        })
+        .catch(error => {
+            console.error('Wyst¹pi³ b³¹d:', error);
+            window.alert('Wystapil blad podczas dodawania Provider');
+        });
   };
 
   return (
     <ThemeProvider theme={AdminTheme}>
       <Container sx={{ mt: 4 }}>
-        <Typography variant="h5">Create Provider</Typography>
+        <Typography variant="h5" sx={{
+            color: 'rgb(128, 61, 33)',
+            fontWeight: 'bold',
+            marginBottom: '25px',
+            marginTop: '110px',
+        }}>
+            Create Provider
+        </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -91,6 +112,7 @@ function ProviderForm() {
             variant="contained"
             color="primary"
             sx={{ m: 2 }}
+            style={{ color: 'white', backgroundColor: 'rgb(128, 61, 33)', marginTop: '30px' }}
           >
             Create Provider
           </Button>

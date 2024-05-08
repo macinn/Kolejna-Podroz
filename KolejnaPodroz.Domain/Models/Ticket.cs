@@ -14,6 +14,8 @@ namespace KolejnaPodroz.Domain.Models
         public int Wagon { get; set; }
         public int Seat { get; set; }
         public DateTime ExpirationTime { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
+        public TicketType TicketType { get; set; }
+        public TicketStatus TicketStatus { get; set; }
     }
 }

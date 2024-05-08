@@ -9,7 +9,7 @@ namespace KolejnaPodroz.Domain.Services.ConnectionService
 {
     public interface IConnectionService
     {
-        Connection CreateConnection(Station from, Station destination, DateTime departureTime, DateTime arrivalTime, Provider provider);
+        Connection CreateConnection(Station from, Station destination, DateTime departureTime, DateTime arrivalTime, Provider provider, int Points, decimal Price);
 
     }
 }

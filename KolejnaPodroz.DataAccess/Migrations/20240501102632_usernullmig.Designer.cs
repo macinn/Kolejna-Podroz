@@ -3,6 +3,7 @@ using System;
 using KolejnaPodroz.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KolejnaPodroz.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240501102632_usernullmig")]
+    partial class usernullmig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,9 +75,6 @@ namespace KolejnaPodroz.DataAccess.Migrations
 
                     b.Property<int>("Points")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
@@ -167,12 +167,6 @@ namespace KolejnaPodroz.DataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Seat")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketType")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")

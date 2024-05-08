@@ -11,8 +11,8 @@ function StationButton() {
       onClick={() => {
         navigate("/add-station");
       }}
-      sx={{ m: 1 }}
-    >
+      sx={{ m: 1, backgroundColor: 'rgb(128, 61, 33)' }}
+      >
       Add new station
     </Button>
   );

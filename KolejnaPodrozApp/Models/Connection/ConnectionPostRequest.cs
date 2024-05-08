@@ -1,13 +1,13 @@
 ﻿namespace KolejnaPodrozApp.Models.Connection
 {
-    using KolejnaPodroz.Domain.Models;
     public class ConnectionPostRequest
     {
-        public int Id;
-        public int StartStationId;
-        public int EndStationId;
-        public int ProviderId;
-        public DateTime DepartureTime;
-        public int TravelTime;
+        public int StartStationId { get; set; }
+        public int EndStationId { get; set; }
+        public int ProviderId { get; set; }
+        public string DepartureTime { get; set; }
+        public int TravelTime { get; set; }
+        public int Points { get; set; }
+        public decimal Price { get; set; }
     }
 }

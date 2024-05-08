@@ -11,8 +11,8 @@ function ProviderButton() {
       onClick={() => {
         navigate("/add-provider");
       }}
-      sx={{ m: 1 }}
-    >
+      sx={{ m: 1, backgroundColor: 'rgb(128, 61, 33)' }}
+      >
       Add new provider
     </Button>
   );
