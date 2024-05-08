@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useStore } from '../../stores/SearchFormStore';
 import { useNavigate } from 'react-router-dom';
-import { List, ListItem, ListItemText } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Paper } from '@mui/material';
 import { Button, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
+import backgroundImage from '../../media/trainBlur.jpg';
 
 
 const ConnectionsList = () => {
@@ -19,37 +20,56 @@ const ConnectionsList = () => {
 
     const baseUrl = import.meta.env.VITE_API_URL;
 
-    useEffect(() => {
-        if (selectedConnection) {
-            console.log(selectedConnection);
-            if (isAuthenticated) {
-                navigate('/details', { state: { selectedConnection: selectedConnection} });
-            }
-            else {
-                navigate('/login-page', { state: { selectedConnection: selectedConnection } });
-            }
-        }
-    }, [selectedConnection, navigate]);
+    //useEffect(() => {
+    //    setSelectedConnection(null);
+    //}, []);
+
+    //useEffect(() => {
+    //    if (selectedConnection) {
+    //        console.log(selectedConnection);
+    //        if (isAuthenticated) {
+    //            navigate('/details', { state: { selectedConnection: selectedConnection} });
+    //        }
+    //        else {
+    //            navigate('/login-page', { state: { selectedConnection: selectedConnection } });
+    //        }
+    //    }
+    //}, [selectedConnection]);
 
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
         console.log(selectedConnection);
-        //navigate('/details');
+        navigate('/details');
     };
 
     return (
         <div>
-            <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)} style={{ position: 'absolute', top: '60px', left: '10px' }}>
+            <Paper sx={{ maxHeight: '100%', overflow: 'auto' }}>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundPosition: `center`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+            }}>
+            <IconButton edge="start" aria-label="back" onClick={navigate("/")}
+                style={{ position: 'absolute', top: '10px', left: '20px' }}>
                 <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
             </IconButton>
             <Typography variant="h4" sx={{
                 color: 'rgb(128, 61, 33)',
                 fontWeight: 'bold',
                 marginBottom: '25px',
-                marginTop: '110px',
+                marginTop: '25px',
             }}>
                 Available connections
-            </Typography>
+                </Typography>
+            
             <List sx={{ display: 'flex', flexDirection: 'column' }}>
                 {connections && connections.map((train) => (
                     <ListItem key={train.id} sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -73,8 +93,9 @@ const ConnectionsList = () => {
                         </div>
                     </ListItem>
                 ))}
-            </List>
-
+                    </List>
+            </Box>
+            </Paper>
         </div>
     );
 };

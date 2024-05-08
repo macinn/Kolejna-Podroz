@@ -18,13 +18,18 @@ const ConfirmationPage = () => {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'flex-end',
+                justifyContent: 'center',
                 width: '100%',
-                height: '145px',
+                height: '100%',
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
+                alignItems: 'center',
             }}>
+                <IconButton edge="start" aria-label="back" onClick={navigate("/")}
+                    style={{ position: 'absolute', top: '10px', left: '20px' }}>
+                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
+                </IconButton>
                 <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
@@ -32,7 +37,6 @@ const ConfirmationPage = () => {
                 }} gutterBottom>
                     Your reservation has been confirmed!
                 </Typography>
-            </Box>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -52,28 +56,28 @@ const ConfirmationPage = () => {
                     Connection:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    From starting station 
+                    From
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic' }}>
-                    {selectedConnection.from.Name}
+                    {selectedConnection.from.name}
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    To end station
+                    To
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '40px', fontStyle: 'italic'  }}>
-                    {selectedConnection.destination.Name}
+                    {selectedConnection.destination.name}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Time of departure:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    {departure_hour}
+                        {selectedConnection.departureTime}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Time of arrival:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                    {arrival_hour}
+                        {selectedConnection.arrivalTime}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Departure date:
@@ -93,7 +97,7 @@ const ConfirmationPage = () => {
                 View your tickets
             </Button>
             </Box>
-            
+            </Box>
 
         </div>
     

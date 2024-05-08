@@ -4,14 +4,14 @@ import backgroundImage from '../../media/trainBlur.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useStore } from '../../stores/SearchFormStore';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
 const TripDetailsPage = () => {
     const { user, isAuthenticated } = useAuth0();
     const navigate = useNavigate();
-    const location = useLocation()
-    const selectedConnection = location.state?.selectedConnection;
+    const { selectedConnection, setSelectedConnection } = useStore();
     const seating = ['Window', 'Aisle'];
     const [selectedSeating, setSelectedSeating] = useState('Window'); // Domyœlna wartoœæ 'Window'
     const departureTime = new Date(selectedConnection.departureTime);
@@ -22,7 +22,7 @@ const TripDetailsPage = () => {
     const ticketTypes = ['Normal', 'Student', 'Senior'];
   
     const [selectedTicketType, setselectedTicketType] = useState('Normal'); 
-
+    
 
     const handleSeatingChange = (event) => {
         setSelectedSeating(event.target.value);
@@ -33,14 +33,20 @@ const TripDetailsPage = () => {
     };
 
     const handleBack = () => {
-        //setSelectedConnection(null);
-        navigate(-1);
+        setSelectedConnection(null);
+        navigate("/");
     };
 
     const handleReservationButtonClick = () => {
         // TODO: Wpisac tu prawdziwe dane
-        const userAuth0Id = isAuthenticated ? user.sub : "";
-        const data = { ConnectionId: selectedConnection.id, UserAuth0Id: userAuth0Id, Price: 10.00, Wagon: 0, Seat: 0, TicketType: ticketTypes.findIndex(type => type === selectedTicketType) };
+        const data = {
+            ConnectionId: selectedConnection.id,
+            UserAuth0Id: isAuthenticated ? user.sub : "",
+            Price: selectedConnection.price,
+            Wagon: 0,
+            Seat: 0,
+            TicketType: ticketTypes.findIndex(type => type === selectedTicketType)
+        };
         console.log(data);
         fetch(`${baseUrl}/Ticket`, {
             method: "POST",
@@ -60,7 +66,7 @@ const TripDetailsPage = () => {
                 navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id } });
             })
             .catch(error => {
-                console.error('Wyst¹pi³ b³¹d:', error);
+                console.error('Wystąpił błąd:', error);
                 window.alert('Wystapil blad podczas kupowania biletu');
             });
     }
@@ -70,9 +76,10 @@ const TripDetailsPage = () => {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'flex-end',
+                justifyContent: 'center',
+                alignItems: 'center',
                 width: '100%',
-                height: '145px',
+                height: '100%',
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',}}>
@@ -85,10 +92,11 @@ const TripDetailsPage = () => {
                     Choose your trip details:
                 </Typography>
                 
-                <IconButton edge="start" aria-label="back" onClick={handleBack} style={{ position: 'absolute', top: '60px', left: '10px'}}>
+                <IconButton edge="start" aria-label="back" onClick={handleBack}
+                    style={{ position: 'absolute', top: '10px', left: '20px' }}>
                     <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }}  />
                 </IconButton>
-            </Box>
+            
             
             <Box sx={{
                 display: 'flex',
@@ -195,7 +203,7 @@ const TripDetailsPage = () => {
                 </Box>
 
             </Box>
-
+            </Box>
 
         </div>
 
