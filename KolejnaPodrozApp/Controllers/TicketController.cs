@@ -49,10 +49,10 @@ namespace KolejnaPodrozApp.Controllers
             return Ok(ticket);
         }
 
-        [HttpPost("AcceptTicket/{ticketId}")]
-        public ActionResult<Ticket> AcceptTicket(int ticketId)
+        [HttpPost("AcceptTicket")]
+        public ActionResult<Ticket> AcceptTicket(AcceptTicketPostRequest request)
         {
-            var ticket = _unitOfWork.Ticket.Get(t => t.Id == ticketId);
+            var ticket = _unitOfWork.Ticket.Get(t => t.Id == request.TicketId);
 
             if (ticket == null)
             {
@@ -61,7 +61,15 @@ namespace KolejnaPodrozApp.Controllers
 
             ticket.TicketStatus = TicketStatus.ACCEPTED;
 
-            _emailService.SendEmail("Ticket", "lukas0495@gmail.com", "luki", "ticket").Wait();
+            User? user = null;
+            if (request.UserAuth0Id != null)
+            {
+                user = _unitOfWork.User.GetAll(u => u.Auth0Id == request.UserAuth0Id).FirstOrDefault();
+            }
+            if (user != null)
+            {
+                _emailService.SendEmail("Ticket", user.AccountInfo.Email, "KolejnaPodroz", "TODO: MAIL MESSAGE").Wait();
+            }
 
             _unitOfWork.Save();
 
