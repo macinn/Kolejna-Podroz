@@ -183,7 +183,7 @@ function EditForm({ data, onSubmit }) {
                               <TextField
                                   fullWidth
                                   label={"Price"}
-                                  value={editedConnection.Points}
+                                  value={editedConnection.Price}
                                   onChange={(e) =>
                                       setEditedConnection({
                                           ...editedConnection,

@@ -46,6 +46,8 @@ const SummaryPage = () => {
                 return response.json();
             })
             .then(data => {
+                console.log(data.price);
+                setTicketPrice(data.price)
                 console.log('Poprawnie kupiono bilet', data);
                 navigate('/confirmation');
             })
@@ -142,7 +144,7 @@ const SummaryPage = () => {
                         Price:
                     </Typography>
                     <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        {selectedConnection.price}
+                        {ticketDetails.ticketPrice}
                     </Typography>
                     <Button variant="contained"
                         style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}

@@ -63,7 +63,7 @@ const TripDetailsPage = () => {
             })
             .then(data => {
                 console.log('Poprawnie kupiono bilet', data);
-                navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id } });
+                navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id, ticketPrice: data.price} });
             })
             .catch(error => {
                 console.error('Wystąpił błąd:', error);
