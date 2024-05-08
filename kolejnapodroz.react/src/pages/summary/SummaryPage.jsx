@@ -32,9 +32,15 @@ const SummaryPage = () => {
         const userAuth0Id = isAuthenticated ? user.sub : "";
         const data = { ConnectionId: selectedConnection.id, UserAuth0Id: userAuth0Id, Price: selectedConnection.price, Wagon: 0, Seat: 0, TicketType: ticketDetails.ticketTypeIndex };
         console.log(data);
-        fetch(`${baseUrl}/Ticket/AcceptTicket/${ticketDetails.ticketId}`, {
+
+        const acceptTicketRequest = {
+            TicketId: ticketDetails.ticketId,
+            UserAuth0Id: isAuthenticated ? user.sub : "",
+        };
+
+        fetch(`${baseUrl}/Ticket/AcceptTicket`, {
             method: "POST",
-            body: JSON.stringify({ ticketId: ticketDetails.ticketId }),
+            body: JSON.stringify(acceptTicketRequest),
             headers: {
                 "Content-type": "application/json",
             },
