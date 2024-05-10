@@ -1,9 +1,10 @@
 import React from 'react';
-import {Box, Button, IconButton, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import backgroundImage from '../../media/trainBlur.jpg';
 import { useNavigate } from 'react-router-dom';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import {useStore} from '../../stores/SearchFormStore';
+import { useStore } from '../../stores/SearchFormStore';
+import ReturnButton from '../../utils/ReturnButton';
+
 const ConfirmationPage = () => {
     const navigate = useNavigate();
     const {selectedConnection} = useStore();
@@ -26,10 +27,7 @@ const ConfirmationPage = () => {
                 backgroundSize: 'cover',
                 alignItems: 'center',
             }}>
-                <IconButton edge="start" aria-label="back" onClick={navigate("/")}
-                    style={{ position: 'absolute', top: '10px', left: '20px' }}>
-                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
-                </IconButton>
+                <ReturnButton/>
                 <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',

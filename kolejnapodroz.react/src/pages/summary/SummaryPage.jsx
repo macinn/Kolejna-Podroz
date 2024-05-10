@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {Box, Button, IconButton, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import backgroundImage from '../../media/trainBlur.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useStore } from '../../stores/SearchFormStore';
 import { useAuth0 } from "@auth0/auth0-react";
+import ReturnButton from '../../utils/ReturnButton';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -77,10 +77,7 @@ const SummaryPage = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
             }}>
-                <IconButton edge="start" aria-label="back" onClick={navigate("/")}
-                    style={{ position: 'absolute', top: '10px', left: '20px' }}>
-                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
-                </IconButton>
+                <ReturnButton/>
                 <Typography variant="h3" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',

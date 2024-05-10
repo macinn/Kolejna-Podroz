@@ -35,8 +35,11 @@ const SearchForm = () => {
                 setStationsState(jsonData);
             } catch (error) { alert("Sorry! No stations found!"); }
         };
+
         if (!stations || stations.length == 0)
             fetchData();
+        else
+            setStationsState(stations)
     }, []);
 
 

@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import backgroundImage from '../../media/trainBlur.jpg';
+import ReturnButton from '../../utils/ReturnButton';
 
 const ConnectionsList = () => {
     const { connections,
@@ -30,11 +31,6 @@ const ConnectionsList = () => {
             navigate('/login-page');
     };
 
-    const handleReturn = () =>
-    {
-        navigate(-1);
-    }
-
     return (
         <Box sx={{
                 display: 'flex',
@@ -48,10 +44,7 @@ const ConnectionsList = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
             }}>
-            <IconButton edge="start" aria-label="back" onClick={handleReturn}
-                style={{ position: 'absolute', top: '10px', left: '20px' }}>
-                <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
-            </IconButton>
+            <ReturnButton/>
             <Typography variant="h4" sx={{
                 color: 'rgb(128, 61, 33)',
                 fontWeight: 'bold',
