@@ -30,6 +30,11 @@ const ConnectionsList = () => {
             navigate('/login-page');
     };
 
+    const handleReturn = () =>
+    {
+        navigate(-1);
+    }
+
     return (
         <Box sx={{
                 display: 'flex',
@@ -43,7 +48,7 @@ const ConnectionsList = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
             }}>
-            <IconButton edge="start" aria-label="back" onClick={navigate("/")}
+            <IconButton edge="start" aria-label="back" onClick={handleReturn}
                 style={{ position: 'absolute', top: '10px', left: '20px' }}>
                 <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
             </IconButton>
