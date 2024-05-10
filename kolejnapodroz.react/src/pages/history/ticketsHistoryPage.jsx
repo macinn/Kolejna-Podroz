@@ -3,6 +3,7 @@ import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box} from '@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../../media/trainBlur.jpg';
+import ReturnButton from '../../utils/ReturnButton';
 
 const TicketsHistoryPage = () => {
 
@@ -32,9 +33,7 @@ const TicketsHistoryPage = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white',
             overflowY: 'scroll', }}>
-            <IconButton edge="start" aria-label="back" onClick={() => navigate(-1)} style={{ position: 'absolute', top: '60px', left: '10px'}}>
-                <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }}  />
-            </IconButton>
+            <ReturnButton/>
 
             <Grid container spacing={2} style={{ height: '100%'}}>
 

@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect } from 'react'
 import { Box, Button } from "@mui/material";
-
+import ReturnButton from '../../utils/ReturnButton';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -21,9 +21,11 @@ const LoginPage = () => {
             navigate("/details", { state: { selectedConnection: selectedConnection } })
             }
     }, [isAuthenticated])
+
     // TOOD: jak komus sie chce to niech to upiekszy, pdw
     return (
         <Box>
+            <ReturnButton/>
             <h1>Nie jestes zalogowany.</h1>
             <h1>Czy chcesz sie zalogowac?</h1>
             <LoginButton />
