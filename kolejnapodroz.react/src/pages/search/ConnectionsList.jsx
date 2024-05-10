@@ -20,26 +20,13 @@ const ConnectionsList = () => {
 
     const baseUrl = import.meta.env.VITE_API_URL;
 
-    //useEffect(() => {
-    //    setSelectedConnection(null);
-    //}, []);
-
-    //useEffect(() => {
-    //    if (selectedConnection) {
-    //        console.log(selectedConnection);
-    //        if (isAuthenticated) {
-    //            navigate('/details', { state: { selectedConnection: selectedConnection} });
-    //        }
-    //        else {
-    //            navigate('/login-page', { state: { selectedConnection: selectedConnection } });
-    //        }
-    //    }
-    //}, [selectedConnection]);
-
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
         console.log(selectedConnection);
-        navigate('/details');
+        if (isAuthenticated)
+            navigate('/details');
+        else
+            navigate('/login-page');
     };
 
     return (

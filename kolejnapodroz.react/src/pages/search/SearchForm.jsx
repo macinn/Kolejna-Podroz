@@ -15,11 +15,14 @@ const SearchForm = () => {
     const { StartStationId,  setStartStation,
             EndStationId,    setEndStation,
             DepartureTime, setDepartureTime,
-                           setConnections } = useStore();
+            connections, setConnections,
+            setSelectedConnection } = useStore();
 
     const [stations, setStations] = useState(null);
 
     useEffect(() => {
+        setSelectedConnection(null);
+
         const fetchData = async () => {
             try {
             const response = await fetch(`${baseUrl}/station`);
@@ -29,10 +32,10 @@ const SearchForm = () => {
             const jsonData = await response.json();
             setStations(jsonData);
     
-            } catch (error) { /* empty */ }
+            } catch (error) { alert("Sorry! No stations found!"); }
         };
     
-        fetchData();    
+            fetchData();    
         }, []);
 
     const handleSubmit = async (e) => {
@@ -55,7 +58,6 @@ const SearchForm = () => {
 
     return (
         <div className='container'>
-
             <Container className='form-container' maxWidth="sm">
                 <form onSubmit={handleSubmit} >
                     <Typography variant="h3" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold' }} gutterBottom>
@@ -117,10 +119,8 @@ const SearchForm = () => {
                             </LocalizationProvider>
 
                         </div>
-                        <button type="submit" style={{ marginTop: '16px' }}>Search</button>
-                        
+                        <button type="submit" style={{ marginTop: '16px' }}>Search</button>                
                     </Box>
-
                 </form>
             </Container>
         </div>
