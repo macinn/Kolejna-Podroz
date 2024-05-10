@@ -15,10 +15,11 @@ const SearchForm = () => {
     const { StartStationId,  setStartStation,
             EndStationId,    setEndStation,
             DepartureTime, setDepartureTime,
-            connections, setConnections,
+            setConnections,
+            stations, setStations,
             setSelectedConnection } = useStore();
 
-    const [stations, setStations] = useState(null);
+    const [stationsState, setStationsState] = useState(stations);
 
     useEffect(() => {
         setSelectedConnection(null);
@@ -30,13 +31,14 @@ const SearchForm = () => {
                 throw new Error('Network response was not ok');
             }
             const jsonData = await response.json();
-            setStations(jsonData);
-    
+                setStations(jsonData);
+                setStationsState(jsonData);
             } catch (error) { alert("Sorry! No stations found!"); }
         };
-    
-            fetchData();    
-        }, []);
+        if (!stations || stations.length == 0)
+            fetchData();
+    }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -83,7 +85,8 @@ const SearchForm = () => {
                                     sx={{ minWidth: '200px' }}
                                 >
                                     <MenuItem value="">None</MenuItem>
-                                    {stations && stations.map((station) => (
+                                    {stationsState && stationsState.map((station) => (
+                                        station.id != EndStationId && 
                                         <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
                                     ))}
                                 </Select>
@@ -101,7 +104,8 @@ const SearchForm = () => {
                                     sx={{ minWidth: '200px' }}
                                 >
                                     <MenuItem value="">None</MenuItem>
-                                    {stations && stations.map((station) => (
+                                    {stationsState && stationsState.map((station) => (
+                                        station.id != StartStationId && 
                                         <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
                                     ))}
                                 </Select>
