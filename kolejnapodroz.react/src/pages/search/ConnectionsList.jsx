@@ -43,9 +43,7 @@ const ConnectionsList = () => {
     };
 
     return (
-        <div>
-            <Paper sx={{ maxHeight: '100%', overflow: 'auto' }}>
-            <Box sx={{
+        <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
@@ -68,7 +66,7 @@ const ConnectionsList = () => {
                 marginTop: '25px',
             }}>
                 Available connections
-                </Typography>
+            </Typography>
             
             <List sx={{ display: 'flex', flexDirection: 'column' }}>
                 {connections && connections.map((train) => (
@@ -93,10 +91,8 @@ const ConnectionsList = () => {
                         </div>
                     </ListItem>
                 ))}
-                    </List>
-            </Box>
-            </Paper>
-        </div>
+            </List>
+        </Box>
     );
 };
 
