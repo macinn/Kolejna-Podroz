@@ -8,17 +8,18 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import backgroundImage from '../../media/trainBlur.jpg';
 
-
 const ConnectionsList = () => {
-    const { StartStationId, setStartStation,
-            EndStationId, setEndStation,
-            DepartureTime, setDepartureTime,
-            connections, setConnections,
+    const { connections,
             selectedConnection, setSelectedConnection } = useStore();
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth0();
 
-    const baseUrl = import.meta.env.VITE_API_URL;
+    useEffect(() => {
+        if (!connections || connections.length == 0) {
+            alert("No connections found!");
+            navigate("/");
+        }
+    }, [])
 
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
@@ -74,7 +75,7 @@ const ConnectionsList = () => {
                             sx={{backgroundColor: 'rgb(128, 61, 33)', marginRight: '70px' }}
                         >
                             Select
-                            </Button>
+                        </Button>
                         </div>
                     </ListItem>
                 ))}
