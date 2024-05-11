@@ -8,8 +8,8 @@ import { DateTimePicker, DatePicker } from '@mui/x-date-pickers';
 import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
-const SearchForm = () => {
-    const baseUrl = import.meta.env.VITE_API_URL;
+const SearchForm = (props) => {
+    const baseUrl = props.url;
     const navigate = useNavigate();
 
     const { StartStationId,  setStartStation,
@@ -23,9 +23,9 @@ const SearchForm = () => {
 
     useEffect(() => {
         setSelectedConnection(null);
-
         const fetchData = async () => {
             try {
+                
             const response = await fetch(`${baseUrl}/station`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
