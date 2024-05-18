@@ -6,9 +6,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useStore } from '../../stores/SearchFormStore';
 
-const baseUrl = import.meta.env.VITE_API_URL;
 
-const TripDetailsPage = () => {
+const TripDetailsPage = (props) => {
+    const baseUrl = props.url;
     const { user, isAuthenticated } = useAuth0();
     const navigate = useNavigate();
     const { selectedConnection, setSelectedConnection } = useStore();
@@ -190,8 +190,7 @@ const TripDetailsPage = () => {
                     <FormControlLabel
                         control={<Radio /*checked={hasTable} onChange={(e) => setHasTable(e.target.checked)}*/ />}
                         label="Seat with table"
-                        color={'white'}
-                        marginTop={'30px'}
+                        style={{ color: 'white', marginTop: '30px' }}
                     />
                     <Button
                         variant="contained"

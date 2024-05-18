@@ -13,7 +13,7 @@ import SummaryPage from './pages/summary/SummaryPage';
 const AppRoutes = [
     {
         index: true,
-        element: <SearchForm />,
+        element: <SearchForm url={import.meta.env.VITE_API_URL} />,
     },
     {
         path: "/connections",
@@ -33,7 +33,7 @@ const AppRoutes = [
     },
     {
         path: "/details",
-        element: <TripDetailsPage />,
+        element: <TripDetailsPage url={import.meta.env.VITE_API_URL}/>,
     },
     {
         path: "/add-connection",

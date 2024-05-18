@@ -69,13 +69,13 @@ const ConfirmationPage = () => {
                     Time of departure:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        {selectedConnection.departureTime}
+                        {departure_hour}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Time of arrival:
                 </Typography>
                 <Typography variant="body1" style={{ marginLeft: '20px' }}>
-                        {selectedConnection.arrivalTime}
+                        {arrival_hour}
                 </Typography>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Departure date:
