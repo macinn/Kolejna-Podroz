@@ -45,7 +45,7 @@ const AppRoutes = [
     },
     {
         path: "/add-station",
-        element: <StationForm url={import.meta.env.VITE_API_URL}/>,
+        element: <StationForm />,
 
     },
     {

@@ -1,3 +1,4 @@
+import React from 'react';
 import { AppBar, Toolbar, styled, Avatar } from '@mui/material';
 import LoginButton from '../login/LoginButton';
 import LogoutButton from '../login/LogoutButton';

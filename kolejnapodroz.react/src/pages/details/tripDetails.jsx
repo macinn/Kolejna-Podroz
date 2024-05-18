@@ -190,8 +190,7 @@ const TripDetailsPage = (props) => {
                     <FormControlLabel
                         control={<Radio /*checked={hasTable} onChange={(e) => setHasTable(e.target.checked)}*/ />}
                         label="Seat with table"
-                        color={'white'}
-                        marginTop={'30px'}
+                        style={{ color: 'white', marginTop: '30px' }}
                     />
                     <Button
                         variant="contained"

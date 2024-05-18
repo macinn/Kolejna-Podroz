@@ -31,7 +31,7 @@ function ProviderForm() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Wyst¹pi³ problem podczas przetwarzania ¿¹dania.');
+                throw new Error('Wystï¿½piï¿½ problem podczas przetwarzania ï¿½ï¿½dania.');
             }
             return response.json();
         })
@@ -40,7 +40,7 @@ function ProviderForm() {
             window.alert('Poprawnie dodano Provider');
         })
         .catch(error => {
-            console.error('Wyst¹pi³ b³¹d:', error);
+            console.error('Wystï¿½piï¿½ bï¿½ï¿½d:', error);
             window.alert('Wystapil blad podczas dodawania Provider');
         });
   };
