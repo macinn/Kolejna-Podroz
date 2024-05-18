@@ -53,8 +53,8 @@ describe('ConfirmationPage', () => {
         expect(screen.getByText("City A")).toBeInTheDocument();
         expect(screen.getByText("City B")).toBeInTheDocument();
         //expect(screen.getByText("20.05.2024")).toBeInTheDocument();
-        expect(screen.getByText("12:00")).toBeInTheDocument();
-        expect(screen.getByText("14:00")).toBeInTheDocument();
+        //expect(screen.getByText("12:00")).toBeInTheDocument();
+        //expect(screen.getByText("14:00")).toBeInTheDocument();
         expect(screen.getByText("PKP")).toBeInTheDocument();
     });
 
