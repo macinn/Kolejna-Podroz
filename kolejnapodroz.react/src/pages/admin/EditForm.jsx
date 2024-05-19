@@ -11,9 +11,8 @@ import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { InputLabel } from "@mui/material";
 import { Typography } from "@mui/material";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
 import AdminTheme from "./AdminTheme";
+import backgroundImage from '../../media/trainBlur.jpg';
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -58,9 +57,20 @@ function EditForm({ data, onSubmit }) {
   };
 
   return (
-    <ThemeProvider theme={AdminTheme}>
-      <FormGrid>
-        <Container>
+      <ThemeProvider theme={AdminTheme}>
+          <Container sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: `url(${backgroundImage})`,
+                  backgroundPosition: `center`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover'
+              }}>
+            <FormGrid>
             <Typography variant="h5" sx={{
                 color: 'rgb(128, 61, 33)',
                       fontWeight: 'bold',
@@ -207,8 +217,8 @@ function EditForm({ data, onSubmit }) {
               </Button>
             </Grid>
           </form>
-        </Container>
-      </FormGrid>
+        </FormGrid>
+      </Container>
     </ThemeProvider>
   );
 }

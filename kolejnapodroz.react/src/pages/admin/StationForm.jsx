@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button, Grid, Typography, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import AdminTheme from "./AdminTheme";
+import backgroundImage from '../../media/trainBlur.jpg';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 function StationForm({ onSubmit }) {
@@ -44,7 +45,19 @@ function StationForm({ onSubmit }) {
 
   return (
     <ThemeProvider theme={AdminTheme}>
-      <Container sx={{ mt: 4 }}>
+          <Container sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              width: '100%',
+              height: '100%',
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundPosition: `center`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              mt: 4
+          }}>
         <Typography variant="h5" sx={{
             color: 'rgb(128, 61, 33)',
             fontWeight: 'bold',

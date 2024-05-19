@@ -1,5 +1,5 @@
-import React from "react";
 import { createTheme } from "@mui/material/styles";
+import backgroundImage from '../../media/trainBlur.jpg';
 
 const AdminTheme = createTheme({
   palette: {
@@ -11,7 +11,7 @@ const AdminTheme = createTheme({
       },
       background: {
         default: "#121212",
-        paper: "#1e1e1e",
+        paper: "#1e1e1e"
       },
       text: {
         primary: "#ffffff",
