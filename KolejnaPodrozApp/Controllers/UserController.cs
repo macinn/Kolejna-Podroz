@@ -21,8 +21,10 @@ namespace KolejnaPodrozApp.Controllers
         public ActionResult<AccountInfo> Get(string auth0Id)
         {
             var user = _unitOfWork.User.Get(u => u.Auth0Id == auth0Id);
-            return Ok(user.AccountInfo);
 
+            if(user == null)
+                return NotFound("User not found.");
+            return Ok(user.AccountInfo);
         }
     }
 }

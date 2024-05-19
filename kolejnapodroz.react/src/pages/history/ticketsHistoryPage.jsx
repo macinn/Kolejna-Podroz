@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../../media/trainBlur.jpg';
 import ReturnButton from '../../utils/ReturnButton';
 import { useAuth0 } from '@auth0/auth0-react';
-import Paper from '@mui/material/Paper';
 import { Avatar } from '@mui/material';
+
+
 
 const TicketsHistoryPage = () => {
     const { user } = useAuth0();
-    const [connections, setConnection] = useState([]);
+    const [tickets, setTickets] = useState([]);
+    const [userData, setUserData] = useState(0);
+    const baseUrl = import.meta.env.VITE_API_URL;
+
+    useEffect(() => {
+        
+        fetch(`${baseUrl}/User?auth0Id=${user.sub}`)
+            .then(response => response.json())
+            .then(data => setUserData(data))
+            .catch(error => console.error('Error:', error));
+
+        fetch(`${baseUrl}/Ticket?auth0Id=${user.sub}`)
+            .then(response => response.json())
+            .then(data => setTickets(data))
+            .catch(error => console.error('Error:', error));      
+    }, []);
+
 
     const exampleConnections = [
         {
@@ -58,18 +74,18 @@ const TicketsHistoryPage = () => {
                         Your previously bought tickets:
                     </Typography>
                     <List sx={{ display: 'flex', flexDirection: 'column' }}>
-                        {exampleConnections && exampleConnections.map((train) => (
-                            <ListItem key={train.id} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        {tickets && tickets.map((ticket) => (
+                            <ListItem key={ticket.id} sx={{ display: 'flex', justifyContent: 'center' }}>
                                 <div style={{ border: '0.1em solid maroon', borderRadius: '10px', width: '80%', margin: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                     <ListItemText
                                         sx={{ marginLeft: '3em' }}
-                                        primary={`From: ${train.from.name} - ${train.from.city}`}
-                                        secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
+                                        primary={`From: ${ticket.connection.from.name} - ${ticket.connection.from.city}`}
+                                        secondary={`Departure Time: ${new Date(ticket.connection.departureTime).toLocaleString()}`}
                                     />
                                     <ListItemText
                                         
-                                        primary={`To: ${train.destination.name} - ${train.destination.city}`}
-                                        secondary={`Arrival Time: ${new Date(train.arrivalTime).toLocaleString()}`}
+                                        primary={`To: ${ticket.connection.destination.name} - ${ticket.connection.destination.city}`}
+                                        secondary={`Arrival Time: ${new Date(ticket.connection.arrivalTime).toLocaleString()}`}
                                     />
                                 </div>
                             </ListItem>
@@ -103,7 +119,7 @@ const TicketsHistoryPage = () => {
                             fontWeight: 'bold',
                             margin: '20px',
                         }}>
-                            130
+                            {userData.loyaltyPoints }
                         </Typography>
                     </Box>
                     <Box
