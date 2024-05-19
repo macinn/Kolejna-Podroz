@@ -28,9 +28,9 @@ describe('Rendering admin buttons', () => {
         </ShowIfAdmin>
     );
 
-    expect(getByText('Add new connection')).toBeInTheDocument();
-    expect(getByText('Add new provider')).toBeInTheDocument();
-    expect(getByText('Add new station')).toBeInTheDocument();
+    expect(getByText('Add connection')).toBeInTheDocument();
+    expect(getByText('Add provider')).toBeInTheDocument();
+    expect(getByText('Add station')).toBeInTheDocument();
   });
 
   test('Navigating to admin panels', () => {
@@ -45,13 +45,13 @@ describe('Rendering admin buttons', () => {
       </ShowIfAdmin>
     );
 
-    fireEvent.click(getByText('Add new connection'));
+    fireEvent.click(getByText('Add connection'));
     expect(mockNavigate).toHaveBeenCalledWith('/add-connection');
 
-    fireEvent.click(getByText('Add new provider'));
+    fireEvent.click(getByText('Add provider'));
     expect(mockNavigate).toHaveBeenCalledWith('/add-provider');
 
-    fireEvent.click(getByText('Add new station'));
+    fireEvent.click(getByText('Add station'));
     expect(mockNavigate).toHaveBeenCalledWith('/add-station');
   });
   
