@@ -13,7 +13,7 @@ function StationButton() {
       }}
       sx={{ m: 1, backgroundColor: 'rgb(128, 61, 33)' }}
       >
-      Add new station
+      Add station
     </Button>
   );
 }

@@ -9,6 +9,7 @@ import StationButton from '../admin/StationButton';
 import { Link, useNavigate } from 'react-router-dom';
 import trainIcon from '../../assets/train_icon.jpg';
 import { useState } from 'react';
+import ShowIfLoggedIn from '../../utils/ShowIfLoggedIn';
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -76,6 +77,9 @@ const NavMenu = () => {
                     </Link>
                     <StyledButton onClick={() => handleButtonClick(0)}>Home</StyledButton>
                     <StyledButton onClick={() => handleButtonClick(1)}>Rankings</StyledButton>
+                    <ShowIfLoggedIn>
+                        <StyledButton onClick={() => navigate('/history')}>Profile</StyledButton>
+                    </ShowIfLoggedIn>
                 </LeftContainer>
                 <RightContainer>
                     <AdminContainer>

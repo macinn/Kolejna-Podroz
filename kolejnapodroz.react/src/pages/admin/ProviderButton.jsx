@@ -13,7 +13,7 @@ function ProviderButton() {
       }}
       sx={{ m: 1, backgroundColor: 'rgb(128, 61, 33)' }}
       >
-      Add new provider
+      Add provider
     </Button>
   );
 }

@@ -13,7 +13,7 @@ function AddButton() {
       }}
           sx={{ m: 1, backgroundColor: 'rgb(128, 61, 33)' }}
     >
-      Add new connection
+      Add connection
     </Button>
   );
 }
