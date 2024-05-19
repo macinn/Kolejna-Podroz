@@ -8,6 +8,7 @@ import ProviderForm from './pages/admin/ProviderForm';
 import StationForm from './pages/admin/StationForm';
 import LoginPage from './pages/login/LoginPage'; 
 import SummaryPage from './pages/summary/SummaryPage';
+import RankingsPage from './pages/rankings/rankingPages'
 
 
 const AppRoutes = [
@@ -46,7 +47,6 @@ const AppRoutes = [
     {
         path: "/add-station",
         element: <StationForm />,
-
     },
     {
         path: "*",
@@ -55,6 +55,10 @@ const AppRoutes = [
     {
         path: '/login-page',
         element: <LoginPage />,
+    },
+    {
+        path: '/rankings',
+        element: <RankingsPage />,
     },
 ];
 

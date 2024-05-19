@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 using Microsoft.OpenApi.Models;
 using KolejnaPodroz.Domain.Services.EmailService;
 using KolejnaPodroz.Domain.Services.TicketService;
+using KolejnaPodroz.Domain.Services.RankingService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,7 @@ builder.Services.AddScoped<IConnectionService, ConnectionService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IRankingService, RankingService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -86,3 +88,5 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }    // do testow integracyjnych

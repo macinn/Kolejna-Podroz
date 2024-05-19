@@ -1,25 +1,25 @@
 import React from 'react';
-import { AppBar, Toolbar, styled, Avatar } from '@mui/material';
+import { AppBar, Toolbar, styled, Avatar, Button } from '@mui/material';
 import LoginButton from '../login/LoginButton';
 import LogoutButton from '../login/LogoutButton';
 import AddButton from '../admin/AddButton';
 import ShowIfAdmin from '../../utils/ShowIfAdmin';
 import ProviderButton from '../admin/ProviderButton';
 import StationButton from '../admin/StationButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import trainIcon from '../../assets/train_icon.jpg';
-import ShowIfLoogedIn from '../../utils/ShowIfLoggedIn';
-import ProfileButton from '../history/ProfileButton';
+import { useState } from 'react';
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     background: '#2F1B12',
     height: 60
 });
 
-const Filler = styled('div')({
-    marginLeft: 'auto',
+const LeftContainer = styled('div')({
+    display: "flex",
+    alignItems: "center"
 });
 
 const StyledAvatar = styled(Avatar)({
@@ -28,26 +28,66 @@ const StyledAvatar = styled(Avatar)({
     marginRight: '10px',
 });
 
+const RightContainer = styled('div')({
+    display: "flex",
+    alignItems: "center"
+});
+
+const StyledButton = styled(Button)({
+    color: "#FAF3EB",
+    '&.MuiButton-root': {
+        textTransform: 'none',
+        fontSize: '18px',
+        marginLeft: '15px'
+    },
+    '&.MuiButton-text': {
+        '&:hover': {
+            color: '#feedca',
+        }
+    },
+});
+
+const AdminContainer = styled('div')({
+    display: "flex",
+    alignItems: "center",
+    marginRight: '30px'
+});
+
 
 const NavMenu = () => {
+    const navigate = useNavigate();
+    const [value, setValue] = useState(0);
+
+    const handleButtonClick = (newValue) => {
+        setValue(newValue);
+        if (newValue === 0) {
+            navigate('/');
+        } else if (newValue === 1) {
+            navigate('/rankings');
+        }
+    };
+
     return (
         <AppBar position="fixed">
             <StyledToolbar>
-                <Link to="/">
-                    <StyledAvatar alt="Courier Logo" src={trainIcon} variant="square"/>
-                </Link>
-                <Filler />
-                <ShowIfAdmin>
-                    <AddButton />
-                    <ProviderButton />
-                    <StationButton />
-                </ShowIfAdmin>
-                <Filler />
-                <ShowIfLoogedIn>
-                    <ProfileButton />
-                </ShowIfLoogedIn>
-                <LoginButton />
-                <LogoutButton />
+                <LeftContainer>
+                    <Link to="/">
+                        <StyledAvatar alt="Courier Logo" src={trainIcon} variant="square" />
+                    </Link>
+                    <StyledButton onClick={() => handleButtonClick(0)}>Home</StyledButton>
+                    <StyledButton onClick={() => handleButtonClick(1)}>Rankings</StyledButton>
+                </LeftContainer>
+                <RightContainer>
+                    <AdminContainer>
+                        <ShowIfAdmin>
+                            <AddButton />
+                            <ProviderButton />
+                            <StationButton />
+                        </ShowIfAdmin>
+                    </AdminContainer>
+                    <LoginButton />
+                    <LogoutButton />
+                </RightContainer>
             </StyledToolbar>
         </AppBar>
     );

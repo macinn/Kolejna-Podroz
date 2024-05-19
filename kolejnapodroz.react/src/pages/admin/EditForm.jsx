@@ -141,7 +141,7 @@ function EditForm({ data, onSubmit }) {
                 <TextField
                   fullWidth
                   label={"Provider Id"}
-                  value={editedConnection.ProviderId}
+                  value={editedConnection.ProviderId || 1}
                   onChange={(e) =>
                     setEditedConnection({
                       ...editedConnection,
