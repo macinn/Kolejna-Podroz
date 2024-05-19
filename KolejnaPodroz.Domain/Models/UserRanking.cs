@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace KolejnaPodroz.Domain.Models
 {
-    public class Ranking
+    public class UserRanking
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public double TravelTime { get; set; }
+        public int TicketsBought { get; set; }
+        public int TravelRank { get; set; }
+        public int TicketsRank { get; set; }
     }
 }

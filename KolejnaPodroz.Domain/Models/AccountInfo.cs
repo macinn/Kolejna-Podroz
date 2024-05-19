@@ -15,5 +15,7 @@ namespace KolejnaPodroz.Domain.Models
         public string PhoneNumber { get; set; }
         public Role Role { get; set; }
         public int LoyaltyPoints {  get; set; }
+        public int TravelTime { get; set; }
+        public int TicketsBought { get; set; }  
     }
 }
