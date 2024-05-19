@@ -19,7 +19,7 @@ namespace KolejnaPodrozApp.Models.Login
                 accountInfo.Surname = family_name != null ? family_name : "";
                 accountInfo.Email = email != null ? email : "";
                 accountInfo.PhoneNumber = phone_number != null ? phone_number : ""; 
-                accountInfo.Name = given_name != null ? given_name : "";
+                accountInfo.Name = given_name != null ? given_name : (name != null? name: "");
                 accountInfo.Role = ConvertRole(role);
                 user.Auth0Id = sub != null ? sub : "";
                 user.AccountInfo = accountInfo;
