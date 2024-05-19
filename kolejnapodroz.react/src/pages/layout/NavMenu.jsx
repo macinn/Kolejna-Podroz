@@ -57,16 +57,6 @@ const AdminContainer = styled('div')({
 
 const NavMenu = () => {
     const navigate = useNavigate();
-    const [value, setValue] = useState(0);
-
-    const handleButtonClick = (newValue) => {
-        setValue(newValue);
-        if (newValue === 0) {
-            navigate('/');
-        } else if (newValue === 1) {
-            navigate('/rankings');
-        }
-    };
 
     return (
         <AppBar position="fixed">
@@ -75,8 +65,8 @@ const NavMenu = () => {
                     <Link to="/">
                         <StyledAvatar alt="Courier Logo" src={trainIcon} variant="square" />
                     </Link>
-                    <StyledButton onClick={() => handleButtonClick(0)}>Home</StyledButton>
-                    <StyledButton onClick={() => handleButtonClick(1)}>Rankings</StyledButton>
+                    <StyledButton onClick={() => navigate('/')}>Home</StyledButton>
+                    <StyledButton onClick={() => navigate('/rankings')}>Rankings</StyledButton>
                     <ShowIfLoggedIn>
                         <StyledButton onClick={() => navigate('/history')}>Profile</StyledButton>
                     </ShowIfLoggedIn>
