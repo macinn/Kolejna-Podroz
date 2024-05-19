@@ -91,5 +91,13 @@ namespace KolejnaPodrozApp.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<Ticket>> Get(string auth0Id)
+        {
+            var tickets = _unitOfWork.Ticket.GetAll(t => t.User != null && t.User.Auth0Id == auth0Id);
+            return Ok(tickets);
+
+        }
+
     }
 }
