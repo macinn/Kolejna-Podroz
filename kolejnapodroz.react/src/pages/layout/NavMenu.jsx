@@ -8,6 +8,8 @@ import ProviderButton from '../admin/ProviderButton';
 import StationButton from '../admin/StationButton';
 import { Link } from 'react-router-dom';
 import trainIcon from '../../assets/train_icon.jpg';
+import ShowIfLoogedIn from '../../utils/ShowIfLoggedIn';
+import ProfileButton from '../history/ProfileButton';
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -40,7 +42,10 @@ const NavMenu = () => {
                     <ProviderButton />
                     <StationButton />
                 </ShowIfAdmin>
-                <Filler/>
+                <Filler />
+                <ShowIfLoogedIn>
+                    <ProfileButton />
+                </ShowIfLoogedIn>
                 <LoginButton />
                 <LogoutButton />
             </StyledToolbar>
