@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../../media/trainBlur.jpg';
 import ReturnButton from '../../utils/ReturnButton';
+import { useAuth0 } from '@auth0/auth0-react';
+import Paper from '@mui/material/Paper';
+import { Avatar } from '@mui/material';
 
 const TicketsHistoryPage = () => {
 
     const navigate = useNavigate();
+    const { user } = useAuth0();
     const [connections, setConnection] = useState([]);
 
     useEffect(() => {
+        console.log(user);
     }, []);
 
     const exampleConnections = [
@@ -32,14 +36,15 @@ const TicketsHistoryPage = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white',
-            overflowY: 'scroll', }}>
+            overflowY: 'scroll', backgroundImage: `url(${backgroundImage})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'}}>
             <ReturnButton/>
-
-            <Grid container spacing={2} style={{ height: '100%'}}>
-
-                <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <Grid container spacing={2} style={{ height: '100%'}}>
+                <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                    <Avatar alt={user.nickname} src={user.picture} sx={{ height: '6em', width: '6em', marginBottom: '1em' }} />
                     <Typography variant="h4" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold', marginBottom: '30px'}} >
-                        Welcome Magdalena!
+                        Welcome {user.nickname}!
                     </Typography>
                     <Typography variant="h5" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold'}} >
                         Your previously bought tickets:
@@ -63,11 +68,8 @@ const TicketsHistoryPage = () => {
                         ))}
                     </List>
                 </Grid>
-
                 <Grid item xs={12} md={4} sx={{
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
+                    
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -111,16 +113,12 @@ const TicketsHistoryPage = () => {
                             Account details:
                         </Typography>
                         <Typography variant="subtitle1" sx={{fontWeight: 'bold'}}>
-                            Name:
-                        </Typography>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                            Surname:
+                            Name: {user.nickname}
                         </Typography>
                         <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginBottom:'20px' }}>
-                            Email:
+                            Email: {user.email}
                         </Typography>
                     </Box>
-
                 </Grid>
             </Grid>
         </div>
