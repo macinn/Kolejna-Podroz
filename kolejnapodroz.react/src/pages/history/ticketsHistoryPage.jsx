@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../../media/trainBlur.jpg';
 import ReturnButton from '../../utils/ReturnButton';
+import { useAuth0 } from '@auth0/auth0-react';
+import Paper from '@mui/material/Paper';
+import { Avatar } from '@mui/material';
 
 const TicketsHistoryPage = () => {
-
-    const navigate = useNavigate();
+    const { user } = useAuth0();
     const [connections, setConnection] = useState([]);
-
-    useEffect(() => {
-    }, []);
 
     const exampleConnections = [
         {
@@ -27,19 +25,34 @@ const TicketsHistoryPage = () => {
             destination: { name: 'Warszawa Centralna', city: 'Warszawa' },
             departureTime: new Date().toISOString(), 
             arrivalTime: new Date().toISOString(), 
+        },
+        {
+            id: 1,
+            from: { name: 'Warszawa Centralna', city: 'Warszawa' },
+            destination: { name: 'Kraków Główny', city: 'Kraków' },
+            departureTime: new Date().toISOString(),
+            arrivalTime: new Date().toISOString(),
+        },
+        {
+            id: 2,
+            from: { name: 'Kraków Główny', city: 'Kraków' },
+            destination: { name: 'Warszawa Centralna', city: 'Warszawa' },
+            departureTime: new Date().toISOString(),
+            arrivalTime: new Date().toISOString(),
         }
     ];
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white',
-            overflowY: 'scroll', }}>
+            overflowY: 'scroll', backgroundImage: `url(${backgroundImage})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'}}>
             <ReturnButton/>
-
-            <Grid container spacing={2} style={{ height: '100%'}}>
-
-                <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <Typography variant="h4" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold', marginBottom: '30px'}} >
-                        Welcome Magdalena!
+                <Grid container spacing={2} style={{ height: '100%'}}>
+                <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                    <Avatar alt={user.nickname} src={user.picture} sx={{ height: '6em', width: '6em', marginBottom: '1em' }} />
+                    <Typography variant="h4" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold', marginBottom: '2em'}} >
+                        Welcome {user.nickname}!
                     </Typography>
                     <Typography variant="h5" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold'}} >
                         Your previously bought tickets:
@@ -47,9 +60,9 @@ const TicketsHistoryPage = () => {
                     <List sx={{ display: 'flex', flexDirection: 'column' }}>
                         {exampleConnections && exampleConnections.map((train) => (
                             <ListItem key={train.id} sx={{ display: 'flex', justifyContent: 'center' }}>
-                                <div style={{ border: '2px solid maroon', borderRadius: '10px', width: '80%', margin: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                <div style={{ border: '0.1em solid maroon', borderRadius: '10px', width: '80%', margin: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                     <ListItemText
-                                        sx={{ marginLeft: '40px' }}
+                                        sx={{ marginLeft: '3em' }}
                                         primary={`From: ${train.from.name} - ${train.from.city}`}
                                         secondary={`Departure Time: ${new Date(train.departureTime).toLocaleString()}`}
                                     />
@@ -63,11 +76,8 @@ const TicketsHistoryPage = () => {
                         ))}
                     </List>
                 </Grid>
-
                 <Grid item xs={12} md={4} sx={{
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
+                    
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -77,14 +87,14 @@ const TicketsHistoryPage = () => {
                     <Box
                         sx={{
                             backgroundColor: 'white',
-                            borderRadius: '20px',
+                            borderRadius: '1em',
                             width: '65%',
-                            marginBottom: '55px'
+                            marginBottom: '3.5em'
                         }}>
                         <Typography variant="h6" sx={{
                             color: 'rgb(128, 61, 33)',
                             fontWeight: 'bold',
-                            margin: '20px',
+                            margin: '1em',
                         }}>
                             Your loyalty points:
                         </Typography>
@@ -99,28 +109,24 @@ const TicketsHistoryPage = () => {
                     <Box
                         sx={{
                             backgroundColor: 'white',
-                            borderRadius: '20px',
+                            borderRadius: '1em',
                             width: '65%',
                             color: 'black',
                         }}>
                         <Typography variant="h6" sx={{
                             color: 'rgb(128, 61, 33)',
                             fontWeight: 'bold',
-                            margin: '20px',
+                            margin: '1em',
                         }}>
                             Account details:
                         </Typography>
-                        <Typography variant="subtitle1" sx={{fontWeight: 'bold'}}>
-                            Name:
-                        </Typography>
                         <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                            Surname:
+                            Name: {user.nickname}
                         </Typography>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginBottom:'20px' }}>
-                            Email:
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginBottom:'1em' }}>
+                            Email: {user.email}
                         </Typography>
                     </Box>
-
                 </Grid>
             </Grid>
         </div>
