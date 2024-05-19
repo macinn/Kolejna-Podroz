@@ -22,11 +22,25 @@ namespace KolejnaPodroz.DataAccess.Repository
         {
             _db.Tickets.Update(ticket);
         }
-
-        public override Ticket Get(Expression<Func<Ticket, bool>> filter)
+        public override IEnumerable<Ticket> GetAll(Expression<Func<Ticket, bool>> filter)
         {
             var query = _db.Set<Ticket>()
+                .Include(t => t.User)
                 .Include(t => t.Connection)
+                .ThenInclude(c => c.Destination)
+                .Include(t => t.Connection)
+                .ThenInclude(c => c.From)
+                .Where(filter);
+            return query.ToList();
+        }
+        public override Ticket? Get(Expression<Func<Ticket, bool>> filter)
+        {
+            var query = _db.Set<Ticket>()
+                .Include(t => t.User)
+                .Include(t => t.Connection)
+                .ThenInclude(c => c.Destination)
+                .Include(t => t.Connection)
+                .ThenInclude(c => c.From)
                 .Where(filter);
             return query.FirstOrDefault();
         }
