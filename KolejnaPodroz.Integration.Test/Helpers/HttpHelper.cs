@@ -14,10 +14,5 @@ namespace KolejnaPodroz.Integration.Test.Helpers
             return new StringContent(JsonConvert.SerializeObject(items), Encoding.UTF8, "application/json");
         }
 
-        internal static class Urls
-        {
-            public readonly static string PostConnetion = "/api/Connection/AdminPost";
-            public readonly static string GetConnetion = "/api/Connection/";
-        }
     }
 }
