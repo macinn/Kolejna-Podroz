@@ -11,5 +11,6 @@ namespace KolejnaPodroz.Domain.Models
         WAITING,
         ACCEPTED,
         REJECTED,
+        USED
     }
 }

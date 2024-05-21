@@ -4,12 +4,13 @@ import backgroundImage from '../../media/trainBlur.jpg';
 import ReturnButton from '../../utils/ReturnButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Avatar } from '@mui/material';
-
+import { Button } from "@mui/material";
 
 
 const TicketsHistoryPage = () => {
     const { user } = useAuth0();
     const [tickets, setTickets] = useState([]);
+    const [activeTickets, setActiveTickets] = useState([]);
     const [userData, setUserData] = useState(0);
     const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -23,40 +24,42 @@ const TicketsHistoryPage = () => {
         fetch(`${baseUrl}/Ticket?auth0Id=${user.sub}`)
             .then(response => response.json())
             .then(data => setTickets(data))
-            .catch(error => console.error('Error:', error));      
+            .catch(error => console.error('Error:', error));  
+
+        getActiveTickets();
     }, []);
 
+    const getActiveTickets = () => {
+        fetch(`${baseUrl}/Ticket/GetActiveTickets?auth0Id=${user.sub}`)
+            .then(response => response.json())
+            .then(data => setActiveTickets(data))
+            .catch(error => console.error('Error:', error));  
+    }
 
-    const exampleConnections = [
-        {
-            id: 1,
-            from: { name: 'Warszawa Centralna', city: 'Warszawa' },
-            destination: { name: 'Kraków Główny', city: 'Kraków' },
-            departureTime: new Date().toISOString(), 
-            arrivalTime: new Date().toISOString(), 
-        },
-        {
-            id: 2,
-            from: { name: 'Kraków Główny', city: 'Kraków' },
-            destination: { name: 'Warszawa Centralna', city: 'Warszawa' },
-            departureTime: new Date().toISOString(), 
-            arrivalTime: new Date().toISOString(), 
-        },
-        {
-            id: 1,
-            from: { name: 'Warszawa Centralna', city: 'Warszawa' },
-            destination: { name: 'Kraków Główny', city: 'Kraków' },
-            departureTime: new Date().toISOString(),
-            arrivalTime: new Date().toISOString(),
-        },
-        {
-            id: 2,
-            from: { name: 'Kraków Główny', city: 'Kraków' },
-            destination: { name: 'Warszawa Centralna', city: 'Warszawa' },
-            departureTime: new Date().toISOString(),
-            arrivalTime: new Date().toISOString(),
-        }
-    ];
+    const resign = (id) => {
+
+        const dataPut = { ticketId: id };
+        fetch(`${baseUrl}/Ticket/CancelTicket`, {
+            method: "PUT",
+            body: JSON.stringify(dataPut),
+            headers: {
+                "Content-type": "application/json",
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Wyst�pi� problem podczas przetwarzania ��dania.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                getActiveTickets();
+                console.log('Poprawnie zrezygnowano z biletu:', data);
+            })
+            .catch(error => {
+                console.error('Wyst�pi� b��d:', error);
+            });
+    }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white',
@@ -70,6 +73,34 @@ const TicketsHistoryPage = () => {
                     <Typography variant="h4" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold', marginBottom: '2em'}} >
                         Welcome {user.nickname}!
                     </Typography>
+
+                    <Typography variant="h5" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold' }} >
+                        Your active tickets:
+                    </Typography>
+                    <List sx={{ display: 'flex', flexDirection: 'column' }}>
+                        {activeTickets && activeTickets.map((activeTicket) => (
+                            <ListItem key={activeTicket.id} sx={{ display: 'flex', justifyContent: 'center' }}>
+                                <div style={{ border: '0.1em solid maroon', borderRadius: '10px', width: '80%', margin: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                    <ListItemText
+                                        sx={{ marginLeft: '3em' }}
+                                        primary={`From: ${activeTicket.connection.from.name} - ${activeTicket.connection.from.city}`}
+                                        secondary={`Departure Time: ${new Date(activeTicket.connection.departureTime).toLocaleString()}`}
+                                    />
+                                    <ListItemText
+
+                                        primary={`To: ${activeTicket.connection.destination.name} - ${activeTicket.connection.destination.city}`}
+                                        secondary={`Arrival Time: ${new Date(activeTicket.connection.arrivalTime).toLocaleString()}`}
+                                    />
+                                    <Button variant="contained"
+                                        sx={{marginRight: '1em', padding: '5px', backgroundColor: 'brown', '&:hover': { backgroundColor: 'red' } }}
+                                        onClick={() => { resign(activeTicket.id) }}>
+                                        Resign
+                                    </Button>
+                                </div>
+                            </ListItem>
+                        ))}
+                    </List>
+
                     <Typography variant="h5" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold'}} >
                         Your previously bought tickets:
                     </Typography>

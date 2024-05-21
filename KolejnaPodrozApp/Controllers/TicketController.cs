@@ -103,5 +103,27 @@ namespace KolejnaPodrozApp.Controllers
 
         }
 
+        [HttpGet("GetActiveTickets")]
+        public ActionResult<IEnumerable<Ticket>> GetActiveTickets(string auth0Id)
+        {
+            var activeTickets = _unitOfWork.Ticket.GetAll(t => t.User != null && t.User.Auth0Id == auth0Id && t.TicketStatus == TicketStatus.ACCEPTED);
+            return Ok(activeTickets);
+        }
+
+        [HttpPut("CancelTicket")]
+        public ActionResult<Ticket> CancelTicket(CancelTicketRequest cancelTicket)
+        {
+            var ticket = _unitOfWork.Ticket.Get(t => t.Id == cancelTicket.TicketId && t.TicketStatus == TicketStatus.ACCEPTED);
+
+            if (ticket != null)
+            {
+                ticket.TicketStatus = TicketStatus.REJECTED;
+                _unitOfWork.Ticket.Update(ticket);
+                _unitOfWork.Save();
+                return Ok(ticket);
+            }
+
+            return NotFound(ticket);
+        }
     }
 }
