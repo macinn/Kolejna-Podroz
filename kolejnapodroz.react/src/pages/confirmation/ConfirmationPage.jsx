@@ -101,7 +101,8 @@ const ConfirmationPage = () => {
                 <Button variant="contained"
                     style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
                     onClick={handleButtonClick}>
-                        {isAuthenticated ? 'View your tickets' : 'Home'}
+                        {/*{isAuthenticated ? 'View your tickets' : 'Home'}*/}
+                        View your tickets
                 </Button>
             </Box>
             </Box>
