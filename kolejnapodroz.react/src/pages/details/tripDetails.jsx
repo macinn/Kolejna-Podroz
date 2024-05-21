@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useStore } from '../../stores/SearchFormStore';
-import DetailsDialog from './detailsDialog';
 
 
 const TripDetailsPage = (props) => {
@@ -21,23 +20,8 @@ const TripDetailsPage = (props) => {
     const arrivalTime = new Date(selectedConnection.arrivalTime);
     const arrival_hour = arrivalTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const ticketTypes = ['Normal', 'Student', 'Senior'];
-    
   
     const [selectedTicketType, setselectedTicketType] = useState('Normal'); 
-    const [isDialogOpen, setDialogOpen] = useState(false);
-    const [userEmail, setUserEmail] = useState(null);
-
-    const handleDialogClose = () => {
-        setDialogOpen(false);
-    };
-
-    const handleDialogSubmit = (email) => {
-        console.log('User details submitted:', email);
-        setUserEmail(email);
-        handleReservation(email);
-
-        setDialogOpen(false);
-    };
     
 
     const handleSeatingChange = (event) => {
@@ -53,7 +37,7 @@ const TripDetailsPage = (props) => {
         navigate("/");
     };
 
-    const handleReservation = (email) => {
+    const handleReservationButtonClick = () => {
         // TODO: Wpisac tu prawdziwe dane
         const data = {
             ConnectionId: selectedConnection.id,
@@ -79,23 +63,12 @@ const TripDetailsPage = (props) => {
             })
             .then(data => {
                 console.log('Poprawnie kupiono bilet', data);
-                navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id, ticketPrice: data.price, userEmail: email } });
+                navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id, ticketPrice: data.price} });
             })
             .catch(error => {
                 console.error('Wystąpił błąd:', error);
                 window.alert('Wystapil blad podczas kupowania biletu');
             });
-    }
-
-    const handleReservationButtonClick = () => {
-
-        if (!isAuthenticated) {
-            setDialogOpen(true);
-            return; 
-        }
-
-        handleReservation();
-        
     }
 
     return (
@@ -114,6 +87,7 @@ const TripDetailsPage = (props) => {
                 <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
+                    marginBottom: '50px',
                 }} gutterBottom>
                     Choose your trip details:
                 </Typography>
@@ -137,7 +111,7 @@ const TripDetailsPage = (props) => {
                 paddingRight: '20px',
                 paddingTop: '30px',
                 paddingBottom: '30px',
-                marginTop: '25px',
+                marginTop: '50px',
             }}>
                 <Box sx={{
                     display: 'flex',
@@ -229,11 +203,6 @@ const TripDetailsPage = (props) => {
 
             </Box>
             </Box>
-            <DetailsDialog
-                open={isDialogOpen}
-                onClose={handleDialogClose}
-                onSubmit={handleDialogSubmit}
-            />
 
         </div>
 

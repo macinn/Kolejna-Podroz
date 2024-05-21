@@ -44,7 +44,7 @@ namespace KolejnaPodrozApp.Controllers
         }
 
         [HttpPost("AcceptTicket")]
-        public ActionResult<Ticket> AcceptTicket([FromBody] AcceptTicketPostRequest request, [FromQuery] string? email = null)
+        public ActionResult<Ticket> AcceptTicket(AcceptTicketPostRequest request)
         {
             var ticket = _unitOfWork.Ticket.Get(t => t.Id == request.TicketId);
             
@@ -69,10 +69,6 @@ namespace KolejnaPodrozApp.Controllers
                 var travelTime = ticket.Connection.ArrivalTime - ticket.Connection.DepartureTime;
                 user.AccountInfo.TravelTime += (int)travelTime.TotalMinutes;
                 _unitOfWork.User.Update(user);
-            }
-            else if(email != null)
-            {
-                _emailService.SendEmail("Ticket", email, "KolejnaPodroz", "TODO: MAIL MESSAGE").Wait();
             }
 
             _unitOfWork.Save();
