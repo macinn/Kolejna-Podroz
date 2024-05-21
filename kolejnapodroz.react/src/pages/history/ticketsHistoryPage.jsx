@@ -15,7 +15,11 @@ const TicketsHistoryPage = () => {
     const baseUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
-        getUserData()
+        
+        fetch(`${baseUrl}/User?auth0Id=${user.sub}`)
+            .then(response => response.json())
+            .then(data => setUserData(data))
+            .catch(error => console.error('Error:', error));
 
         fetch(`${baseUrl}/Ticket?auth0Id=${user.sub}`)
             .then(response => response.json())
@@ -30,13 +34,6 @@ const TicketsHistoryPage = () => {
             .then(response => response.json())
             .then(data => setActiveTickets(data))
             .catch(error => console.error('Error:', error));  
-    }
-
-    const getUserData = () => {
-        fetch(`${baseUrl}/User?auth0Id=${user.sub}`)
-            .then(response => response.json())
-            .then(data => setUserData(data))
-            .catch(error => console.error('Error:', error));
     }
 
     const resign = (id) => {
@@ -57,7 +54,6 @@ const TicketsHistoryPage = () => {
             })
             .then(data => {
                 getActiveTickets();
-                getUserData();
                 console.log('Poprawnie zrezygnowano z biletu:', data);
             })
             .catch(error => {
