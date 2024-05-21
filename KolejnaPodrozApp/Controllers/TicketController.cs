@@ -44,7 +44,7 @@ namespace KolejnaPodrozApp.Controllers
         }
 
         [HttpPost("AcceptTicket")]
-        public ActionResult<Ticket> AcceptTicket(AcceptTicketPostRequest request, String? email = null)
+        public ActionResult<Ticket> AcceptTicket([FromBody] AcceptTicketPostRequest request, [FromQuery] string? email = null)
         {
             var ticket = _unitOfWork.Ticket.Get(t => t.Id == request.TicketId);
             
