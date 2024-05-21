@@ -102,7 +102,7 @@ namespace KolejnaPodrozApp.Controllers
         [HttpGet("GetActiveTickets")]
         public ActionResult<IEnumerable<Ticket>> GetActiveTickets(string auth0Id)
         {
-            var activeTickets = _unitOfWork.Ticket.GetAll(t => t.User != null && t.User.Auth0Id == auth0Id && t.TicketStatus == TicketStatus.ACCEPTED);
+            var activeTickets = _unitOfWork.Ticket.GetAll(t => t.User != null && t.User.Auth0Id == auth0Id && t.TicketStatus == TicketStatus.ACCEPTED && t.Connection.DepartureTime >= DateTime.Now);
             return Ok(activeTickets);
         }
 
@@ -115,6 +115,17 @@ namespace KolejnaPodrozApp.Controllers
             {
                 ticket.TicketStatus = TicketStatus.REJECTED;
                 _unitOfWork.Ticket.Update(ticket);
+                if(ticket.User != null)
+                {
+                    var user = _unitOfWork.User.Get(u => u.Id == ticket.User.Id);
+                    if(user != null)
+                    {
+                        user.AccountInfo.LoyaltyPoints -= ticket.Connection.Points;
+                        user.AccountInfo.TicketsBought -= 1;
+                        user.AccountInfo.TravelTime -= (int)(ticket.Connection.ArrivalTime - ticket.Connection.DepartureTime).TotalMinutes;
+                        _unitOfWork.User.Update(user);
+                    }
+                }
                 _unitOfWork.Save();
                 return Ok(ticket);
             }
