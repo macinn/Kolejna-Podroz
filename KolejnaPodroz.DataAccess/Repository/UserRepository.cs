@@ -40,7 +40,8 @@ namespace KolejnaPodroz.DataAccess.Repository
         public override User? Get(Expression<Func<User, bool>> filter)
         {
             var query = _db.Set<User>()
-                .Include(u => u.AccountInfo);
+                .Include(u => u.AccountInfo)
+                .Where(filter);
             return query.FirstOrDefault();
         }
     }
