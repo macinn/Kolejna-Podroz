@@ -38,7 +38,12 @@ const SummaryPage = () => {
             UserAuth0Id: isAuthenticated ? user.sub : "",
         };
 
-        fetch(`${baseUrl}/Ticket/AcceptTicket`, {
+        const url = new URL(`${baseUrl}/Ticket/AcceptTicket`);
+        if (ticketDetails.userEmail) {
+            url.searchParams.append('email', ticketDetails.userEmail);
+        }
+
+        fetch(url, {
             method: "POST",
             body: JSON.stringify(acceptTicketRequest),
             headers: {
@@ -150,7 +155,7 @@ const SummaryPage = () => {
                         {ticketDetails.ticketPrice}
                     </Typography>
                     <Button variant="contained"
-                        style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
+                        style={{ marginTop: '10px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
                         onClick={handleReservationButtonClick}>
                         Make a reservation
                     </Button>

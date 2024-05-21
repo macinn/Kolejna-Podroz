@@ -4,15 +4,25 @@ import backgroundImage from '../../media/trainBlur.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../stores/SearchFormStore';
 import ReturnButton from '../../utils/ReturnButton';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ConfirmationPage = () => {
     const navigate = useNavigate();
-    const {selectedConnection} = useStore();
+    const { selectedConnection } = useStore();
+    const { user, isAuthenticated } = useAuth0();
     const departureTime = new Date(selectedConnection.departureTime);
     const departure_date = departureTime.toLocaleDateString();
     const departure_hour = departureTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const arrivalTime = new Date(selectedConnection.arrivalTime);
     const arrival_hour = arrivalTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const handleButtonClick = () => {
+        if (isAuthenticated) {
+            navigate('/history');
+        } else {
+            navigate('/');
+        }
+    };
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', height: '100vh', backgroundColor: 'white' }}>
@@ -31,7 +41,6 @@ const ConfirmationPage = () => {
                 <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
-                    marginBottom: '50px',
                 }} gutterBottom>
                     Your reservation has been confirmed!
                 </Typography>
@@ -48,7 +57,7 @@ const ConfirmationPage = () => {
                 paddingRight: '20px',
                 paddingTop: '20px',
                 paddingBottom: '20px',
-                marginTop: '50px',
+                marginTop: '25px',
             }}>
                 <Typography variant="h6" sx={{color: 'rgb(128, 61, 33)'}}>
                     Connection:
@@ -91,9 +100,9 @@ const ConfirmationPage = () => {
                 </Typography>
                 <Button variant="contained"
                     style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
-                    onClick={() => navigate('/history')}>
-                View your tickets
-            </Button>
+                    onClick={handleButtonClick}>
+                        {isAuthenticated ? 'View your tickets' : 'Home'}
+                </Button>
             </Box>
             </Box>
 
