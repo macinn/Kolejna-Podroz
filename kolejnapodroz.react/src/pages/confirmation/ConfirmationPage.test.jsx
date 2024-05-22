@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../stores/SearchFormStore';
 import ConfirmationPage from './ConfirmationPage';
 import '@testing-library/jest-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -14,6 +15,8 @@ jest.mock('react-router-dom', () => ({
 jest.mock('../../stores/SearchFormStore', () => ({
     useStore: jest.fn(),
 }));
+
+jest.mock('@auth0/auth0-react');
 
 describe('ConfirmationPage', () => {
     beforeEach(() => {
@@ -27,6 +30,12 @@ describe('ConfirmationPage', () => {
                 provider: { name: "PKP" }
             }
         }));
+        useAuth0.mockReturnValue({
+            isAuthenticated: true,
+            user: { name: 'Test User' },
+            logout: jest.fn(),
+            loginWithRedirect: jest.fn(),
+        });
     });
 
     test('Display labels', () => {
@@ -61,8 +70,15 @@ describe('ConfirmationPage', () => {
     test('Render button and move to /history page', () => {
         const mockNavigate = jest.fn();
         useNavigate.mockImplementation(() => mockNavigate);
+
+        useAuth0.mockReturnValue({
+            isAuthenticated: true,
+            user: { name: 'Test User' },
+            logout: jest.fn(),
+            loginWithRedirect: jest.fn(),
+        });
     
-        render(
+        const { rerender } = render(
             <BrowserRouter>
                 <ConfirmationPage />
             </BrowserRouter>
@@ -73,6 +89,24 @@ describe('ConfirmationPage', () => {
     
         expect(historyButton).toBeInTheDocument();  // Sprawdzenie czy przycisk jest w dokumencie
         expect(mockNavigate).toHaveBeenCalledWith('/history');  // Sprawdzenie czy navigate zostało wywołane z właściwą ścieżką
+
+        useAuth0.mockReturnValue({
+            isAuthenticated: false,
+            user: null,
+            logout: jest.fn(),
+            loginWithRedirect: jest.fn(),
+        });
+
+        rerender(
+            <BrowserRouter>
+                <ConfirmationPage />
+            </BrowserRouter>
+        );
+
+        let homeButton = screen.getByRole('button', { name: /home/i });
+        expect(homeButton).toBeInTheDocument();
+        fireEvent.click(homeButton);
+        expect(mockNavigate).toHaveBeenCalledWith('/');
     });
     
 });
