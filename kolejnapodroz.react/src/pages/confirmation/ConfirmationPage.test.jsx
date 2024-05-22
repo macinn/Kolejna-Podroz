@@ -30,6 +30,12 @@ describe('ConfirmationPage', () => {
                 provider: { name: "PKP" }
             }
         }));
+        useAuth0.mockReturnValue({
+            isAuthenticated: true,
+            user: { name: 'Test User' },
+            logout: jest.fn(),
+            loginWithRedirect: jest.fn(),
+        });
     });
 
     test('Display labels', () => {
