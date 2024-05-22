@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect } from 'react'
 import { Box, Button } from "@mui/material";
-
+import ReturnButton from '../../utils/ReturnButton';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -21,15 +21,17 @@ const LoginPage = () => {
             navigate("/details", { state: { selectedConnection: selectedConnection } })
             }
     }, [isAuthenticated])
+
     // TOOD: jak komus sie chce to niech to upiekszy, pdw
     return (
         <Box>
-            <h1>Nie jestes zalogowany.</h1>
-            <h1>Czy chcesz sie zalogowac?</h1>
+            <ReturnButton/>
+            <h1>You are not logged in.</h1>
+            <h1>Do you want to log in?</h1>
             <LoginButton />
             <p>
-                <Button onClick={handleContinueWithoutLogin}>
-                    Kontynuuj bez logowania
+                <Button onClick={handleContinueWithoutLogin} variant="contained" style={{backgroundColor: 'maroon'}}>
+                    Continue without logging in
                 </Button>
             </p>
         </Box>

@@ -29,7 +29,8 @@ namespace KolejnaPodrozApp.Controllers
                 DateTime departureTime = DateTime.Parse(DepartureTime);
                 var connections = _unitOfWork.Connection.GetAll(c => (c.From.Id == StartStationId && 
                     c.Destination.Id == EndStationId && 
-                    c.DepartureTime >= departureTime));
+                    c.DepartureTime >= departureTime &&
+                    c.DepartureTime.Date == departureTime.Date));
 
                 if(connections.Count() == 0)
                 {

@@ -2,50 +2,35 @@ import React, { useEffect } from 'react';
 import { useStore } from '../../stores/SearchFormStore';
 import { useNavigate } from 'react-router-dom';
 import { Box, List, ListItem, ListItemText, Paper } from '@mui/material';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import backgroundImage from '../../media/trainBlur.jpg';
-
+import ReturnButton from '../../utils/ReturnButton';
 
 const ConnectionsList = () => {
-    const { StartStationId, setStartStation,
-            EndStationId, setEndStation,
-            DepartureTime, setDepartureTime,
-            connections, setConnections,
+    const { connections,
             selectedConnection, setSelectedConnection } = useStore();
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth0();
 
-    const baseUrl = import.meta.env.VITE_API_URL;
-
-    //useEffect(() => {
-    //    setSelectedConnection(null);
-    //}, []);
-
-    //useEffect(() => {
-    //    if (selectedConnection) {
-    //        console.log(selectedConnection);
-    //        if (isAuthenticated) {
-    //            navigate('/details', { state: { selectedConnection: selectedConnection} });
-    //        }
-    //        else {
-    //            navigate('/login-page', { state: { selectedConnection: selectedConnection } });
-    //        }
-    //    }
-    //}, [selectedConnection]);
+    useEffect(() => {
+        if (!connections || connections.length == 0) {
+            alert("No connections found!");
+            navigate("/");
+        }
+    }, [])
 
     const handleSelectConnection = (connection) => {
         setSelectedConnection(connection);
-        console.log(selectedConnection);
-        navigate('/details');
+        if (isAuthenticated)
+            navigate('/details');
+        else
+            navigate('/login-page');
     };
 
     return (
-        <div>
-            <Paper sx={{ maxHeight: '100%', overflow: 'auto' }}>
-            <Box sx={{
+        <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
@@ -57,10 +42,7 @@ const ConnectionsList = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
             }}>
-            <IconButton edge="start" aria-label="back" onClick={navigate("/")}
-                style={{ position: 'absolute', top: '10px', left: '20px' }}>
-                <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
-            </IconButton>
+            <ReturnButton/>
             <Typography variant="h4" sx={{
                 color: 'rgb(128, 61, 33)',
                 fontWeight: 'bold',
@@ -68,7 +50,7 @@ const ConnectionsList = () => {
                 marginTop: '25px',
             }}>
                 Available connections
-                </Typography>
+            </Typography>
             
             <List sx={{ display: 'flex', flexDirection: 'column' }}>
                 {connections && connections.map((train) => (
@@ -89,14 +71,12 @@ const ConnectionsList = () => {
                             sx={{backgroundColor: 'rgb(128, 61, 33)', marginRight: '70px' }}
                         >
                             Select
-                            </Button>
+                        </Button>
                         </div>
                     </ListItem>
                 ))}
-                    </List>
-            </Box>
-            </Paper>
-        </div>
+            </List>
+        </Box>
     );
 };
 

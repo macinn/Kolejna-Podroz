@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodroz.Domain", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodroz.Test", "..\KolejnaPodroz.Test\KolejnaPodroz.Test.csproj", "{E13E7C60-D7DD-4D68-A92D-E2523A2AC5C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodroz.DataAccess", "..\KolejnaPodroz.DataAccess\KolejnaPodroz.DataAccess.csproj", "{6D967D5D-E099-49AC-8DC6-DA961963C085}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolejnaPodroz.DataAccess", "..\KolejnaPodroz.DataAccess\KolejnaPodroz.DataAccess.csproj", "{6D967D5D-E099-49AC-8DC6-DA961963C085}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "kolejnapodroz.react", "..\kolejnapodroz.react\kolejnapodroz.react.esproj", "{52026572-1A98-4327-A8A8-93CFC97B6AD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolejnaPodroz.Integration.Test", "..\KolejnaPodroz.Integration.Test\KolejnaPodroz.Integration.Test.csproj", "{27CCD5AB-738F-440B-8658-F6912E547E32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{52026572-1A98-4327-A8A8-93CFC97B6AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52026572-1A98-4327-A8A8-93CFC97B6AD7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52026572-1A98-4327-A8A8-93CFC97B6AD7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{27CCD5AB-738F-440B-8658-F6912E547E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27CCD5AB-738F-440B-8658-F6912E547E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27CCD5AB-738F-440B-8658-F6912E547E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27CCD5AB-738F-440B-8658-F6912E547E32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

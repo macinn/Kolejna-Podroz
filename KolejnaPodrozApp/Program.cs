@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 using Microsoft.OpenApi.Models;
 using KolejnaPodroz.Domain.Services.EmailService;
 using KolejnaPodroz.Domain.Services.TicketService;
+using KolejnaPodroz.Domain.Services.RankingService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,10 +27,16 @@ builder.Services.AddSwaggerGen(c =>
 
 var mysqlbuilder = new MySqlConnectionStringBuilder
 {
+    // Azure
     Server = "kp-db.mysql.database.azure.com",
     Database = "kp",
     UserID = "kpadmin",
     Password = "admin123!",
+    // small
+    //Server = "mysql2.small.pl",
+    //Database = "m1533_kp-db",
+    //UserID = "m1533_admin-kp",
+    //Password = "Admin12",
     SslMode = MySqlSslMode.Required,
 };
 
@@ -44,6 +51,7 @@ builder.Services.AddScoped<IConnectionService, ConnectionService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IRankingService, RankingService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -86,3 +94,5 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }    // do testow integracyjnych

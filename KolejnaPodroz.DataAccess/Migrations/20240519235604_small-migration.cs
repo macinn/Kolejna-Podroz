@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace KolejnaPodroz.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class az : Migration
+    public partial class smallmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,7 +25,10 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     Surname = table.Column<string>(type: "longtext", nullable: false),
                     Email = table.Column<string>(type: "longtext", nullable: false),
                     PhoneNumber = table.Column<string>(type: "longtext", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false)
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    LoyaltyPoints = table.Column<int>(type: "int", nullable: false),
+                    TravelTime = table.Column<int>(type: "int", nullable: false),
+                    TicketsBought = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,7 +103,9 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     DestinationId = table.Column<int>(type: "int", nullable: false),
                     DepartureTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ProviderId = table.Column<int>(type: "int", nullable: false)
+                    ProviderId = table.Column<int>(type: "int", nullable: false),
+                    Points = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,7 +140,9 @@ namespace KolejnaPodroz.DataAccess.Migrations
                     Wagon = table.Column<int>(type: "int", nullable: false),
                     Seat = table.Column<int>(type: "int", nullable: false),
                     ExpirationTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    TicketType = table.Column<int>(type: "int", nullable: false),
+                    TicketStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -150,8 +157,7 @@ namespace KolejnaPodroz.DataAccess.Migrations
                         name: "FK_Tickets_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 

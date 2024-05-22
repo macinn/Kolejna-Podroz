@@ -8,32 +8,40 @@ import { DateTimePicker, DatePicker } from '@mui/x-date-pickers';
 import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
-const SearchForm = () => {
-    const baseUrl = import.meta.env.VITE_API_URL;
+const SearchForm = (props) => {
+    const baseUrl = props.url;
     const navigate = useNavigate();
 
     const { StartStationId,  setStartStation,
             EndStationId,    setEndStation,
             DepartureTime, setDepartureTime,
-                           setConnections } = useStore();
+            setConnections,
+            stations, setStations,
+            setSelectedConnection } = useStore();
 
-    const [stations, setStations] = useState(null);
+    const [stationsState, setStationsState] = useState(stations);
 
     useEffect(() => {
+        setSelectedConnection(null);
         const fetchData = async () => {
             try {
+                
             const response = await fetch(`${baseUrl}/station`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const jsonData = await response.json();
-            setStations(jsonData);
-    
-            } catch (error) { /* empty */ }
+                setStations(jsonData);
+                setStationsState(jsonData);
+            } catch (error) { alert("Sorry! No stations found!"); }
         };
-    
-        fetchData();    
-        }, []);
+
+        if (!stations || stations.length == 0)
+            fetchData();
+        else
+            setStationsState(stations)
+    }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,7 +63,6 @@ const SearchForm = () => {
 
     return (
         <div className='container'>
-
             <Container className='form-container' maxWidth="sm">
                 <form onSubmit={handleSubmit} >
                     <Typography variant="h3" sx={{ color: 'rgb(128, 61, 33)', fontWeight: 'bold' }} gutterBottom>
@@ -81,7 +88,8 @@ const SearchForm = () => {
                                     sx={{ minWidth: '200px' }}
                                 >
                                     <MenuItem value="">None</MenuItem>
-                                    {stations && stations.map((station) => (
+                                    {stationsState && stationsState.map((station) => (
+                                        station.id != EndStationId && 
                                         <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
                                     ))}
                                 </Select>
@@ -99,7 +107,8 @@ const SearchForm = () => {
                                     sx={{ minWidth: '200px' }}
                                 >
                                     <MenuItem value="">None</MenuItem>
-                                    {stations && stations.map((station) => (
+                                    {stationsState && stationsState.map((station) => (
+                                        station.id != StartStationId && 
                                         <MenuItem key={station.id} value={station.id}>{station.name}</MenuItem>
                                     ))}
                                 </Select>
@@ -117,10 +126,8 @@ const SearchForm = () => {
                             </LocalizationProvider>
 
                         </div>
-                        <button type="submit" style={{ marginTop: '16px' }}>Search</button>
-                        
+                        <button type="submit" style={{ marginTop: '16px' }}>Search</button>                
                     </Box>
-
                 </form>
             </Container>
         </div>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {Box, Button, IconButton, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import backgroundImage from '../../media/trainBlur.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useStore } from '../../stores/SearchFormStore';
 import { useAuth0 } from "@auth0/auth0-react";
+import ReturnButton from '../../utils/ReturnButton';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -38,7 +38,12 @@ const SummaryPage = () => {
             UserAuth0Id: isAuthenticated ? user.sub : "",
         };
 
-        fetch(`${baseUrl}/Ticket/AcceptTicket`, {
+        const url = new URL(`${baseUrl}/Ticket/AcceptTicket`);
+        if (ticketDetails.userEmail) {
+            url.searchParams.append('email', ticketDetails.userEmail);
+        }
+
+        fetch(url, {
             method: "POST",
             body: JSON.stringify(acceptTicketRequest),
             headers: {
@@ -77,10 +82,7 @@ const SummaryPage = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
             }}>
-                <IconButton edge="start" aria-label="back" onClick={navigate("/")}
-                    style={{ position: 'absolute', top: '10px', left: '20px' }}>
-                    <ArrowBackIcon style={{ color: 'rgb(128, 61, 33)' }} />
-                </IconButton>
+                <ReturnButton/>
                 <Typography variant="h3" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
@@ -153,13 +155,12 @@ const SummaryPage = () => {
                         {ticketDetails.ticketPrice}
                     </Typography>
                     <Button variant="contained"
-                        style={{ marginTop: '50px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
+                        style={{ marginTop: '10px', backgroundColor: 'rgb(128, 61, 33)', color: 'white' }}
                         onClick={handleReservationButtonClick}>
                         Make a reservation
                     </Button>
                 </Box>
             </Box>
-
         </div>
     
     );

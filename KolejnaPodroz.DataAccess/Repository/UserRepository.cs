@@ -31,5 +31,18 @@ namespace KolejnaPodroz.DataAccess.Repository
                 .Where(filter);
             return query.ToList();
         }
+        public override IEnumerable<User> GetAll()
+        {
+            var query = _db.Set<User>()
+                .Include(u => u.AccountInfo);
+            return query.ToList();
+        }
+        public override User? Get(Expression<Func<User, bool>> filter)
+        {
+            var query = _db.Set<User>()
+                .Include(u => u.AccountInfo)
+                .Where(filter);
+            return query.FirstOrDefault();
+        }
     }
 }

@@ -5,10 +5,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useStore } from '../../stores/SearchFormStore';
+import DetailsDialog from './detailsDialog';
 
-const baseUrl = import.meta.env.VITE_API_URL;
 
-const TripDetailsPage = () => {
+const TripDetailsPage = (props) => {
+    const baseUrl = props.url;
     const { user, isAuthenticated } = useAuth0();
     const navigate = useNavigate();
     const { selectedConnection, setSelectedConnection } = useStore();
@@ -20,8 +21,23 @@ const TripDetailsPage = () => {
     const arrivalTime = new Date(selectedConnection.arrivalTime);
     const arrival_hour = arrivalTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const ticketTypes = ['Normal', 'Student', 'Senior'];
+    
   
     const [selectedTicketType, setselectedTicketType] = useState('Normal'); 
+    const [isDialogOpen, setDialogOpen] = useState(false);
+    const [userEmail, setUserEmail] = useState(null);
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
+    };
+
+    const handleDialogSubmit = (email) => {
+        console.log('User details submitted:', email);
+        setUserEmail(email);
+        handleReservation(email);
+
+        setDialogOpen(false);
+    };
     
 
     const handleSeatingChange = (event) => {
@@ -37,7 +53,7 @@ const TripDetailsPage = () => {
         navigate("/");
     };
 
-    const handleReservationButtonClick = () => {
+    const handleReservation = (email) => {
         // TODO: Wpisac tu prawdziwe dane
         const data = {
             ConnectionId: selectedConnection.id,
@@ -63,12 +79,23 @@ const TripDetailsPage = () => {
             })
             .then(data => {
                 console.log('Poprawnie kupiono bilet', data);
-                navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id, ticketPrice: data.price} });
+                navigate('/summary', { state: { ticketType: selectedTicketType, ticketTypeIndex: ticketTypes.findIndex(type => type === selectedTicketType), ticketId: data.id, ticketPrice: data.price, userEmail: email } });
             })
             .catch(error => {
                 console.error('Wystąpił błąd:', error);
                 window.alert('Wystapil blad podczas kupowania biletu');
             });
+    }
+
+    const handleReservationButtonClick = () => {
+
+        if (!isAuthenticated) {
+            setDialogOpen(true);
+            return; 
+        }
+
+        handleReservation();
+        
     }
 
     return (
@@ -87,7 +114,6 @@ const TripDetailsPage = () => {
                 <Typography variant="h4" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
-                    marginBottom: '50px',
                 }} gutterBottom>
                     Choose your trip details:
                 </Typography>
@@ -111,7 +137,7 @@ const TripDetailsPage = () => {
                 paddingRight: '20px',
                 paddingTop: '30px',
                 paddingBottom: '30px',
-                marginTop: '50px',
+                marginTop: '25px',
             }}>
                 <Box sx={{
                     display: 'flex',
@@ -190,8 +216,7 @@ const TripDetailsPage = () => {
                     <FormControlLabel
                         control={<Radio /*checked={hasTable} onChange={(e) => setHasTable(e.target.checked)}*/ />}
                         label="Seat with table"
-                        color={'white'}
-                        marginTop={'30px'}
+                        style={{ color: 'white', marginTop: '30px' }}
                     />
                     <Button
                         variant="contained"
@@ -204,6 +229,11 @@ const TripDetailsPage = () => {
 
             </Box>
             </Box>
+            <DetailsDialog
+                open={isDialogOpen}
+                onClose={handleDialogClose}
+                onSubmit={handleDialogSubmit}
+            />
 
         </div>
 
