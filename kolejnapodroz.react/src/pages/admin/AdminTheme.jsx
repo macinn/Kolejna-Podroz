@@ -3,7 +3,7 @@ import backgroundImage from '../../media/trainBlur.jpg';
 
 const AdminTheme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
     primary: {
       main: "#90caf9",
       secondary: {
