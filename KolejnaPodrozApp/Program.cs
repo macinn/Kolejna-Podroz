@@ -27,16 +27,10 @@ builder.Services.AddSwaggerGen(c =>
 
 var mysqlbuilder = new MySqlConnectionStringBuilder
 {
-    // Azure
-    Server = "kp-db.mysql.database.azure.com",
-    Database = "kp",
-    UserID = "kpadmin",
-    Password = "admin123!",
-    // small
-    //Server = "mysql2.small.pl",
-    //Database = "m1533_kp-db",
-    //UserID = "m1533_admin-kp",
-    //Password = "Admin12",
+    Server = "mysql2.small.pl",
+    Database = "m1533_kp-db",
+    UserID = "m1533_admin-kp",
+    Password = "Admin12",
     SslMode = MySqlSslMode.Required,
 };
 
