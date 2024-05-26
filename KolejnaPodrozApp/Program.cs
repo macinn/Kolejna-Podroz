@@ -31,6 +31,11 @@ var mysqlbuilder = new MySqlConnectionStringBuilder
     Database = "m1533_kp-db",
     UserID = "m1533_admin-kp",
     Password = "Admin12",
+    // Azure
+    //Server = "kp-db.mysql.database.azure.com",
+    //Database = "kp",
+    //UserID = "kpadmin",
+    //Password = "admin123!",
     SslMode = MySqlSslMode.Required,
 };
 
