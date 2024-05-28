@@ -69,6 +69,7 @@ const NavMenu = () => {
                     <StyledButton onClick={() => navigate('/rankings')}>Rankings</StyledButton>
                     <ShowIfLoggedIn>
                         <StyledButton onClick={() => navigate('/history')}>Profile</StyledButton>
+                        <StyledButton onClick={() => navigate('/credits')}>Buy credits</StyledButton>
                     </ShowIfLoggedIn>
                 </LeftContainer>
                 <RightContainer>
