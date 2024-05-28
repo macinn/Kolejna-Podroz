@@ -53,16 +53,22 @@ namespace KolejnaPodrozApp.Controllers
                 return NotFound();
             }
 
-            ticket.TicketStatus = TicketStatus.ACCEPTED;
-
             User? user = null;
             if (request.UserAuth0Id != null)
             {
                 user = _unitOfWork.User.GetAll(u => u.Auth0Id == request.UserAuth0Id).FirstOrDefault();
             }
 
-            if (user != null)
+            if (user != null)   // zalogowany
             {
+                if(user.AccountInfo.Balance < ticket.Price) // nie ma kasy
+                {
+                    return BadRequest();
+                }
+
+                // ma kase
+                user.AccountInfo.Balance -= ticket.Price;
+                ticket.TicketStatus = TicketStatus.ACCEPTED;
                 _emailService.SendEmail("Ticket", user.AccountInfo.Email, "KolejnaPodroz", "TODO: MAIL MESSAGE").Wait();
                 user.AccountInfo.LoyaltyPoints += ticket.Connection.Points;
                 user.AccountInfo.TicketsBought += 1;
@@ -70,15 +76,15 @@ namespace KolejnaPodrozApp.Controllers
                 user.AccountInfo.TravelTime += (int)travelTime.TotalMinutes;
                 _unitOfWork.User.Update(user);
             }
-            else if(email != null)
+            else if(email != null)  // niezalogowany
             {
-                _emailService.SendEmail("Ticket", email, "KolejnaPodroz", "TODO: MAIL MESSAGE").Wait();
+                ticket.TicketStatus = TicketStatus.UNPAID;
+                _emailService.SendEmail("Ticket", email, "KolejnaPodroz", "Your ticket needs to be paid on account number: xxx").Wait();
             }
 
             _unitOfWork.Save();
 
             return Ok(ticket);
-
         }
 
         [HttpGet("GetTicketPrice/{ticketId}")]

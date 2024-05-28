@@ -12,20 +12,21 @@ namespace KolejnaPodrozApp.Models.Login
             public string? phone_number { get; set; }
             public string? role { get; set; }
 
-            public User MakeUser()
-            {
-                var user = new User();
-                var accountInfo = new AccountInfo();
-                accountInfo.Surname = family_name != null ? family_name : "";
-                accountInfo.Email = email != null ? email : "";
-                accountInfo.PhoneNumber = phone_number != null ? phone_number : ""; 
-                accountInfo.Name = given_name != null ? given_name : (name != null? name: "");
-                accountInfo.Role = ConvertRole(role);
-                user.Auth0Id = sub != null ? sub : "";
-                user.AccountInfo = accountInfo;
-                return user;
-            }
-            public static Role ConvertRole(string? role)
+        public User MakeUser()
+        {
+            var user = new User();
+            var accountInfo = new AccountInfo();
+            accountInfo.Surname = family_name != null ? family_name : "";
+            accountInfo.Email = email != null ? email : "";
+            accountInfo.PhoneNumber = phone_number != null ? phone_number : "";
+            accountInfo.Name = given_name != null ? given_name : (name != null ? name : "");
+            accountInfo.Role = ConvertRole(role);
+            accountInfo.Balance = 0;
+            user.Auth0Id = sub != null ? sub : "";
+            user.AccountInfo = accountInfo;
+            return user;
+        }
+        public static Role ConvertRole(string? role)
             {
                 if (role == null)
                 {
