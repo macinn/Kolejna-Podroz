@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box} from '@mui/material';
+import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box, TextField} from '@mui/material';
 import backgroundImage from '../../media/trainBlur.jpg';
 import ReturnButton from '../../utils/ReturnButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Avatar } from '@mui/material';
 import { Button } from "@mui/material";
-
+import { useNavigate } from 'react-router-dom';
 
 const TicketsHistoryPage = () => {
     const { user } = useAuth0();
     const [tickets, setTickets] = useState([]);
     const [activeTickets, setActiveTickets] = useState([]);
     const [userData, setUserData] = useState(0);
+    const [credits, setCredits] = useState();
     const baseUrl = import.meta.env.VITE_API_URL;
-
+    const navigate = useNavigate();
     useEffect(() => {
         getUserData()
 
@@ -64,6 +65,12 @@ const TicketsHistoryPage = () => {
                 console.error('Wyst�pi� b��d:', error);
             });
     }
+
+    const handleAddPoints = () => {
+        // TODO
+        navigate("/");
+    }
+
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white',
@@ -140,7 +147,26 @@ const TicketsHistoryPage = () => {
                             backgroundColor: 'white',
                             borderRadius: '1em',
                             width: '65%',
-                            marginBottom: '3.5em'
+                            color: 'black',
+                            marginBottom: '20px' 
+                        }}>
+                        <Typography variant="h6" sx={{
+                            color: 'rgb(128, 61, 33)',
+                            fontWeight: 'bold',
+                            margin: '1em',
+                        }}>
+                            Account balance:
+                        </Typography>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                            Tu bedzie balans
+                        </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            backgroundColor: 'white',
+                            borderRadius: '1em',
+                            width: '65%',
+                            marginBottom: '20px'
                         }}>
                         <Typography variant="h6" sx={{
                             color: 'rgb(128, 61, 33)',
@@ -156,6 +182,34 @@ const TicketsHistoryPage = () => {
                         }}>
                             {userData.loyaltyPoints }
                         </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            backgroundColor: 'white',
+                            borderRadius: '1em',
+                            width: '65%',
+                            marginBottom: '20px'
+                        }}>
+                        <form onSubmit={handleAddPoints} >
+                            <Typography variant="h6" sx={{
+                                color: 'rgb(128, 61, 33)',
+                                fontWeight: 'bold',
+                                margin: '1em',
+                            }}>
+                                Transfer loyalty points to account balance
+                            </Typography>
+                            <TextField
+                                margin="dense"
+                                label="Credits"
+                                type="text"
+                                fullWidth
+                                value={credits}
+                                onChange={(e) => setCredits(e.target.value)}
+                                inputProps={{ pattern: '[0-9]*' }} 
+                                sx={{ width: '80%', marginBottom: '1em' }} 
+                            />
+                        <button type="submit" style={{ marginBottom: '16px' }} disabled={!credits}>Transfer</button>  
+                    </form>
                     </Box>
                     <Box
                         sx={{

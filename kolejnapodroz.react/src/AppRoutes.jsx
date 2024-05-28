@@ -9,7 +9,7 @@ import StationForm from './pages/admin/StationForm';
 import LoginPage from './pages/login/LoginPage'; 
 import SummaryPage from './pages/summary/SummaryPage';
 import RankingsPage from './pages/rankings/rankingPages'
-
+import AddCreditsPage from './pages/credits/AddCreditsPage.jsx';
 
 const AppRoutes = [
     {
@@ -59,6 +59,10 @@ const AppRoutes = [
     {
         path: '/rankings',
         element: <RankingsPage />,
+    },
+    {
+        path: '/credits',
+        element: <AddCreditsPage />,
     },
 ];
 
