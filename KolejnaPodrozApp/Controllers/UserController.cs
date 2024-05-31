@@ -60,5 +60,21 @@ namespace KolejnaPodrozApp.Controllers
 
             return Ok(user.AccountInfo.Balance);
         }
+
+        [HttpPost("TopUpBalance")]
+        public ActionResult<AccountInfo> TopUpBalance(BalanceTopUpRequest request)
+        {
+            var user = _unitOfWork.User.Get(u => u.Auth0Id == request.Auth0Id);
+
+            if (user == null)
+                return NotFound("User not found.");
+
+            user.AccountInfo.Balance += request.Amount;
+            _unitOfWork.User.Update(user);
+            _unitOfWork.Save();
+
+            return Ok(user.AccountInfo.Balance);
+        }
+
     }
 }
