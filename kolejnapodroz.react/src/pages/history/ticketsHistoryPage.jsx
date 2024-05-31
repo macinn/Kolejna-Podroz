@@ -138,7 +138,7 @@ const TicketsHistoryPage = () => {
                     
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-start',
                     alignItems: 'center',
                     marginBottom: '100px'
                 }}>
