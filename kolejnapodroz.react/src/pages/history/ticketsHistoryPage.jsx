@@ -14,6 +14,8 @@ const TicketsHistoryPage = () => {
     const [userData, setUserData] = useState(0);
     const [credits, setCredits] = useState();
     const [balance, setBalance] = useState(0);
+    const [exchangeRate, setExchangeRate] = useState(0);
+
     const baseUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ const TicketsHistoryPage = () => {
         getTickets()
         getActiveTickets()
         getUserBalance()
+        getExchangeRate()
     }, []);
 
     const getTickets = () => {
@@ -52,6 +55,13 @@ const TicketsHistoryPage = () => {
             .catch(error => console.error('Error:', error));
     }
 
+    const getExchangeRate = () => {
+        fetch(`${baseUrl}/User/LoyaltyPointsExchangeRate`)
+            .then(response => response.json())
+            .then(data => setExchangeRate(data))
+            .catch(error => console.error('Error:', error));
+    }
+
     const resign = (id) => {
 
         const dataPut = { ticketId: id };
@@ -78,9 +88,31 @@ const TicketsHistoryPage = () => {
             });
     }
 
-    const handleAddPoints = () => {
-        // TODO
-        navigate("/");
+    const handleAddPoints = (e) => {
+        e.preventDefault();
+        const data = { auth0Id: user.sub, loyaltyPoints: credits };
+        fetch(`${baseUrl}/User/ExchangeLoyaltyPoints`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json",
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Wystąpił problem podczas przetwarzania żądania.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                getUserData();
+                getUserBalance();
+                setCredits(0);
+                console.log('Poprawnie przelano punkty:', data);
+            })
+            .catch(error => {
+                console.error('Wystpąił błąd:', error);
+            });
     }
 
 
@@ -160,7 +192,7 @@ const TicketsHistoryPage = () => {
                             borderRadius: '1em',
                             width: '65%',
                             color: 'black',
-                            marginBottom: '20px' 
+                            margin: '1em'
                         }}>
                         <Typography variant="h6" sx={{
                             color: 'rgb(128, 61, 33)',
@@ -169,7 +201,7 @@ const TicketsHistoryPage = () => {
                         }}>
                             Account balance:
                         </Typography>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                        <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '1em' }}>
                             {balance} PLN
                         </Typography>
                     </Box>
@@ -183,10 +215,11 @@ const TicketsHistoryPage = () => {
                         <Typography variant="h6" sx={{
                             color: 'rgb(128, 61, 33)',
                             fontWeight: 'bold',
-                            margin: '1em',
+                            marginTop: '1em',
                         }}>
                             Your loyalty points:
                         </Typography>
+                        
                         <Typography variant="h4" sx={{
                             color: 'black',
                             fontWeight: 'bold',
@@ -206,18 +239,24 @@ const TicketsHistoryPage = () => {
                             <Typography variant="h6" sx={{
                                 color: 'rgb(128, 61, 33)',
                                 fontWeight: 'bold',
-                                margin: '1em',
+                                marginTop: '1em',
                             }}>
                                 Transfer loyalty points to account balance
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{
+                                color: 'rgb(128, 61, 33)',
+                                fontWeight: 'bold',
+                            }}>
+                                Exchange rate: {1 / exchangeRate} Points = 1 PLN
                             </Typography>
                             <TextField
                                 margin="dense"
                                 label="Credits"
-                                type="text"
+                                type="number"
                                 fullWidth
                                 value={credits}
+                                defaultValue={0}
                                 onChange={(e) => setCredits(e.target.value)}
-                                inputProps={{ pattern: '[0-9]*' }} 
                                 sx={{ width: '80%', marginBottom: '1em' }} 
                             />
                         <button type="submit" style={{ marginBottom: '16px' }} disabled={!credits}>Transfer</button>  
