@@ -12,11 +12,13 @@ namespace KolejnaPodrozApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmailService _emailService;
         private const decimal LoyaltyPointsExchangeRate = 0.01m;
 
-        public UserController(IUnitOfWork unitOfWork)
+        public UserController(IUnitOfWork unitOfWork, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -75,6 +77,11 @@ namespace KolejnaPodrozApp.Controllers
 
             if (user == null)
                 return NotFound("User not found.");
+
+            _emailService.SendEmail("Balance top up pending!", 
+                user.AccountInfo.Email, 
+                "KolejnaPodroz", 
+                "Prosze przelać pieniążki!").Wait();
 
             user.AccountInfo.Balance += request.Amount;
             _unitOfWork.User.Update(user);
