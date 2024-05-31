@@ -13,18 +13,23 @@ const TicketsHistoryPage = () => {
     const [activeTickets, setActiveTickets] = useState([]);
     const [userData, setUserData] = useState(0);
     const [credits, setCredits] = useState();
+    const [balance, setBalance] = useState(0);
     const baseUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
+
     useEffect(() => {
         getUserData()
+        getTickets()
+        getActiveTickets()
+        getUserBalance()
+    }, []);
 
+    const getTickets = () => {
         fetch(`${baseUrl}/Ticket?auth0Id=${user.sub}`)
             .then(response => response.json())
             .then(data => setTickets(data))
             .catch(error => console.error('Error:', error));  
-
-        getActiveTickets();
-    }, []);
+    }
 
     const getActiveTickets = () => {
         fetch(`${baseUrl}/Ticket/GetActiveTickets?auth0Id=${user.sub}`)
@@ -37,6 +42,13 @@ const TicketsHistoryPage = () => {
         fetch(`${baseUrl}/User?auth0Id=${user.sub}`)
             .then(response => response.json())
             .then(data => setUserData(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    const getUserBalance = () => {
+        fetch(`${baseUrl}/User/GetUserBalance?auth0Id=${user.sub}`)
+            .then(response => response.json())
+            .then(data => setBalance(data))
             .catch(error => console.error('Error:', error));
     }
 
@@ -158,7 +170,7 @@ const TicketsHistoryPage = () => {
                             Account balance:
                         </Typography>
                         <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                            Tu bedzie balans
+                            {balance} PLN
                         </Typography>
                     </Box>
                     <Box
