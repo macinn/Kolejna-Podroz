@@ -1,16 +1,38 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Box, Button, TextField, Container, Typography } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-import '../search/SearchForm.css';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const AddCreditsPage = () => {
     const [credits, setCredits] = useState();
+    const { user } = useAuth0();
     const navigate = useNavigate();
-    const handleSubmit = () => {
-        // TODO: Marcin prosze cie podlacz to jakos do backendu bo juz mam dosc tego javascripta
 
-        navigate("/history");
+    const baseUrl = import.meta.env.VITE_API_URL;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = { auth0Id: user.sub, amount: credits }
+        fetch(`${baseUrl}/User/TopUpBalance`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json",
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Wystąpił problem podczas przetwarzania żądania.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                navigate("/history");
+            })
+            .catch(error => {
+                window.alert('Wystapil blad podczas dodawania środków!');
+            });
+        
     };
 
     return (
@@ -35,11 +57,10 @@ const AddCreditsPage = () => {
                             <TextField
                                 margin="dense"
                                 label="credits"
-                                type="text"
+                                type="number"
                                 fullWidth
                                 value={credits}
                                 onChange={(e) => setCredits(e.target.value)}
-                                inputProps={{ pattern: '[0-9]*' }} // Dodanie tego atrybutu
                             />
                         </div>
                         <button type="submit" style={{ marginTop: '16px' }} disabled={!credits}>Buy credits</button>            

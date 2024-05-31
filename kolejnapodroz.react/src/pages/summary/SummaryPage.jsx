@@ -4,7 +4,6 @@ import backgroundImage from '../../media/trainBlur.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useStore } from '../../stores/SearchFormStore';
 import { useAuth0 } from "@auth0/auth0-react";
-import ReturnButton from '../../utils/ReturnButton';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -60,6 +59,8 @@ const SummaryPage = () => {
                 console.log(data.price);
                 setTicketPrice(data.price)
                 console.log('Poprawnie kupiono bilet', data);
+                if (!isAuthenticated)
+                    window.alert("You will receive e-mail with payment details!")
                 navigate('/confirmation');
             })
             .catch(error => {
@@ -82,7 +83,6 @@ const SummaryPage = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
             }}>
-                <ReturnButton/>
                 <Typography variant="h3" sx={{
                     color: 'rgb(128, 61, 33)',
                     fontWeight: 'bold',
