@@ -12,6 +12,7 @@ namespace KolejnaPodrozApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private const decimal LoyaltyPointsExchangeRate = 0.01m;
 
         public UserController(IUnitOfWork unitOfWork)
         {
@@ -38,6 +39,12 @@ namespace KolejnaPodrozApp.Controllers
             return Ok(user.AccountInfo.Balance);
         }
 
+        [HttpGet("LoyaltyPointsExchangeRate")]
+        public ActionResult<decimal> GetLoyaltyPointsExchangeRate()
+        {
+            return Ok(LoyaltyPointsExchangeRate);
+        }
+
         [HttpPost("ExchangeLoyaltyPoints")]
         public ActionResult<AccountInfo> ExchangeLoyaltyPoints(ExchangeLoyaltyPointsRequest request)
         {
@@ -49,7 +56,7 @@ namespace KolejnaPodrozApp.Controllers
             if(user.AccountInfo.LoyaltyPoints >=  request.LoyaltyPoints)
             {
                 user.AccountInfo.LoyaltyPoints -= request.LoyaltyPoints;
-                user.AccountInfo.Balance += request.LoyaltyPoints;
+                user.AccountInfo.Balance += request.LoyaltyPoints * LoyaltyPointsExchangeRate;
                 _unitOfWork.User.Update(user);
                 _unitOfWork.Save();
             }
@@ -58,7 +65,7 @@ namespace KolejnaPodrozApp.Controllers
                 return BadRequest();
             }
 
-            return Ok(user.AccountInfo.Balance);
+            return Ok(user.AccountInfo);
         }
 
         [HttpPost("TopUpBalance")]
@@ -73,7 +80,7 @@ namespace KolejnaPodrozApp.Controllers
             _unitOfWork.User.Update(user);
             _unitOfWork.Save();
 
-            return Ok(user.AccountInfo.Balance);
+            return Ok(user.AccountInfo);
         }
 
     }
