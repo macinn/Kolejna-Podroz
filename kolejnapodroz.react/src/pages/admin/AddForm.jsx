@@ -15,7 +15,7 @@ function AddConnection(data) {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Wyst�pi� problem podczas przetwarzania ��dania.');
+                throw new Error('Wystąpił problem podczas przetwarzania żądania.');
             }
             return response.json();
         })

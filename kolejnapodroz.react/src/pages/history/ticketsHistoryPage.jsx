@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box} from '@mui/material';
+import {List, ListItem, ListItemText, IconButton, Typography, Grid, Box, TextField} from '@mui/material';
 import backgroundImage from '../../media/trainBlur.jpg';
 import ReturnButton from '../../utils/ReturnButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Avatar } from '@mui/material';
 import { Button } from "@mui/material";
-
+import { useNavigate } from 'react-router-dom';
 
 const TicketsHistoryPage = () => {
     const { user } = useAuth0();
     const [tickets, setTickets] = useState([]);
     const [activeTickets, setActiveTickets] = useState([]);
     const [userData, setUserData] = useState(0);
+    const [credits, setCredits] = useState();
+    const [balance, setBalance] = useState(0);
+    const [exchangeRate, setExchangeRate] = useState(0);
+
     const baseUrl = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate();
 
     useEffect(() => {
         getUserData()
+        getTickets()
+        getActiveTickets()
+        getUserBalance()
+        getExchangeRate()
+    }, []);
 
+    const getTickets = () => {
         fetch(`${baseUrl}/Ticket?auth0Id=${user.sub}`)
             .then(response => response.json())
             .then(data => setTickets(data))
             .catch(error => console.error('Error:', error));  
-
-        getActiveTickets();
-    }, []);
+    }
 
     const getActiveTickets = () => {
         fetch(`${baseUrl}/Ticket/GetActiveTickets?auth0Id=${user.sub}`)
@@ -36,6 +45,20 @@ const TicketsHistoryPage = () => {
         fetch(`${baseUrl}/User?auth0Id=${user.sub}`)
             .then(response => response.json())
             .then(data => setUserData(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    const getUserBalance = () => {
+        fetch(`${baseUrl}/User/GetUserBalance?auth0Id=${user.sub}`)
+            .then(response => response.json())
+            .then(data => setBalance(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    const getExchangeRate = () => {
+        fetch(`${baseUrl}/User/LoyaltyPointsExchangeRate`)
+            .then(response => response.json())
+            .then(data => setExchangeRate(data))
             .catch(error => console.error('Error:', error));
     }
 
@@ -64,6 +87,34 @@ const TicketsHistoryPage = () => {
                 console.error('Wyst�pi� b��d:', error);
             });
     }
+
+    const handleAddPoints = (e) => {
+        e.preventDefault();
+        const data = { auth0Id: user.sub, loyaltyPoints: credits };
+        fetch(`${baseUrl}/User/ExchangeLoyaltyPoints`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json",
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Wystąpił problem podczas przetwarzania żądania.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                getUserData();
+                getUserBalance();
+                setCredits(0);
+                console.log('Poprawnie przelano punkty:', data);
+            })
+            .catch(error => {
+                console.error('Wystpąił błąd:', error);
+            });
+    }
+
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'white',
@@ -131,7 +182,7 @@ const TicketsHistoryPage = () => {
                     
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-start',
                     alignItems: 'center',
                     marginBottom: '100px'
                 }}>
@@ -140,15 +191,35 @@ const TicketsHistoryPage = () => {
                             backgroundColor: 'white',
                             borderRadius: '1em',
                             width: '65%',
-                            marginBottom: '3.5em'
+                            color: 'black',
+                            margin: '1em'
                         }}>
                         <Typography variant="h6" sx={{
                             color: 'rgb(128, 61, 33)',
                             fontWeight: 'bold',
                             margin: '1em',
                         }}>
+                            Account balance:
+                        </Typography>
+                        <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '1em' }}>
+                            {balance} PLN
+                        </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            backgroundColor: 'white',
+                            borderRadius: '1em',
+                            width: '65%',
+                            marginBottom: '20px'
+                        }}>
+                        <Typography variant="h6" sx={{
+                            color: 'rgb(128, 61, 33)',
+                            fontWeight: 'bold',
+                            marginTop: '1em',
+                        }}>
                             Your loyalty points:
                         </Typography>
+                        
                         <Typography variant="h4" sx={{
                             color: 'black',
                             fontWeight: 'bold',
@@ -156,6 +227,40 @@ const TicketsHistoryPage = () => {
                         }}>
                             {userData.loyaltyPoints }
                         </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            backgroundColor: 'white',
+                            borderRadius: '1em',
+                            width: '65%',
+                            marginBottom: '20px'
+                        }}>
+                        <form onSubmit={handleAddPoints} >
+                            <Typography variant="h6" sx={{
+                                color: 'rgb(128, 61, 33)',
+                                fontWeight: 'bold',
+                                marginTop: '1em',
+                            }}>
+                                Transfer loyalty points to account balance
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{
+                                color: 'rgb(128, 61, 33)',
+                                fontWeight: 'bold',
+                            }}>
+                                Exchange rate: {1 / exchangeRate} Points = 1 PLN
+                            </Typography>
+                            <TextField
+                                margin="dense"
+                                label="Credits"
+                                type="number"
+                                fullWidth
+                                value={credits}
+                                defaultValue={0}
+                                onChange={(e) => setCredits(e.target.value)}
+                                sx={{ width: '80%', marginBottom: '1em' }} 
+                            />
+                        <button type="submit" style={{ marginBottom: '16px' }} disabled={!credits}>Transfer</button>  
+                    </form>
                     </Box>
                     <Box
                         sx={{

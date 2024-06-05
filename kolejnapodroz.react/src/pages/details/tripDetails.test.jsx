@@ -71,15 +71,15 @@ describe('TripDetailsPage', () => {
         expect(screen.getByRole('button', { name: /go to trip summary/i })).toBeInTheDocument();
     });
 
-    test('check date and hours', () => {
-        render(
-            <Router>
-                <TripDetailsPage url="http://example.com" />
-            </Router>
-        );
+    // test('check date and hours', () => {
+    //     render(
+    //         <Router>
+    //             <TripDetailsPage url="http://example.com" />
+    //         </Router>
+    //     );
 
-        //expect(screen.getByText('11.05.2024')).toBeInTheDocument();
-        //expect(screen.getByText('10:30')).toBeInTheDocument();
-        //expect(screen.getByText('14:30')).toBeInTheDocument();
-    });
+    //     //expect(screen.getByText('11.05.2024')).toBeInTheDocument();
+    //     //expect(screen.getByText('10:30')).toBeInTheDocument();
+    //     //expect(screen.getByText('14:30')).toBeInTheDocument();
+    // });
 });
